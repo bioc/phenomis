@@ -1,8 +1,8 @@
 Package: phenomis
 Type: Package
 Title: Postprocessing and univariate analysis of omics data
-Version: 0.99.16
-Date: 2022-08-26
+Version: 1.0.0
+Date: 2022-09-10
 Authors@R: c(
 	   person(given = "Etienne A.", family = "Thevenot",
 	   email = "etienne.thevenot@cea.fr",

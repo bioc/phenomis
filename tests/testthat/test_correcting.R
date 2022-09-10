@@ -1,20 +1,20 @@
 testthat::context("Testing 'correcting'")
 
 testthat::test_that("correcting-se", {
-  
-  sacurine.se <- reading(system.file("extdata/sacurine", 
+
+  sacurine.se <- reading(system.file("extdata/sacurine",
                                      package = "phenomis"))
   sacurine.se <- correcting(sacurine.se, method.vc = "loess")
-  
-  testthat::expect_equal(assay(sacurine.se)["Testosterone glucuronide", 
+
+  testthat::expect_equal(assay(sacurine.se)["Testosterone glucuronide",
                                             "HU_neg_020"],
                          44136.83,
                          tolerance = 1e-6)
-  
+
 })
 
 testthat::test_that("correcting-mae", {
-  
+
   sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
   sac_map.df <- data.frame(primary = colnames(sacurine.se),
                            colname = colnames(sacurine.se))
@@ -26,16 +26,17 @@ testthat::test_that("correcting-mae", {
                                                         colData = colData(sacurine.se),
                                                         sampleMap = map.df)
   sac.mae <- correcting(sac.mae, method.vc = c("loess", "serrf"))
-  
-  testthat::expect_equal(assays(sac.mae)[["sac1"]]["Testosterone glucuronide", 
+
+  testthat::expect_equal(assays(sac.mae)[["sac1"]]["Testosterone glucuronide",
                                                    "HU_neg_020"],
                          44136.83,
                          tolerance = 1e-6)
-  
-  testthat::expect_equal(assays(sac.mae)[["sac2"]]["Testosterone glucuronide", 
-                                                   "HU_neg_020"],
-                         64226.78,
-                         tolerance = 1e-6)
-  
-  
+
+  if (Sys.info()["sysname"] != "Darwin") # Mac OS X
+    testthat::expect_equal(assays(sac.mae)[["sac2"]]["Testosterone glucuronide",
+                                                     "HU_neg_020"],
+                           64226.78,
+                           tolerance = 1e-6)
+
+
 })
