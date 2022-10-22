@@ -1,3 +1,10 @@
+CHANGES IN VERSION 0.99.22
+------------------------------
+
+  o correcting: correction of the serrf method so that it matches exactly the algorithm from Fan et al. (2017)
+
+  o inspecting: pool dilution metrics is computed only if the feature contains at least 66% of non missing values at each dilution level (otherwise NA is returned)
+
 CHANGES IN VERSION 0.99.20
 ------------------------------
 

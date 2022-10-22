@@ -379,6 +379,16 @@ setMethod("correcting", signature(x = "ExpressionSet"),
 
   if (method.c == "serrf") {
 
+    ref.vi <- which(samp.df[, "sampleType"] == "pool")
+    pred.vi <- which(samp.df[, "sampleType"] != "pool")
+
+    for (j in seq_len(ncol(data.mn))) {
+      scale_j.n <- (median(normalized.mn[pred.vi, j]) +
+                      (median(data.mn[ref.vi, j]) - median(data.mn[pred.vi, j])) / sd(data.mn[pred.vi, j]) * sd(normalized.mn[pred.vi, j])) / median(normalized.mn[ref.vi, j])
+
+      normalized.mn[ref.vi, j] <- normalized.mn[ref.vi, j] * ifelse(scale_j.n > 0, scale_j.n, 1)
+    }
+
     .fill_naneg <- function(feat.vn) {
       isna.vl <- is.na(feat.vn)
       feat.vn[isna.vl] <- rnorm(sum(isna.vl),
@@ -391,8 +401,6 @@ setMethod("correcting", signature(x = "ExpressionSet"),
 
     stopifnot(identical(dim(data.mn), dim(normalized.mn)))
     stopifnot(identical(nrow(data.mn), nrow(samp.df)))
-    ref.vi <- which(samp.df[, "sampleType"] == "pool")
-    pred.vi <- which(samp.df[, "sampleType"] != "pool")
     normalized.mn[ref.vi, ] <- apply(normalized.mn[ref.vi, ], 2, .fill_naneg)
     normalized.mn[pred.vi, ] <- apply(normalized.mn[pred.vi, ], 2, .fill_naneg)
 
@@ -624,6 +632,8 @@ setMethod("correcting", signature(x = "ExpressionSet"),
 
   # Replacing 0 and NA values
 
+  # set.seed(123)
+
   data.mn <- apply(data.mn, 2,
                    function(feat.vn) {
                      zero.vl <- feat.vn == 0
@@ -699,16 +709,18 @@ setMethod("correcting", signature(x = "ExpressionSet"),
 
       colnames(train.df) <- c("y", paste0("V", seq_len(ncol(train.df) - 1)))
 
-      model.rf <- ranger::ranger(y~., data = train.df,
-                                 seed = 1)
+      set.seed(1)
+      model.rf <- ranger::ranger(y~., data = train.df)
+      # , seed = 1)
 
       # predictions
       test.df <- data.frame(test_x.mn)
       colnames(test.df) <- colnames(train.df)[-1]
 
       serrf_refj.vn <- data.mn[ref.vi, j] / (predict(model.rf, data = train.df)[["predictions"]] + attributes(ref_scale.mn)[["scaled:center"]][j]) * ref_mean.vn[j]
-      serrf_prej.vn <- data.mn[pred.vi, j] / (predict(model.rf, data = test.df)[["predictions"]] + attributes(pred_scale.mn)[["scaled:center"]][j]) * pred_median.vn[j]
-       serrf_prej.vn[serrf_prej.vn < 0] <- data.mn[pred.vi, j][serrf_prej.vn < 0]
+      serrf_prej.vn <- data.mn[pred.vi, j] / (predict(model.rf, data = test.df)[["predictions"]] + attributes(pred_scale.mn)[["scaled:center"]][j] - mean(predict(model.rf, data = test.df)[["predictions"]])) * pred_median.vn[j]
+
+      serrf_prej.vn[serrf_prej.vn < 0] <- data.mn[pred.vi, j][serrf_prej.vn < 0]
 
       serrf_refj.vn <- serrf_refj.vn / median(serrf_refj.vn, na.rm = TRUE) * ref_median.vn[j]
       serrf_prej.vn <- serrf_prej.vn / median(serrf_prej.vn, na.rm = TRUE) * pred_median.vn[j]
@@ -724,12 +736,28 @@ setMethod("correcting", signature(x = "ExpressionSet"),
 
       out.vn <- grDevices::boxplot.stats(serrf.mn[, j], coef = 3)$out
 
-      serrf.mn[pred.vi, j][serrf.mn[pred.vi, j] %in% out.vn] <- (data.mn[pred.vi, j] - ((predict(model.rf, data = test.df)[["predictions"]] + attributes(pred_scale.mn)[["scaled:center"]][j]) - pred_median.vn[j]))[serrf.mn[pred.vi, j] %in% out.vn]
+      corrected.vn <- (data.mn[pred.vi, j] - ((predict(model.rf, data = test.df)[["predictions"]] + attributes(pred_scale.mn)[["scaled:center"]][j]) - pred_median.vn[j]))[serrf.mn[pred.vi, j] %in% out.vn]
+      correct.l <- FALSE
+      if (length(out.vn) > 0 & length(corrected.vn) > 0) {
+        if (mean(out.vn) > mean(serrf.mn[, j])) {
+          if (mean(corrected.vn) < mean(out.vn)) {
+           correct.l <- TRUE
+          }
+        } else {
+          if (mean(corrected.vn) > mean(out.vn)) {
+            correct.l <- TRUE
+          }
+        }
+      }
+      if (correct.l)
+        serrf.mn[pred.vi, j][serrf.mn[pred.vi, j] %in% out.vn] <- corrected.vn
+      # !!! this may not help deal with outlier effect..
+
      serrf.mn[pred.vi, j][serrf.mn[pred.vi, j] < 0] <- data.mn[pred.vi, j][serrf.mn[pred.vi, j] < 0]
 
-    } # else line 730
+    } # else line 708
 
-  } # for j line 669
+  } # for j line 664
 
   return(serrf.mn)
 

@@ -429,16 +429,12 @@ setGeneric("hypotesting",
 #'
 #' Provides numerical metrics and graphical overview of SummarizedExperiment,
 #' MultiAssayExperiment, ExpressionSet, or MultiDataSet instance
-#' Please note that all variables with a proportion of
-#' missing values > 'max_na_prop.n'
-#' or a variance of 0 will be filtered out at the beginning of the method and
-#' therefore in the output object
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
 #' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
 #' are still supported)
 #' @param pool_as_pool1.l logical(1): should pool be included (as pool1)
-#' in the correlation with the dilution factor?
+#' in the correlation with the dilution factor? [default = FALSE]
 #' @param pool_cv.n numeric(1): threshold for the coefficient of variation
 #' of the pools; the default value (30\%) is often used in metabolomics
 #' @param loess_span.n numeric(1): span parameter used in the loess trend

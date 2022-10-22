@@ -35,7 +35,7 @@ testthat::test_that("correcting-mae", {
   if (Sys.info()["sysname"] != "Darwin") # Mac OS X
     testthat::expect_equal(assays(sac.mae)[["sac2"]]["Testosterone glucuronide",
                                                      "HU_neg_020"],
-                           64226.78,
+                           64426.17,
                            tolerance = 1e-6)
 
 
