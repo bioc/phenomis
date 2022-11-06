@@ -1,8 +1,8 @@
 Package: phenomis
 Type: Package
 Title: Postprocessing and univariate analysis of omics data
-Version: 1.0.0
-Date: 2022-10-21
+Version: 1.0.2
+Date: 2022-11-06
 Authors@R: c(
 	   person(given = "Etienne A.", family = "Thevenot",
 	   email = "etienne.thevenot@cea.fr",
@@ -11,20 +11,20 @@ Authors@R: c(
 	   person(given = "Natacha", family = "Lenuzza",
 	   email = "n.lenuzza@gmail.com",
 	   role = "ctb"),
+	   person(given = "Marie", family = "Tremblay-Franco",
+	   email = "marie.tremblay-franco@inrae.fr",
+	   role = "ctb"),
 	   person(given = "Alyssa", family = "Imbert",
-	   email = "alyssa.imbert@france-bioinformatique.fr",
+	   email = "alyssa.imbert@gmail.com",
 	   role = "ctb"),
 	   person(given = "Pierrick", family = "Roger",
 	   email = "pierrick.roger@cea.fr",
 	   role = "ctb"),
-	   person(given = "Sylvain", family = "Dechaumet",
-	   email = "sylvain.dechaumet@cea.fr",
-	   role = "ctb"),
-	   person(given = "Marie", family = "Tremblay-Franco",
-	   email = "marie.tremblay-franco@inrae.fr",
-	   role = "ctb"),
 	   person(given = "Eric", family = "Venot",
 	   email = "eric.venot@cea.fr",
+	   role = "ctb"),
+	   person(given = "Sylvain", family = "Dechaumet",
+	   email = "sylvain.dechaumet@cea.fr",
 	   role = "ctb")
 	   )
 Description: The 'phenomis' package provides methods to perform post-processing 
