@@ -926,7 +926,8 @@ setMethod("writing", "SummarizedExperiment",
                                file = tab_file.vc['dataMatrix'],
                                quote = FALSE,
                                row.names = FALSE,
-                               sep = "\t")
+                               sep = "\t",
+                               fileEncoding = "UTF-8")
 
             if (!is.na(dir.c) || !is.na(tab_file.vc["sampleMetadata"])) {
 
@@ -936,7 +937,8 @@ setMethod("writing", "SummarizedExperiment",
                                  file = tab_file.vc['sampleMetadata'],
                                  quote = FALSE,
                                  row.names = FALSE,
-                                 sep = "\t")
+                                 sep = "\t",
+                                 fileEncoding = "UTF-8")
 
             }
 
@@ -948,7 +950,8 @@ setMethod("writing", "SummarizedExperiment",
                                  file = tab_file.vc['variableMetadata'],
                                  quote = FALSE,
                                  row.names = FALSE,
-                                 sep = "\t")
+                                 sep = "\t",
+                                 fileEncoding = "UTF-8")
 
             }
 
@@ -1216,7 +1219,8 @@ setMethod("writing", "ExpressionSet",
                                file = tab_file.vc['dataMatrix'],
                                quote = FALSE,
                                row.names = FALSE,
-                               sep = "\t")
+                               sep = "\t",
+                               fileEncoding = "UTF-8")
 
             if (!is.na(dir.c) || !is.na(tab_file.vc["sampleMetadata"])) {
 
@@ -1226,7 +1230,8 @@ setMethod("writing", "ExpressionSet",
                                  file = tab_file.vc['sampleMetadata'],
                                  quote = FALSE,
                                  row.names = FALSE,
-                                 sep = "\t")
+                                 sep = "\t",
+                                 fileEncoding = "UTF-8")
 
             }
 
@@ -1238,7 +1243,8 @@ setMethod("writing", "ExpressionSet",
                                  file = tab_file.vc['variableMetadata'],
                                  quote = FALSE,
                                  row.names = FALSE,
-                                 sep = "\t")
+                                 sep = "\t",
+                                 fileEncoding = "UTF-8")
 
             }
 
