@@ -871,6 +871,10 @@ setMethod("writing", "SummarizedExperiment",
                                                             paste0(prefix.c,
                                                                    "variableMetadata.tsv")))
 
+              metadata_file.c <- file.path(dir.c,
+                                           paste0(prefix.c,
+                                                  "_metadata.rds"))
+
             } else if (is.na(dir.c)) {
 
               if (is.null(files.ls))
@@ -892,6 +896,9 @@ setMethod("writing", "SummarizedExperiment",
                                sampleMetadata = files.ls[["sampleMetadata"]],
                                variableMetadata = files.ls[["variableMetadata"]])
 
+              metadata_file.c <- file.path(dirname(files.ls[["dataMatrix"]]),
+                                           "_metadata.rds")
+
             }
 
             for (tab.c in names(tab_file.vc)) {
@@ -903,6 +910,10 @@ setMethod("writing", "SummarizedExperiment",
                      "\nPlease choose another file name.")
 
             }
+
+            if (file.exists(metadata_file.c) && !overwrite.l)
+              stop("The following file already exists:\n", metadata_file.c,
+                   "\nPlease choose another file name.")
 
             ## Writing
 
@@ -955,8 +966,11 @@ setMethod("writing", "SummarizedExperiment",
 
             }
 
+            saveRDS(x@metadata, file = metadata_file.c)
+
             if (report.c != "none") {
-              message_file.c <- paste(tab_file.vc[!is.na(basename(tab_file.vc))],
+              message_file.c <- paste(c(tab_file.vc[!is.na(basename(tab_file.vc))],
+                                        metadata_file.c),
                                       collapse = "\n")
               message("The following file(s) have been written:\n",
                       message_file.c)

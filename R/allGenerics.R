@@ -658,7 +658,7 @@ setGeneric("transforming",
 #' @export
 #' @examples
 #' metabo.se <- reading(system.file("extdata/prometis/metabo",
-#'                      package="phenomis"))
+#'                      package = "phenomis"))
 #'\donttest{
 #' writing(metabo.se, dir.c = file.path(getwd(), "metabo"))
 #'}
