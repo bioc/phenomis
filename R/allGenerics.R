@@ -650,6 +650,8 @@ setGeneric("transforming",
 #' @param files.ls list: alternatively to the dir.c argument, the full names of
 #' the files can be provided as a list
 #' @param overwrite.l logical(1): should existing files be overwritten?
+#' @param metadata.l logical(1): should the metadata be saved (as an additional
+#' .rds file)?
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
@@ -688,5 +690,6 @@ setGeneric("writing",
                     prefix.c = "",
                     files.ls = NULL,
                     overwrite.l = FALSE,
+                    metadata.l = FALSE,
                     report.c = c("none", "interactive", "myfile.txt")[2])
              standardGeneric("writing"))

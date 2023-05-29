@@ -47,11 +47,11 @@ non significant) features; default is 16 (respectively, 1)}
 
 \item{class_name.vc}{Character vector: names of the two compared class labels}
 
-\item{class_color.vc}{Character vector: colors of the two compared class 
+\item{class_color.vc}{Character vector: colors of the two compared class
 labels}
 
-\item{size.ls}{List of sizes for classes (default: 5), xy labels 
-(default: 16), points (default: 3), ticks (default: 14) and title 
+\item{size.ls}{List of sizes for classes (default: 5), xy labels
+(default: 16), points (default: 3), ticks (default: 14) and title
 (default: 20)}
 
 \item{figure.c}{Character: either 'interactive' (respectively,

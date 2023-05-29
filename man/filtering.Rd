@@ -64,18 +64,18 @@ the classification groups: the filtering will be applied on each class
 (default: "" meaning that there are no specific classes to consider)}
 
 \item{max_na_prop.n}{numeric(1): maximum proportion of NAs for a feature (or
-sample) to be kept (e.g. the default 20% maximum proportion of missing 
-values); in case 'class.c' is provided, the maximum proportion of NAs for a 
+sample) to be kept (e.g. the default 20% maximum proportion of missing
+values); in case 'class.c' is provided, the maximum proportion of NAs for a
 feature must be achieved in at least one sample class)}
 
 \item{min_variance.n}{numeric(1): minimum variance for a feature (or sample)
 to be kept (e.g. the default 0 value to discard constant features
-(or samples); in case 'class.c' is provided, the minimum variance for a 
+(or samples); in case 'class.c' is provided, the minimum variance for a
 feature must be achieved in all sample classes}
 
 \item{dims.vc}{Vector of one or two characters: dimension(s) to which the
 filtering should be applied; either 'features', 'samples', c('features',
-'samples'), or c('samples', 'features'); in the two latter cases, the 
+'samples'), or c('samples', 'features'); in the two latter cases, the
 dimensions indicated in the dims.vc are filtered sequentially}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
@@ -83,8 +83,8 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the filtered 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet}) including the filtered
 data and metadata
 }
 \description{

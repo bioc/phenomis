@@ -14,8 +14,8 @@ gg_barplot(
   row_levels.vc = NA,
   col_levels.vc = NA,
   palette.vc = "Set1",
-  theme.c = c("default", "bw", "classic", "dark", "gray", "linedraw", "light",
-    "minimal", "void")[3],
+  theme.c = c("default", "bw", "classic", "dark", "gray", "linedraw", "light", "minimal",
+    "void")[3],
   flip.l = FALSE,
   legend_position.c = c("none", "bottom", "left", "top", "right")[2],
   cex_axis.i = 18,
@@ -38,10 +38,10 @@ gg_barplot(
 
 \item{ylab.c}{Character: y label}
 
-\item{row_levels.vc}{Vector of characters: levels of rownames (default: NA: 
+\item{row_levels.vc}{Vector of characters: levels of rownames (default: NA:
 alphabetical order will be used)}
 
-\item{col_levels.vc}{Vector of characters: levels of colnames (default: NA: 
+\item{col_levels.vc}{Vector of characters: levels of colnames (default: NA:
 alphabetical order will be used)}
 
 \item{palette.vc}{Character: either the name of an RColorBrewer palette
@@ -64,7 +64,7 @@ manually defining the colors}
 \item{bar_just.n}{Numeric: adjustment of bar value text (default : 0.9)}
 
 \item{figure.c}{Character: either 'interactive' for interactive display,
-'my_barplot.pdf' for figure saving (only the extension matters), or 'none' 
+'my_barplot.pdf' for figure saving (only the extension matters), or 'none'
 to prevent plotting}
 }
 \value{

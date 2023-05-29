@@ -39,12 +39,12 @@ transforming(
 )
 }
 \arguments{
-\item{x}{An S4 object of class \code{SummarizedExperiment} 
+\item{x}{An S4 object of class \code{SummarizedExperiment}
 or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
 are still supported)}
 
 \item{method.vc}{character of length 1 or the total number of datasets:
-transformation to be used for each dataset (either 'log2', 
+transformation to be used for each dataset (either 'log2',
 'log10', 'sqrt', or 'none')}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
@@ -53,7 +53,7 @@ printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
 \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the (list of) 
+(or \code{ExpressionSet} and \code{MultiDataSet}) including the (list of)
 matrix with transformed intensities
 }
 \description{
@@ -66,7 +66,7 @@ sacurine.se <- correcting(sacurine.se)
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
 # MultiAssayExperiment
-prometis.mae <- reading(system.file("extdata/prometis", 
+prometis.mae <- reading(system.file("extdata/prometis",
                                     package = "phenomis"))
 prometis.mae <- transforming(prometis.mae, method.vc = c("log2", "none"))
 # Note: in the 'prometis' example data set from the package, the data are

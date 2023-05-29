@@ -96,7 +96,7 @@ number of correlated features for the random forest regression;
 (default set to 10); in case the parameter is of length 1 and x contains
 multiple datasets, the same value will be used for all datasets}
 
-\item{sample_intensity.c}{character(1): metric to be used when displaying 
+\item{sample_intensity.c}{character(1): metric to be used when displaying
 the sample intensities}
 
 \item{title.c}{character(1): Graphic title: if NA [default] the
@@ -111,13 +111,13 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the corrected 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet}) including the corrected
 intensities in the assay matrix (matrices)
 }
 \description{
-Signal drift and batch effect correction. The normalization strategy relies 
-on the measurements of a pooled (or QC) sample injected periodically: 
+Signal drift and batch effect correction. The normalization strategy relies
+on the measurements of a pooled (or QC) sample injected periodically:
 for each variable, a regression model is fitted to the values of the pool and
 subsequently used to adjust the intensities of the samples of interest (van
 der Kloet et al, 2009; Dunn et al, 2011). In case the number of pool
@@ -125,9 +125,10 @@ observations is below 5, the linear method is used (for all variables) and a
 warning is generated. In case no pool is available, the samples themselves
 can be used to computed the regression model (Thevenot et al., 2015). The
 sample metadata of each datasets (e.g. colData Data Frames) must contain
-3 columns: 1) 'sampleType' (character): either 'sample', 'blank', or 'pool',
-2) 'injectionOrder' (integer): order of injection in the instrument, and
-3) 'batch' (character): batch name.
+3 columns: 1) 'sampleType' (character): only the 'sample' or 'pool' values
+can be used to indicate the reference samples for the correction, 2)
+'injectionOrder' (integer): order of injection in the instrument, and 3)
+'batch' (character): batch name(s).
 }
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))

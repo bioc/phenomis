@@ -12,8 +12,8 @@
 annotating(
   x,
   database.c = c("chebi", "local.ms")[1],
-  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode =
-    "pos", mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
+  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode = "pos",
+    mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
     "molecular.mass", "monoisotopic.mass"), fieldsLimit = 1, max.results = 3, local.ms.db
     = data.frame(), prefix = paste0(database.c, "."), sep = "|"),
   report.c = c("none", "interactive", "myfile.txt")[2]
@@ -22,8 +22,8 @@ annotating(
 \S4method{annotating}{MultiAssayExperiment}(
   x,
   database.c = c("chebi", "local.ms")[1],
-  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode =
-    "pos", mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
+  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode = "pos",
+    mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
     "molecular.mass", "monoisotopic.mass"), fieldsLimit = 1, max.results = 3, local.ms.db
     = data.frame(), prefix = paste0(database.c, "."), sep = "|"),
   report.c = c("none", "interactive", "myfile.txt")[2]
@@ -32,8 +32,8 @@ annotating(
 \S4method{annotating}{SummarizedExperiment}(
   x,
   database.c = c("chebi", "local.ms")[1],
-  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode =
-    "pos", mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
+  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode = "pos",
+    mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
     "molecular.mass", "monoisotopic.mass"), fieldsLimit = 1, max.results = 3, local.ms.db
     = data.frame(), prefix = paste0(database.c, "."), sep = "|"),
   report.c = c("none", "interactive", "myfile.txt")[2]
@@ -42,8 +42,8 @@ annotating(
 \S4method{annotating}{MultiDataSet}(
   x,
   database.c = c("chebi", "local.ms")[1],
-  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode =
-    "pos", mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
+  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode = "pos",
+    mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
     "molecular.mass", "monoisotopic.mass"), fieldsLimit = 1, max.results = 3, local.ms.db
     = data.frame(), prefix = paste0(database.c, "."), sep = "|"),
   report.c = c("none", "interactive", "myfile.txt")[2]
@@ -52,8 +52,8 @@ annotating(
 \S4method{annotating}{ExpressionSet}(
   x,
   database.c = c("chebi", "local.ms")[1],
-  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode =
-    "pos", mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
+  param.ls = list(query.type = c("mz", "chebi.id")[1], query.col = "mz", ms.mode = "pos",
+    mz.tol = 10, mz.tol.unit = "ppm", fields = c("chebi.id", "name", "formula",
     "molecular.mass", "monoisotopic.mass"), fieldsLimit = 1, max.results = 3, local.ms.db
     = data.frame(), prefix = paste0(database.c, "."), sep = "|"),
   report.c = c("none", "interactive", "myfile.txt")[2]
@@ -73,12 +73,12 @@ the ChEBI distant database ('chebi'), or a local database ('local.ms')}
 queried by either the mass to charge ratio (mz) or the chebi ID; other query
 parameters include the ionization mode (ms.mode), the mz tolerance (mz.tol;
 e.g. 5 ppm for Orbitrap Mass Spectrometers), the fields to retrieve (fields),
-the maximum number of items to retrieve when a field contains more than one 
-value (fieldsLimit), the maximum number of results to provide for each 
+the maximum number of items to retrieve when a field contains more than one
+value (fieldsLimit), the maximum number of results to provide for each
 query (max.results), prefix of the new columns providing the queried
 information in the feature metadata (prefix), separator in case of multiple
-retrieved values (sep), local data base to be queried (local.ms.db); 
-additional information is provided by the vignettes from the biodb and 
+retrieved values (sep), local data base to be queried (local.ms.db);
+additional information is provided by the vignettes from the biodb and
 biodbChebi packages on Bioconductor}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
@@ -86,13 +86,13 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet})
 including the appended rowData data frame(s)
 }
 \description{
-Annotation with chemical and biological databases by using the 'biodb' 
-package suite. The present implementation currently enables to query the 
+Annotation with chemical and biological databases by using the 'biodb'
+package suite. The present implementation currently enables to query the
 ChEBI database or a local database.
 
 The parameters and their default values are printed for the selected database

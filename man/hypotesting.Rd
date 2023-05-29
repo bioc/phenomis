@@ -13,9 +13,8 @@ hypotesting(
   test.c = c("ttest", "limma", "wilcoxon", "anova", "kruskal", "pearson", "spearman",
     "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
   factor_names.vc,
-  factor_levels.ls = list(factor1Vc = "default", factor2Vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr",
-    "none")[5],
+  factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
+  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
   adjust_thresh.n = 0.05,
   signif_maxprint.i = NA,
   title.c = NA,
@@ -31,8 +30,7 @@ hypotesting(
     "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
   factor_names.vc,
   factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr",
-    "none")[5],
+  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
   adjust_thresh.n = 0.05,
   signif_maxprint.i = NA,
   title.c = NA,
@@ -48,8 +46,7 @@ hypotesting(
     "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
   factor_names.vc,
   factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr",
-    "none")[5],
+  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
   adjust_thresh.n = 0.05,
   signif_maxprint.i = NA,
   title.c = NA,
@@ -65,8 +62,7 @@ hypotesting(
     "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
   factor_names.vc,
   factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr",
-    "none")[5],
+  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
   adjust_thresh.n = 0.05,
   signif_maxprint.i = NA,
   title.c = NA,
@@ -82,8 +78,7 @@ hypotesting(
     "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
   factor_names.vc,
   factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr",
-    "none")[5],
+  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
   adjust_thresh.n = 0.05,
   signif_maxprint.i = NA,
   title.c = NA,
@@ -122,17 +117,17 @@ displayed)}
 \item{title.c}{character(1): Title of the graphics}
 
 \item{display_signif.l}{logical(1): In case of two sample tests (or
-correlation test), should individual boxplots (or scatterplots) of 
+correlation test), should individual boxplots (or scatterplots) of
 significant features be shown?}
 
-\item{prefix.c}{character(1): prefix to be added to the supplementary columns 
+\item{prefix.c}{character(1): prefix to be added to the supplementary columns
 from the variableMetadata to prevent overwriting of pre-existing columns with
 identical names [default: ""]}
 
 \item{figure.c}{character(1): File name with '.pdf' extension for the figure
 (for venn diagrams, e.g. in the 'anova2ways' test, the extension will be
-internally changed to '.tiff' for compatibility with the 
-VennDiagram package); if interactive' (default), figures will be displayed 
+internally changed to '.tiff' for compatibility with the
+VennDiagram package); if interactive' (default), figures will be displayed
 interactively; if 'none', no figure will be generated}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
@@ -140,9 +135,9 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the difference 
-in means/medians or correlations and the adjusted p-values in feature 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet}) including the difference
+in means/medians or correlations and the adjusted p-values in feature
 metadata
 }
 \description{

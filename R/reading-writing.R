@@ -675,6 +675,7 @@ setMethod("writing", "MultiAssayExperiment",
                    prefix.c = "",
                    files.ls = NULL,
                    overwrite.l = FALSE,
+                   metadata.l = FALSE,
                    report.c = c("none", "interactive", "myfile.txt")[2]) {
 
             if (!(report.c %in% c("none", "interactive")))
@@ -825,6 +826,7 @@ setMethod("writing", "MultiAssayExperiment",
                                         sampleMetadata = filLs[["sampleMetadata"]],
                                         variableMetadata = filLs[["variableMetadata"]]),
                         overwrite.l = overwrite.l,
+                        metadata.l = metadata.l,
                         report.c = report_set.c)
 
               }
@@ -847,6 +849,7 @@ setMethod("writing", "SummarizedExperiment",
                    prefix.c = "",
                    files.ls = NULL,
                    overwrite.l = FALSE,
+                   metadata.l = FALSE,
                    report.c = c("none", "interactive", "myfile.txt")[2]){
 
             if (!(report.c %in% c("none", "interactive")))
@@ -871,9 +874,10 @@ setMethod("writing", "SummarizedExperiment",
                                                             paste0(prefix.c,
                                                                    "variableMetadata.tsv")))
 
-              metadata_file.c <- file.path(dir.c,
-                                           paste0(prefix.c,
-                                                  "_metadata.rds"))
+              if (metadata.l)
+                metadata_file.c <- file.path(dir.c,
+                                             paste0(prefix.c,
+                                                    "_metadata.rds"))
 
             } else if (is.na(dir.c)) {
 
@@ -896,6 +900,7 @@ setMethod("writing", "SummarizedExperiment",
                                sampleMetadata = files.ls[["sampleMetadata"]],
                                variableMetadata = files.ls[["variableMetadata"]])
 
+              if (metadata.l)
               metadata_file.c <- file.path(dirname(files.ls[["dataMatrix"]]),
                                            "_metadata.rds")
 
@@ -911,7 +916,7 @@ setMethod("writing", "SummarizedExperiment",
 
             }
 
-            if (file.exists(metadata_file.c) && !overwrite.l)
+            if (metadata.l && file.exists(metadata_file.c) && !overwrite.l)
               stop("The following file already exists:\n", metadata_file.c,
                    "\nPlease choose another file name.")
 
@@ -966,11 +971,15 @@ setMethod("writing", "SummarizedExperiment",
 
             }
 
-            saveRDS(x@metadata, file = metadata_file.c)
+            if (metadata.l)
+              saveRDS(x@metadata, file = metadata_file.c)
 
             if (report.c != "none") {
-              message_file.c <- paste(c(tab_file.vc[!is.na(basename(tab_file.vc))],
-                                        metadata_file.c),
+              written_files.vc <- tab_file.vc[!is.na(basename(tab_file.vc))]
+              if (metadata.l)
+                written_files.vc <- c(written_files.vc,
+                                      metadata_file.c)
+              message_file.c <- paste(written_files.vc,
                                       collapse = "\n")
               message("The following file(s) have been written:\n",
                       message_file.c)
@@ -992,7 +1001,11 @@ setMethod("writing", "MultiDataSet",
                    prefix.c = "",
                    files.ls = NULL,
                    overwrite.l = FALSE,
+                   metadata.l = FALSE, # not used
                    report.c = c("none", "interactive", "myfile.txt")[2]) {
+
+            if (metadata.l)
+              stop("'metadata.l' only applies to MultiAssayExperiment objects")
 
             if (!(report.c %in% c("none", "interactive")))
               sink(report.c, append = TRUE)
@@ -1154,7 +1167,11 @@ setMethod("writing", "ExpressionSet",
                    prefix.c = "",
                    files.ls = NULL,
                    overwrite.l = FALSE,
+                   metadata.l = FALSE, # not used
                    report.c = c("none", "interactive", "myfile.txt")[2]){
+
+            if (metadata.l)
+              stop("'metadata.l' only applies to SummarizedExperiment objects")
 
             if (!(report.c %in% c("none", "interactive")))
               sink(report.c, append = TRUE)

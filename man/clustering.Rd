@@ -13,8 +13,8 @@ clustering(
   dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
     "1-cor", "1-abs(cor)")[7],
   correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty",
-    "median", "centroid")[2],
+  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
+    "centroid")[2],
   clusters.vi = c(2, 2),
   cex.vn = c(1, 1),
   palette.c = c("blueOrangeRed", "redBlackGreen")[1],
@@ -29,8 +29,8 @@ clustering(
   dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
     "1-cor", "1-abs(cor)")[7],
   correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty",
-    "median", "centroid")[2],
+  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
+    "centroid")[2],
   clusters.vi = c(2, 2),
   cex.vn = c(1, 1),
   palette.c = c("blueOrangeRed", "redBlackGreen")[1],
@@ -45,8 +45,8 @@ clustering(
   dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
     "1-cor", "1-abs(cor)")[7],
   correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty",
-    "median", "centroid")[2],
+  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
+    "centroid")[2],
   clusters.vi = c(2, 2),
   cex.vn = c(1, 1),
   palette.c = c("blueOrangeRed", "redBlackGreen")[1],
@@ -61,8 +61,8 @@ clustering(
   dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
     "1-cor", "1-abs(cor)")[7],
   correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty",
-    "median", "centroid")[2],
+  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
+    "centroid")[2],
   clusters.vi = c(2, 2),
   cex.vn = c(1, 1),
   palette.c = c("blueOrangeRed", "redBlackGreen")[1],
@@ -77,8 +77,8 @@ clustering(
   dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
     "1-cor", "1-abs(cor)")[7],
   correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty",
-    "median", "centroid")[2],
+  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
+    "centroid")[2],
   clusters.vi = c(2, 2),
   cex.vn = c(1, 1),
   palette.c = c("blueOrangeRed", "redBlackGreen")[1],
@@ -124,9 +124,9 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) including columns 
-indicating the clusters in rowData and colData if clusters.vi' has been 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet}) including columns
+indicating the clusters in rowData and colData if clusters.vi' has been
 specified
 }
 \description{

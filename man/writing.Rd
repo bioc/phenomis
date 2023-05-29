@@ -6,8 +6,8 @@
 \alias{writing,SummarizedExperiment-method}
 \alias{writing,MultiDataSet-method}
 \alias{writing,ExpressionSet-method}
-\title{Exporting a SummarizedExperiment (or MultiAssayExperiment) instance into 
-(subfolders with) the 3 tabulated files 'dataMatrix.tsv', 
+\title{Exporting a SummarizedExperiment (or MultiAssayExperiment) instance into
+(subfolders with) the 3 tabulated files 'dataMatrix.tsv',
 sampleMetadata.tsv', 'variableMetadata.tsv'}
 \usage{
 writing(
@@ -16,6 +16,7 @@ writing(
   prefix.c = "",
   files.ls = NULL,
   overwrite.l = FALSE,
+  metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
@@ -25,6 +26,7 @@ writing(
   prefix.c = "",
   files.ls = NULL,
   overwrite.l = FALSE,
+  metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
@@ -34,6 +36,7 @@ writing(
   prefix.c = "",
   files.ls = NULL,
   overwrite.l = FALSE,
+  metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
@@ -43,6 +46,7 @@ writing(
   prefix.c = "",
   files.ls = NULL,
   overwrite.l = FALSE,
+  metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
@@ -52,11 +56,12 @@ writing(
   prefix.c = "",
   files.ls = NULL,
   overwrite.l = FALSE,
+  metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 }
 \arguments{
-\item{x}{An S4 object of class \code{SummarizedExperiment} or 
+\item{x}{An S4 object of class \code{SummarizedExperiment} or
 \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
 are still supported)}
 
@@ -65,10 +70,13 @@ are still supported)}
 \item{prefix.c}{character(1): prefix to be used (followed by '_') in the
 'dataMatrix.tsv', 'sampleMetadata.tsv', and 'variableMetadata.tsv' file names}
 
-\item{files.ls}{list: alternatively to the dir.c argument, the full names of 
+\item{files.ls}{list: alternatively to the dir.c argument, the full names of
 the files can be provided as a list}
 
 \item{overwrite.l}{logical(1): should existing files be overwritten?}
+
+\item{metadata.l}{logical(1): should the metadata be saved (as an additional
+.rds file)?}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
 results (call to sink()'); if 'interactive' (default), messages will be
@@ -78,12 +86,12 @@ printed on the screen; if 'none', no verbose will be generated}
 No object returned.
 }
 \description{
-Note that the \code{dataMatrix} is transposed before export (e.g., the 
+Note that the \code{dataMatrix} is transposed before export (e.g., the
 samples are written column wise in the 'dataMatrix.tsv' exported file).
 }
 \examples{
-metabo.se <- reading(system.file("extdata/prometis/metabo", 
-                     package="phenomis"))
+metabo.se <- reading(system.file("extdata/prometis/metabo",
+                     package = "phenomis"))
 \donttest{
 writing(metabo.se, dir.c = file.path(getwd(), "metabo"))
 }

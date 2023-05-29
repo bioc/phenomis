@@ -39,13 +39,13 @@ normalizing(
 )
 }
 \arguments{
-\item{x}{An S4 object of class \code{SummarizedExperiment} 
+\item{x}{An S4 object of class \code{SummarizedExperiment}
 or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
 are still supported)}
 
-\item{method.vc}{character of length 1 or the total number of datasets: 
-method(s) to be used for each dataset (default is 'pqn'); in case the 
-parameter is of length 1 and x contains multiple datasets, the same method 
+\item{method.vc}{character of length 1 or the total number of datasets:
+method(s) to be used for each dataset (default is 'pqn'); in case the
+parameter is of length 1 and x contains multiple datasets, the same method
 will be used for all datasets}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
@@ -53,8 +53,8 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment} 
-(or \code{ExpressionSet} and \code{MultiDataSet}) including 
+\code{SummarizedExperiment} or \code{MultiAssayExperiment}
+(or \code{ExpressionSet} and \code{MultiDataSet}) including
 the (list of) matrix with normalized intensities
 }
 \description{
