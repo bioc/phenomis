@@ -138,6 +138,12 @@ setMethod("correcting", signature(x = "SummarizedExperiment"),
                                    title.c = title.c,
                                    figure.c = figure.c)
 
+            if (ncol(norm.mn) < nrow(x)) {
+              ## features with 'NA' or 0 values in all reference samples have been
+              ## removed from the data during the correction
+              x <- x[colnames(norm.mn), ]
+            }
+
             SummarizedExperiment::assay(x) <- t(norm.mn)
 
             if (!(report.c %in% c("none", "interactive")))
@@ -296,6 +302,13 @@ setMethod("correcting", signature(x = "ExpressionSet"),
                                    title.c = title.c,
                                    figure.c = figure.c)
 
+
+            if (ncol(norm.mn) < nrow(x)) {
+              ## features with 'NA' or 0 values in all reference samples have been
+              ## removed from the data during the correction
+              x <- x[colnames(norm.mn), ]
+            }
+
             Biobase::exprs(x) <- t(norm.mn)
 
             if (!(report.c %in% c("none", "interactive")))
@@ -343,7 +356,7 @@ setMethod("correcting", signature(x = "ExpressionSet"),
          in the 'sampleType' column of the sampleMetadata.")
 
   ref_data.mn <- data.mn[samp.df[, "sampleType"] == reference.c, ]
-  ref_samp.df <- samp.df[samp.df[, "sampleType"] == reference.c, ]
+  # ref_samp.df <- samp.df[samp.df[, "sampleType"] == reference.c, ]
 
   ref_nazeros.vl <- apply(ref_data.mn, 2,
                           function(ref.vn)
@@ -353,9 +366,8 @@ setMethod("correcting", signature(x = "ExpressionSet"),
                                        FUN.VALUE = logical(1))))
 
   if (sum(ref_nazeros.vl)) {
-    message(sum(ref_nazeros.vl), " features with 'NA' or 0 values
-            in all reference samples removed from the data.")
-    data.mn <- ref_data.mn[, !ref_nazeros.vl]
+    message(sum(ref_nazeros.vl), " features with 'NA' or 0 values in all reference samples removed from the data.")
+    data.mn <- data.mn[, !ref_nazeros.vl]
   }
 
   ## Computation

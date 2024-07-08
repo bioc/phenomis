@@ -40,3 +40,22 @@ testthat::test_that("correcting-mae", {
 
 
 })
+
+testthat::test_that("correcting-nazeros", {
+
+  sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
+
+  ## introducing 0 in all QC of feature 1
+  data.mn <- t(SummarizedExperiment::assay(sacurine.se))
+  samp.df <- as.data.frame(SummarizedExperiment::colData(sacurine.se))
+  pool.vi <- which(samp.df[, "sampleType"] == "pool")
+  data.mn[pool.vi, 1] <- 0
+  SummarizedExperiment::assay(sacurine.se) <- t(data.mn)
+
+  ## running the correction
+  normalized.se <- correcting(sacurine.se, method.vc = "loess")
+
+  testthat::expect_equal(nrow(sacurine.se), 113)
+  testthat::expect_equal(nrow(normalized.se), 112)
+
+})

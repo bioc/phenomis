@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.6.2
+------------------------------
+
+  o correcting: bug fixed when discarding features with 0 or NA only in reference samples
+
 CHANGES IN VERSION 1.3.8
 ------------------------------
 
