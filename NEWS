@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.4
+------------------------------
+
+  o writing: bug fix when writing MultiAssayExperiment with single colData column
+
 CHANGES IN VERSION 1.7.2
 ------------------------------
 
