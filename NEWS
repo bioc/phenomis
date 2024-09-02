@@ -1,3 +1,8 @@
+CHANGES IN VERSION 1.7.6
+------------------------------
+
+  o hypotesting: bug fix for MultiAssayExperiment objects
+
 CHANGES IN VERSION 1.7.4
 ------------------------------
 
