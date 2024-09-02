@@ -59,8 +59,17 @@ setMethod("hypotesting", signature(x = "MultiAssayExperiment"),
 
               set.se <- x[[set.c]]
 
-              for (factor.c in factor_names.vc)
+              if (!(all(colnames(set.se) %in% rownames(colData(x)))))
+                stop("Identical naming of samples in the MultiAssayExperiment (e.g. in its colData slot) and in all SummarizedExperiment objects it contains is required in the current implementation of the hypotesting method")
+
+              for (factor.c in factor_names.vc) {
+
+                if (!(factor.c %in% colnames(colData(x))))
+                  stop("Factor '", factor.c, "' was not found in the columns from the colData Data Frame of the MultiAssayExperiment object")
+
                 colData(set.se)[, factor.c] <- colData(x)[colnames(set.se), factor.c]
+
+              }
 
               set.se <- hypotesting(x = set.se,
                                     test.c = test.c,
