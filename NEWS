@@ -1,3 +1,9 @@
+CHANGES IN VERSION 1.6.4
+------------------------------
+
+  o hypotesting: bug fixed with MAE objects (passing factors from the colData(MAE) to the colData(SE))
+  o writing: bug fixed when writing MAE with single colData column
+
 CHANGES IN VERSION 1.6.2
 ------------------------------
 

@@ -732,7 +732,7 @@ setMethod("writing", "MultiAssayExperiment",
 
                 set.se <- x[[set.c]]
                 ## including the common sample metadata in each data set
-                colData(set.se) <- cbind(colData(x)[colnames(set.se), ],
+                colData(set.se) <- cbind(colData(x)[colnames(set.se), , drop = FALSE],
                                          colData(set.se))
                 colData(set.se)[, ".id"] <- NULL
 
@@ -817,7 +817,7 @@ setMethod("writing", "MultiAssayExperiment",
                   message("Writing the '", set.c, "' dataset")
 
                 set.se <- x[[set.c]]
-                colData(set.se) <- cbind(colData(x)[colnames(set.se), ],
+                colData(set.se) <- cbind(colData(x)[colnames(set.se), , drop = FALSE],
                                          colData(set.se))
 
                 writing(set.se,
