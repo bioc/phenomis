@@ -1,7 +1,7 @@
 Package: phenomis
 Type: Package
 Title: Postprocessing and univariate analysis of omics data
-Version: 1.8.0
+Version: 1.9.0
 Date: 2024-09-02
 Authors@R: c(
 	   person(given = "Etienne A.", family = "Thevenot",
