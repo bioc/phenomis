@@ -143,6 +143,6 @@ utils::head(rowData(sacurine.se))
 
 # MultiAssayExperiment
 
-prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 prometis.mae <- clustering(prometis.mae)
 }

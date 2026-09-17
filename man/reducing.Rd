@@ -130,11 +130,15 @@ are flagged as 'redundant'. Note: the algorithm relies on the 'mzdiff_db.tsv'
 file referencing the known adducts, isotopes, and fragments.
 }
 \examples{
-metabo.se <- reading(system.file("extdata/prometis/metabo",
-                                 package = "phenomis"),
-                      report.c = "none")
+metabo.se <- reading(
+       system.file("extdata/prometis/metabo",
+              package = "phenomis"
+       ),
+       report.c = "none"
+)
 metabo.se <- reducing(metabo.se,
-                      rt_tol.n = 15)
+       rt_tol.n = 15
+)
 # Note: in the 'prometis' example data set from this package, the chemical
 # redundancy has already been filtered out
 }

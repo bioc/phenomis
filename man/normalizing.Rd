@@ -63,7 +63,7 @@ Normalization to scale the spectra to the same virtual overall concentration
 }
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-sacurine.se <- sacurine.se[, colnames(sacurine.se) != 'HU_neg_096_b2']
+sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
 sacurine.se <- transforming(sacurine.se, method.vc = "log10")
 norm.se <- normalizing(sacurine.se, method.vc = "pqn")
 

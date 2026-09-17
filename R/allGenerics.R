@@ -1,82 +1,82 @@
-#### annotating ####
+# #### annotating ####
 
-#' MS annotation
-#'
-#' Annotation with chemical and biological databases by using the 'biodb'
-#' package suite. The present implementation currently enables to query the
-#' ChEBI database or a local database.
-#'
-#' @param x An S4 object of class \code{SummarizedExperiment} or
-#' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
-#' @param database.c character(1): database to be used for annotation; either
-#' the ChEBI distant database ('chebi'), or a local database ('local.ms')
-#' @param param.ls list: parameters for database query; the database can be
-#' queried by either the mass to charge ratio (mz) or the chebi ID; other query
-#' parameters include the ionization mode (ms.mode), the mz tolerance (mz.tol;
-#' e.g. 5 ppm for Orbitrap Mass Spectrometers), the fields to retrieve (fields),
-#' the maximum number of items to retrieve when a field contains more than one
-#' value (fieldsLimit), the maximum number of results to provide for each
-#' query (max.results), prefix of the new columns providing the queried
-#' information in the feature metadata (prefix), separator in case of multiple
-#' retrieved values (sep), local data base to be queried (local.ms.db);
-#' additional information is provided by the vignettes from the biodb and
-#' biodbChebi packages on Bioconductor
-#' @param report.c character(1): File name with '.txt' extension for the printed
-#' results (call to sink()'); if 'interactive' (default), messages will be
-#' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet})
-#' including the appended rowData data frame(s)
-#' @rdname annotating
-#' @export
-#' @examples
-#' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-#' # see the (default) parameters (e.g. for ChEBI query)
-#' annotating_parameters("chebi")
-#' # mz annotation with ChEBI
-#' \donttest{
-#' sacurine.se <- annotating(sacurine.se, database.c = "chebi",
-#' param.ls = list(query.type = "mz", query.col = "mass_to_charge",
-#' ms.mode = "neg", prefix = "chebiMZ."))
-#' }
-#' # mz annotation with local database
-#' msdbDF <- read.table(system.file("extdata/local_ms_db.tsv",
-#' package = "phenomis"),
-#' header = TRUE, sep = "\t", stringsAsFactors = FALSE)
-#' sacurine.se <- annotating(sacurine.se, database.c = "local.ms",
-#' param.ls = list(query.type = "mz", query.col = "mass_to_charge",
-#' ms.mode = "neg",
-#' mz.tol = 5, mz.tol.unit = "ppm", local.ms.db = msdbDF, prefix = "localMS."))
-#' rowData(sacurine.se)[!is.na(rowData(sacurine.se)[, "localMS.accession"]), ]
-#' # annotation from ChEBI identifiers
-#' \donttest{
-#' sacurine.se <- annotating(sacurine.se, database.c = "chebi",
-#' param.ls = list(query.type = "chebi.id", query.col = "database_identifier",
-#' prefix = "chebiID."))
-#' head(rowData(sacurine.se))
-#' }
-setGeneric("annotating",
-           function(x,
-                    database.c = c("chebi", "local.ms")[1],
-                    param.ls = list(query.type = c("mz",
-                                                   "chebi.id")[1],
-                                    query.col = "mz",
-                                    ms.mode = "pos",
-                                    mz.tol = 10,
-                                    mz.tol.unit = "ppm",
-                                    fields = c("chebi.id",
-                                               "name",
-                                               "formula",
-                                               "molecular.mass",
-                                               "monoisotopic.mass"),
-                                    fieldsLimit = 1,
-                                    max.results = 3,
-                                    local.ms.db = data.frame(),
-                                    prefix = paste0(database.c, "."),
-                                    sep = "|"),
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-           standardGeneric("annotating"))
+# #' MS annotation
+# #'
+# #' Annotation with chemical and biological databases by using the 'biodb'
+# #' package suite. The present implementation currently enables to query the
+# #' ChEBI database or a local database.
+# #'
+# #' @param x An S4 object of class \code{SummarizedExperiment} or
+# #' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
+# #' are still supported)
+# #' @param database.c character(1): database to be used for annotation; either
+# #' the ChEBI distant database ('chebi'), or a local database ('local.ms')
+# #' @param param.ls list: parameters for database query; the database can be
+# #' queried by either the mass to charge ratio (mz) or the chebi ID; other query
+# #' parameters include the ionization mode (ms.mode), the mz tolerance (mz.tol;
+# #' e.g. 5 ppm for Orbitrap Mass Spectrometers), the fields to retrieve (fields),
+# #' the maximum number of items to retrieve when a field contains more than one
+# #' value (fieldsLimit), the maximum number of results to provide for each
+# #' query (max.results), prefix of the new columns providing the queried
+# #' information in the feature metadata (prefix), separator in case of multiple
+# #' retrieved values (sep), local data base to be queried (local.ms.db);
+# #' additional information is provided by the vignettes from the biodb and
+# #' biodbChebi packages on Bioconductor
+# #' @param report.c character(1): File name with '.txt' extension for the printed
+# #' results (call to sink()'); if 'interactive' (default), messages will be
+# #' printed on the screen; if 'none', no verbose will be generated
+# #' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
+# #' (or \code{ExpressionSet} and \code{MultiDataSet})
+# #' including the appended rowData data frame(s)
+# #' @rdname annotating
+# #' @export
+# #' @examples
+# #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
+# #' # see the (default) parameters (e.g. for ChEBI query)
+# #' annotating_parameters("chebi")
+# #' # mz annotation with ChEBI
+# #' \donttest{
+# #' sacurine.se <- annotating(sacurine.se, database.c = "chebi",
+# #' param.ls = list(query.type = "mz", query.col = "mass_to_charge",
+# #' ms.mode = "neg", prefix = "chebiMZ."))
+# #' }
+# #' # mz annotation with local database
+# #' msdbDF <- read.table(system.file("extdata/local_ms_db.tsv",
+# #' package = "phenomis"),
+# #' header = TRUE, sep = "\t", stringsAsFactors = FALSE)
+# #' sacurine.se <- annotating(sacurine.se, database.c = "local.ms",
+# #' param.ls = list(query.type = "mz", query.col = "mass_to_charge",
+# #' ms.mode = "neg",
+# #' mz.tol = 5, mz.tol.unit = "ppm", local.ms.db = msdbDF, prefix = "localMS."))
+# #' rowData(sacurine.se)[!is.na(rowData(sacurine.se)[, "localMS.accession"]), ]
+# #' # annotation from ChEBI identifiers
+# #' \donttest{
+# #' sacurine.se <- annotating(sacurine.se, database.c = "chebi",
+# #' param.ls = list(query.type = "chebi.id", query.col = "database_identifier",
+# #' prefix = "chebiID."))
+# #' head(rowData(sacurine.se))
+# #' }
+# setGeneric("annotating",
+#            function(x,
+#                     database.c = c("chebi", "local.ms")[1],
+#                     param.ls = list(query.type = c("mz",
+#                                                    "chebi.id")[1],
+#                                     query.col = "mz",
+#                                     ms.mode = "pos",
+#                                     mz.tol = 10,
+#                                     mz.tol.unit = "ppm",
+#                                     fields = c("chebi.id",
+#                                                "name",
+#                                                "formula",
+#                                                "molecular.mass",
+#                                                "monoisotopic.mass"),
+#                                     fieldsLimit = 1,
+#                                     max.results = 3,
+#                                     local.ms.db = data.frame(),
+#                                     prefix = paste0(database.c, "."),
+#                                     sep = "|"),
+#                     report.c = c("none", "interactive", "myfile.txt")[2])
+#            standardGeneric("annotating"))
 
 
 #### clustering ####
@@ -125,38 +125,49 @@ setGeneric("annotating",
 #'
 #' # MultiAssayExperiment
 #'
-#' prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+#' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 #' prometis.mae <- clustering(prometis.mae)
-setGeneric("clustering",
-           function(x,
-                    dissym.c = c("euclidean",
-                                 "maximum",
-                                 "manhattan",
-                                 "canberra",
-                                 "binary",
-                                 "minkowski",
-                                 "1-cor",
-                                 "1-abs(cor)")[7],
-                    correl.c = c("pearson",
-                                 "kendall",
-                                 "spearman")[1],
-                    agglo.c = c("ward.D",
-                                "ward.D2",
-                                "single",
-                                "complete",
-                                "average",
-                                "mcquitty",
-                                "median",
-                                "centroid")[2],
-                    clusters.vi = c(2, 2),
-                    cex.vn = c(1, 1),
-                    palette.c = c("blueOrangeRed",
-                                  "redBlackGreen")[1],
-                    scale_plot.l = TRUE,
-                    title.c = NA,
-                    figure.c = c("none", "interactive", "myfile.pdf")[2],
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-           standardGeneric("clustering"))
+setGeneric(
+       "clustering",
+       function(x,
+                dissym.c = c(
+                       "euclidean",
+                       "maximum",
+                       "manhattan",
+                       "canberra",
+                       "binary",
+                       "minkowski",
+                       "1-cor",
+                       "1-abs(cor)"
+                )[7],
+                correl.c = c(
+                       "pearson",
+                       "kendall",
+                       "spearman"
+                )[1],
+                agglo.c = c(
+                       "ward.D",
+                       "ward.D2",
+                       "single",
+                       "complete",
+                       "average",
+                       "mcquitty",
+                       "median",
+                       "centroid"
+                )[2],
+                clusters.vi = c(2, 2),
+                cex.vn = c(1, 1),
+                palette.c = c(
+                       "blueOrangeRed",
+                       "redBlackGreen"
+                )[1],
+                scale_plot.l = TRUE,
+                title.c = NA,
+                figure.c = c("none", "interactive", "myfile.pdf")[2],
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("clustering")
+       }
+)
 
 
 #### correcting ####
@@ -219,17 +230,20 @@ setGeneric("clustering",
 #' sacurine.se <- correcting(sacurine.se)
 #'
 #' # MultiDataSet (to be done)
-setGeneric("correcting",
-           function(x,
-                    method.vc = c("loess", "serrf")[1],
-                    reference.vc = c("pool", "sample")[1],
-                    loess_span.vn = 1,
-                    serrf_corvar.vi = 10,
-                    sample_intensity.c = c("median", "mean", "sum")[2],
-                    title.c = NA,
-                    figure.c = c("none", "interactive", "myfile.pdf")[2],
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("correcting"))
+setGeneric(
+       "correcting",
+       function(x,
+                method.vc = c("loess", "serrf")[1],
+                reference.vc = c("pool", "sample")[1],
+                loess_span.vn = 1,
+                serrf_corvar.vi = 10,
+                sample_intensity.c = c("median", "mean", "sum")[2],
+                title.c = NA,
+                figure.c = c("none", "interactive", "myfile.pdf")[2],
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("correcting")
+       }
+)
 
 #### filtering ####
 
@@ -279,41 +293,46 @@ setGeneric("correcting",
 #'
 #' # MultiAssayExperiment
 #'
-#' prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+#' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 #' filtering(prometis.mae)
 #' for (set.c in names(prometis.mae)) {
-#' set.se <- prometis.mae[[set.c]]
-#' assay.mn <- assay(set.se)
-#' assay.mn[assay.mn < quantile(c(assay.mn), 0.2)] <- NA
-#' assay(set.se) <- assay.mn
-#' prometis.mae[[set.c]] <- set.se
+#'        set.se <- prometis.mae[[set.c]]
+#'        assay.mn <- assay(set.se)
+#'        assay.mn[assay.mn < quantile(c(assay.mn), 0.2)] <- NA
+#'        assay(set.se) <- assay.mn
+#'        prometis.mae[[set.c]] <- set.se
 #' }
 #' filtering(prometis.mae)
 #'
 #' # MultiDataSet
 #'
-#' prometis.mset <- reading(system.file("extdata/prometis", package="phenomis"),
-#'                          output.c = "set")
+#' prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
+#'        output.c = "set"
+#' )
 #' filtering(prometis.mset)
 #' for (set.c in names(prometis.mset)) {
-#' eset <- prometis.mset[[set.c]]
-#' exprs.mn <- Biobase::exprs(eset)
-#' exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-#' Biobase::exprs(eset) <- exprs.mn
-#' prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
-#'                                         dataset.type = set.c,
-#'                                         GRanges = NA, overwrite = TRUE,
-#'                                         warnings = FALSE)
+#'        eset <- prometis.mset[[set.c]]
+#'        exprs.mn <- Biobase::exprs(eset)
+#'        exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
+#'        Biobase::exprs(eset) <- exprs.mn
+#'        prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
+#'               dataset.type = set.c,
+#'               GRanges = NA, overwrite = TRUE,
+#'               warnings = FALSE
+#'        )
 #' }
 #' filtering(prometis.mset)
-setGeneric("filtering",
-           function(x,
-                    class.c = "",
-                    max_na_prop.n = 0.2,
-                    min_variance.n = .Machine$double.eps,
-                    dims.vc = c("features", "samples"),
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("filtering"))
+setGeneric(
+       "filtering",
+       function(x,
+                class.c = "",
+                max_na_prop.n = 0.2,
+                min_variance.n = .Machine$double.eps,
+                dims.vc = c("features", "samples"),
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("filtering")
+       }
+)
 
 
 #### hypotesting ####
@@ -368,7 +387,7 @@ setGeneric("filtering",
 #' @export
 #' @examples
 #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-#' sacurine.se <- correcting(sacurine.se, figure.c = 'none')
+#' sacurine.se <- correcting(sacurine.se, figure.c = "none")
 #' sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 #' sacurine.se <- transforming(sacurine.se)
 #' sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
@@ -378,49 +397,64 @@ setGeneric("filtering",
 #' sacurine.se <- hypotesting(sacurine.se, "pearson", "age")
 #' # ANOVA
 #' colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-#'                                                  function(x) {
-#'                                                    if (x < 35) {
-#'                                                      return("thirty")
-#'                                                    } else if (x < 50) {
-#'                                                      return("fourty")
-#'                                                    } else {
-#'                                                      return("fifty")}},
-#'                                                  FUN.VALUE = character(1))
+#'        function(x) {
+#'               if (x < 35) {
+#'                      return("thirty")
+#'               } else if (x < 50) {
+#'                      return("fourty")
+#'               } else {
+#'                      return("fifty")
+#'               }
+#'        },
+#'        FUN.VALUE = character(1)
+#' )
 #' sacurine.se <- hypotesting(sacurine.se, "anova", "ageGroup")
 #'
 #' # MultiAssayExperiment
 #'
-#' prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+#' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 #' prometis.mae <- hypotesting(prometis.mae, "limma", "gene")
 #'
 #' # MultiDataSet
 #'
-#' prometis.mset <- reading(system.file("extdata/prometis", package="phenomis"),
-#'                          output.c = "set")
+#' prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
+#'        output.c = "set"
+#' )
 #' prometis.mset <- hypotesting(prometis.mset, "limma", "gene")
-setGeneric("hypotesting",
-           function(x,
-                    test.c = c("ttest", "limma", "wilcoxon",
-                               "anova", "kruskal",
-                               "pearson", "spearman",
-                               "limma2ways", "limma2waysInter",
-                               "anova2ways", "anova2waysInter")[2],
-                    factor_names.vc,
-                    factor_levels.ls = list(factor1.vc = "default",
-                                            factor2.vc = "default"),
-                    adjust.c = c("holm", "hochberg", "hommel", "bonferroni",
-                                 "BH", "BY", "fdr", "none")[5],
-                    adjust_thresh.n = 0.05,
-                    signif_maxprint.i = NA,
-                    title.c = NA,
-                    display_signif.l = FALSE,
-                    prefix.c = "",
-                    figure.c = c("none",
-                                 "interactive",
-                                 "interactive_plotly",
-                                 "myfile.pdf")[2],
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-           standardGeneric("hypotesting"))
+setGeneric(
+       "hypotesting",
+       function(x,
+                test.c = c(
+                       "ttest", "limma", "wilcoxon",
+                       "anova", "kruskal",
+                       "pearson", "spearman",
+                       "limma2ways", "limma2waysInter",
+                       "anova2ways", "anova2waysInter"
+                )[2],
+                factor_names.vc,
+                factor_levels.ls = list(
+                       factor1.vc = "default",
+                       factor2.vc = "default"
+                ),
+                adjust.c = c(
+                       "holm", "hochberg", "hommel", "bonferroni",
+                       "BH", "BY", "fdr", "none"
+                )[5],
+                adjust_thresh.n = 0.05,
+                signif_maxprint.i = NA,
+                title.c = NA,
+                display_signif.l = FALSE,
+                prefix.c = "",
+                figure.c = c(
+                       "none",
+                       "interactive",
+                       "interactive_plotly",
+                       "myfile.pdf"
+                )[2],
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("hypotesting")
+       }
+)
 
 
 #### inspecting ####
@@ -467,19 +501,23 @@ setGeneric("hypotesting",
 #'
 #' # MultiAssayExperiment
 #' prometis.mae <- reading(system.file("extdata/prometis",
-#'                                     package = "phenomis"))
+#'        package = "phenomis"
+#' ))
 #' prometis.mae <- inspecting(prometis.mae)
-setGeneric("inspecting",
-           function(x,
-                    pool_as_pool1.l = FALSE,
-                    pool_cv.n = 0.3,
-                    loess_span.n = 1,
-                    sample_intensity.c = c("median", "mean", "sum")[2],
-                    title.c = NA,
-                    plot_dims.l = TRUE,
-                    figure.c = c("none", "interactive", "myfile.pdf")[2],
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("inspecting"))
+setGeneric(
+       "inspecting",
+       function(x,
+                pool_as_pool1.l = FALSE,
+                pool_cv.n = 0.3,
+                loess_span.n = 1,
+                sample_intensity.c = c("median", "mean", "sum")[2],
+                title.c = NA,
+                plot_dims.l = TRUE,
+                figure.c = c("none", "interactive", "myfile.pdf")[2],
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("inspecting")
+       }
+)
 
 
 #### normalizing ####
@@ -506,17 +544,19 @@ setGeneric("inspecting",
 #' @export
 #' @examples
 #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-#' sacurine.se <- sacurine.se[, colnames(sacurine.se) != 'HU_neg_096_b2']
+#' sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
 #' sacurine.se <- transforming(sacurine.se, method.vc = "log10")
 #' norm.se <- normalizing(sacurine.se, method.vc = "pqn")
 #'
 #' # MultiDataSet
-
-setGeneric("normalizing",
-           function(x,
-                    method.vc = "pqn",
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("normalizing"))
+setGeneric(
+       "normalizing",
+       function(x,
+                method.vc = "pqn",
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("normalizing")
+       }
+)
 
 
 #### reducing ####
@@ -573,24 +613,31 @@ setGeneric("normalizing",
 #' within each group
 #' @export
 #' @examples
-#' metabo.se <- reading(system.file("extdata/prometis/metabo",
-#'                                  package = "phenomis"),
-#'                       report.c = "none")
+#' metabo.se <- reading(
+#'        system.file("extdata/prometis/metabo",
+#'               package = "phenomis"
+#'        ),
+#'        report.c = "none"
+#' )
 #' metabo.se <- reducing(metabo.se,
-#'                       rt_tol.n = 15)
+#'        rt_tol.n = 15
+#' )
 #' # Note: in the 'prometis' example data set from this package, the chemical
 #' # redundancy has already been filtered out
-setGeneric("reducing",
-           function(x,
-                    cor_method.c = "pearson",
-                    cor_threshold.n = 0.9,
-                    rt_tol.n = 6,
-                    rt_colname.c = "rt",
-                    mzdiff_tol.n = 0.005,
-                    mz_colname.c = "mz",
-                    return_adjacency.l = FALSE,
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("reducing"))
+setGeneric(
+       "reducing",
+       function(x,
+                cor_method.c = "pearson",
+                cor_threshold.n = 0.9,
+                rt_tol.n = 6,
+                rt_colname.c = "rt",
+                mzdiff_tol.n = 0.005,
+                mz_colname.c = "mz",
+                return_adjacency.l = FALSE,
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("reducing")
+       }
+)
 
 
 #### transforming ####
@@ -621,15 +668,19 @@ setGeneric("reducing",
 #' sacurine.se <- transforming(sacurine.se)
 #' # MultiAssayExperiment
 #' prometis.mae <- reading(system.file("extdata/prometis",
-#'                                     package = "phenomis"))
+#'        package = "phenomis"
+#' ))
 #' prometis.mae <- transforming(prometis.mae, method.vc = c("log2", "none"))
 #' # Note: in the 'prometis' example data set from the package, the data are
 #' # already log2 transformed
-setGeneric("transforming",
-           function(x,
-                    method.vc = c("log2", "log10", "sqrt", "none")[1],
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("transforming"))
+setGeneric(
+       "transforming",
+       function(x,
+                method.vc = c("log2", "log10", "sqrt", "none")[1],
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("transforming")
+       }
+)
 
 
 #### writing ####
@@ -660,36 +711,59 @@ setGeneric("transforming",
 #' @export
 #' @examples
 #' metabo.se <- reading(system.file("extdata/prometis/metabo",
-#'                      package = "phenomis"))
-#'\donttest{
+#'        package = "phenomis"
+#' ))
+#' \donttest{
 #' writing(metabo.se, dir.c = file.path(getwd(), "metabo"))
-#'}
-#'# MultiAssayExperiment
-#' prometis.mae <- reading(system.file("extdata/prometis",package="phenomis"))
-#'\donttest{
+#' }
+#' # MultiAssayExperiment
+#' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
+#' \donttest{
 #' writing(prometis.mae, dir.c = file.path(getwd(), "prometis"))
 #' # alternatively
 #' writing(prometis.mae,
-#'          dir.c = NA,
-#'          files.ls = list(metabo = list(dataMatrix = file.path(getwd(),
-#'                                              "met_dataMatrix.tsv"),
-#'                                       sampleMetadata = file.path(getwd(),
-#'                                       "met_sampleMetadata.tsv"),
-#'                                       variableMetadata = file.path(getwd(),
-#'                                       "met_variableMetadata.tsv")),
-#'                         proteo = list(dataMatrix = file.path(getwd(),
-#'                                       "pro_dataMatrix.tsv"),
-#'                                       sampleMetadata = file.path(getwd(),
-#'                                       "pro_sampleMetadata.tsv"),
-#'                                       variableMetadata = file.path(getwd(),
-#'                                       "pro_variableMetadata.tsv"))))
-#'}
-setGeneric("writing",
-           function(x,
-                    dir.c,
-                    prefix.c = "",
-                    files.ls = NULL,
-                    overwrite.l = FALSE,
-                    metadata.l = FALSE,
-                    report.c = c("none", "interactive", "myfile.txt")[2])
-             standardGeneric("writing"))
+#'        dir.c = NA,
+#'        files.ls = list(
+#'               metabo = list(
+#'                      dataMatrix = file.path(
+#'                             getwd(),
+#'                             "met_dataMatrix.tsv"
+#'                      ),
+#'                      sampleMetadata = file.path(
+#'                             getwd(),
+#'                             "met_sampleMetadata.tsv"
+#'                      ),
+#'                      variableMetadata = file.path(
+#'                             getwd(),
+#'                             "met_variableMetadata.tsv"
+#'                      )
+#'               ),
+#'               proteo = list(
+#'                      dataMatrix = file.path(
+#'                             getwd(),
+#'                             "pro_dataMatrix.tsv"
+#'                      ),
+#'                      sampleMetadata = file.path(
+#'                             getwd(),
+#'                             "pro_sampleMetadata.tsv"
+#'                      ),
+#'                      variableMetadata = file.path(
+#'                             getwd(),
+#'                             "pro_variableMetadata.tsv"
+#'                      )
+#'               )
+#'        )
+#' )
+#' }
+setGeneric(
+       "writing",
+       function(x,
+                dir.c,
+                prefix.c = "",
+                files.ls = NULL,
+                overwrite.l = FALSE,
+                metadata.l = FALSE,
+                report.c = c("none", "interactive", "myfile.txt")[2]) {
+              standardGeneric("writing")
+       }
+)

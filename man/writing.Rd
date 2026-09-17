@@ -91,28 +91,48 @@ samples are written column wise in the 'dataMatrix.tsv' exported file).
 }
 \examples{
 metabo.se <- reading(system.file("extdata/prometis/metabo",
-                     package = "phenomis"))
+       package = "phenomis"
+))
 \donttest{
 writing(metabo.se, dir.c = file.path(getwd(), "metabo"))
 }
 # MultiAssayExperiment
-prometis.mae <- reading(system.file("extdata/prometis",package="phenomis"))
+prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 \donttest{
 writing(prometis.mae, dir.c = file.path(getwd(), "prometis"))
 # alternatively
 writing(prometis.mae,
-         dir.c = NA,
-         files.ls = list(metabo = list(dataMatrix = file.path(getwd(),
-                                             "met_dataMatrix.tsv"),
-                                      sampleMetadata = file.path(getwd(),
-                                      "met_sampleMetadata.tsv"),
-                                      variableMetadata = file.path(getwd(),
-                                      "met_variableMetadata.tsv")),
-                        proteo = list(dataMatrix = file.path(getwd(),
-                                      "pro_dataMatrix.tsv"),
-                                      sampleMetadata = file.path(getwd(),
-                                      "pro_sampleMetadata.tsv"),
-                                      variableMetadata = file.path(getwd(),
-                                      "pro_variableMetadata.tsv"))))
+       dir.c = NA,
+       files.ls = list(
+              metabo = list(
+                     dataMatrix = file.path(
+                            getwd(),
+                            "met_dataMatrix.tsv"
+                     ),
+                     sampleMetadata = file.path(
+                            getwd(),
+                            "met_sampleMetadata.tsv"
+                     ),
+                     variableMetadata = file.path(
+                            getwd(),
+                            "met_variableMetadata.tsv"
+                     )
+              ),
+              proteo = list(
+                     dataMatrix = file.path(
+                            getwd(),
+                            "pro_dataMatrix.tsv"
+                     ),
+                     sampleMetadata = file.path(
+                            getwd(),
+                            "pro_sampleMetadata.tsv"
+                     ),
+                     variableMetadata = file.path(
+                            getwd(),
+                            "pro_variableMetadata.tsv"
+                     )
+              )
+       )
+)
 }
 }

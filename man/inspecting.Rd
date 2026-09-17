@@ -120,6 +120,7 @@ sacurine.se <- inspecting(sacurine.se)
 
 # MultiAssayExperiment
 prometis.mae <- reading(system.file("extdata/prometis",
-                                    package = "phenomis"))
+       package = "phenomis"
+))
 prometis.mae <- inspecting(prometis.mae)
 }

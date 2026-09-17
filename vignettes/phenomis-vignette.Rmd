@@ -20,8 +20,10 @@ editor_options:
 ---
 
 ```{r global_options, include=FALSE}
-knitr::opts_chunk$set(fig.width = 5,
-                      fig.height = 5)
+knitr::opts_chunk$set(
+    fig.width = 5,
+    fig.height = 5
+)
 ```
 
 # Introduction
@@ -298,8 +300,9 @@ columns:
 
 ```{r correcting, fig.dim = c(6, 5)}
 sacurine.se <- correcting(sacurine.se,
-                          reference.vc = "pool",
-                          report.c = "none")
+    reference.vc = "pool",
+    report.c = "none"
+)
 ```
 
 ### Variable filtering
@@ -308,7 +311,8 @@ sacurine.se <- correcting(sacurine.se,
 
 ```{r inspecting_variable_filtering}
 sacurine.se <- inspecting(sacurine.se,
-                          figure.c = "none", report.c = "none")
+    figure.c = "none", report.c = "none"
+)
 ```
 
 -   discarding features with 'pool_CV' \> 0.3
@@ -331,10 +335,12 @@ require any extra method and relies on the classical methods from the
 `SummarizedExperiment` package.
 
 ```{r normalizing_osmolality}
-assay(sacurine.se) <- sweep(assay(sacurine.se),
-                            2,
-                            colData(sacurine.se)[, "osmolality"],
-                            "/")
+assay(sacurine.se) <- sweep(
+    assay(sacurine.se),
+    2,
+    colData(sacurine.se)[, "osmolality"],
+    "/"
+)
 ```
 
 Note that a `normalizing` method is available in the `phenomis` package
@@ -345,7 +351,6 @@ to perform Probabilistic Quotient Normalization
 
 ```{r transforming}
 sacurine.se <- transforming(sacurine.se, method.vc = "log10")
-
 ```
 
 ### Sample filtering
@@ -353,8 +358,8 @@ sacurine.se <- transforming(sacurine.se, method.vc = "log10")
 ```{r sample_filtering}
 sacurine.se <- inspecting(sacurine.se, figure.c = "none", report.c = "none")
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "hotel_pval"] >= 0.001 &
-                             colData(sacurine.se)[, "miss_pval"] >= 0.001 &
-                             colData(sacurine.se)[, "deci_pval"] >= 0.001]
+    colData(sacurine.se)[, "miss_pval"] >= 0.001 &
+    colData(sacurine.se)[, "deci_pval"] >= 0.001]
 ```
 
 Final visual check of the data before performing the statistics:
@@ -374,11 +379,12 @@ pearson or the spearman correlation).
 
 ```{r hypotesting, warning=FALSE}
 sacurine.se <- hypotesting(sacurine.se,
-                           test.c = "ttest",
-                           factor_names.vc = "gender",
-                           adjust.c = "BH",
-                           adjust_thresh.n = 0.05,
-                           report.c = "none")
+    test.c = "ttest",
+    factor_names.vc = "gender",
+    adjust.c = "BH",
+    adjust_thresh.n = 0.05,
+    report.c = "none"
+)
 ```
 
 The `phenomis` package can be conveniently complemented with other
@@ -410,11 +416,13 @@ method:
 sacurine.se <- ropls::opls(sacurine.se, info.txt = "none")
 sacurine.pca <- ropls::getOpls(sacurine.se)[["PCA"]]
 ropls::plot(sacurine.pca,
-            parAsColFcVn = colData(sacurine.se)[, "gender"],
-            typeVc = "x-score")
+    parAsColFcVn = colData(sacurine.se)[, "gender"],
+    typeVc = "x-score"
+)
 ropls::plot(sacurine.pca,
-            parAsColFcVn = colData(sacurine.se)[, "age"],
-            typeVc = "x-score")
+    parAsColFcVn = colData(sacurine.se)[, "age"],
+    typeVc = "x-score"
+)
 ```
 
 ### **`clustering`**: hierarchical clustering
@@ -425,7 +433,8 @@ dissimilarity is \$1-cor\_{pearson}\$.
 
 ```{r heatmap}
 sacurine.se <- clustering(sacurine.se,
-                          clusters.vi = c(5, 3))
+    clusters.vi = c(5, 3)
+)
 ```
 
 ## Supervised modeling
@@ -454,8 +463,9 @@ The (O)PLS(-DA) can be obtained from the metadata, e.g. to perform specific plot
 ```{r plsda_scoreplot, eval = FALSE}
 sacurine_gender.plsda <- ropls::getOpls(sacurine.se)[["gender_PLSDA"]]
 ropls::plot(sacurine_gender.plsda,
-            parAsColFcVn = colData(sacurine.se)[, "gender"],
-            typeVc = "x-score")
+    parAsColFcVn = colData(sacurine.se)[, "gender"],
+    typeVc = "x-score"
+)
 ```
 
 
@@ -477,6 +487,8 @@ bootstraps to obtain more stable signatures.
 
 ## **`annotating`**: MS annotation
 
+**Note:** The `annotating` method described below is now longer included in the phenomis package because it relies on the biodbChebi package which sometimes encounters building errors on Bioconductor (due to the API connection to CheBI not responding during the unit testing). The `annotating` method can nevertheless be restored by getting the removed file and rebuilding the package as described in the appendix.
+
 This method is based on the
 [**biodb**](https://www.bioconductor.org/packages/biodb/) package (and
 its companion
@@ -489,7 +501,7 @@ web services, search of compounds by mass and/or name [@roger2022].
 Viewing the parameters from the **`annotating`** method and their
 default values:
 
-```{r annotating_parameters}
+```{r annotating_parameters, eval = FALSE}
 annotating_parameters()
 ```
 
@@ -500,55 +512,69 @@ Interest [ChEBI](https://www.ebi.ac.uk/chebi/) database:
 
 ```{r chebi_annotation, eval = FALSE}
 sacurine.se <- annotating(sacurine.se,
-                          database.c = "chebi",
-                          param.ls = list(query.type = "mz",
-                                          query.col = "mass_to_charge",
-                                          ms.mode = "neg",
-                                          mz.tol = 10,
-                                          mz.tol.unit = "ppm",
-                                          max.results = 3,
-                                          prefix = "chebiMZ."),
-                          report.c = "none")
-knitr::kable(head(rowData(sacurine.se)[, grep("chebiMZ", 
-                                              colnames(rowData(sacurine.se)))]))
+    database.c = "chebi",
+    param.ls = list(
+        query.type = "mz",
+        query.col = "mass_to_charge",
+        ms.mode = "neg",
+        mz.tol = 10,
+        mz.tol.unit = "ppm",
+        max.results = 3,
+        prefix = "chebiMZ."
+    ),
+    report.c = "none"
+)
+knitr::kable(head(rowData(sacurine.se)[, grep(
+    "chebiMZ",
+    colnames(rowData(sacurine.se))
+)]))
 ```
 
 2)  by using ChEBI identifiers:
 
 ```{r chebi_identifier, eval = FALSE}
-sacurine.se <- annotating(sacurine.se, database.c = "chebi",
-                          param.ls = list(query.type = "chebi.id",
-                                          query.col = "database_identifier",
-                                          prefix = "chebiID."))
-knitr::kable(head(rowData(sacurine.se)[, grep("chebiID", 
-                                              colnames(rowData(sacurine.se)))]))
-
+sacurine.se <- annotating(sacurine.se,
+    database.c = "chebi",
+    param.ls = list(
+        query.type = "chebi.id",
+        query.col = "database_identifier",
+        prefix = "chebiID."
+    )
+)
+knitr::kable(head(rowData(sacurine.se)[, grep(
+    "chebiID",
+    colnames(rowData(sacurine.se))
+)]))
 ```
 
 Adding chemical information from a local database:
 
 1)  loading a local (example) MS database:
 
-```{r localdbDF}
+```{r localdbDF, eval = FALSE}
 msdbDF <- read.table(system.file("extdata/local_ms_db.tsv", package = "phenomis"),
-                     header = TRUE,
-                     sep = "\t",
-                     stringsAsFactors = FALSE)
+    header = TRUE,
+    sep = "\t",
+    stringsAsFactors = FALSE
+)
 ```
 
 2)  Querying the local database:
 
-```{r localms_annotation, message=FALSE, warning=FALSE}
+```{r localms_annotation, message=FALSE, warning=FALSE, eval = FALSE}
 sacurine.se <- annotating(sacurine.se,
-                          database.c = "local.ms",
-                          param.ls = list(query.type = "mz",
-                                          query.col = "mass_to_charge",
-                                          ms.mode = "neg",
-                                          mz.tol = 5,
-                                          mz.tol.unit = "ppm",
-                                          local.ms.db = msdbDF,
-                                          prefix = "localMS."),
-                          report.c = "none")
+    database.c = "local.ms",
+    param.ls = list(
+        query.type = "mz",
+        query.col = "mass_to_charge",
+        ms.mode = "neg",
+        mz.tol = 5,
+        mz.tol.unit = "ppm",
+        local.ms.db = msdbDF,
+        prefix = "localMS."
+    ),
+    report.c = "none"
+)
 knitr::kable(rowData(sacurine.se)[!is.na(rowData(sacurine.se)[, "localMS.accession"]), grep("localMS.", colnames(rowData(sacurine.se)), fixed = TRUE)])
 ```
 
@@ -613,7 +639,8 @@ the `reading` function as a `MultiAssayExperiment` (or as a
 
 ```{r pms_read}
 prometis.mae <- reading(system.file("extdata/prometis",
-                                    package = "phenomis"))
+    package = "phenomis"
+))
 ```
 
 Let us have a look at the (common) sample metadata:
@@ -633,7 +660,8 @@ We then perform univariate hypothesis testing with the `limma` approach
 
 ```{r pms_limma}
 prometis.mae <- hypotesting(prometis.mae, "limma", "gene",
-                            report.c = "none")
+    report.c = "none"
+)
 ```
 
 As with single omics studies, the `ropls` and `biosigner` can be
@@ -684,9 +712,11 @@ Investigate whether clusters can be observed (we first add the letter
 progressive, s = stable):
 
 ```{r cll_heatmap, eval = FALSE}
-Biobase::sampleNames(cll.eset) <- paste0(Biobase::sampleNames(cll.eset),
-                                         "_",
-                                         substr(Biobase::pData(cll.eset)[, "Disease"], 1, 1))
+Biobase::sampleNames(cll.eset) <- paste0(
+    Biobase::sampleNames(cll.eset),
+    "_",
+    substr(Biobase::pData(cll.eset)[, "Disease"], 1, 1)
+)
 
 cll.eset <- clustering(cll.eset)
 ```
@@ -696,8 +726,9 @@ removed from the 'progress.' phenotype):
 
 ```{r cll_limma, eval = FALSE}
 Biobase::pData(cll.eset)[, "Disease"] <- gsub(".", "",
-                                              Biobase::pData(cll.eset)[, "Disease"],
-                                              fixed = TRUE)
+    Biobase::pData(cll.eset)[, "Disease"],
+    fixed = TRUE
+)
 cll.eset <- hypotesting(cll.eset, "limma", "Disease")
 ```
 
@@ -727,9 +758,11 @@ Let's focus on the **LE**ukemia and **ME**lanoma cancer types, and the
 ```{r mae_focus, message=FALSE, warning=FALSE}
 library(MultiAssayExperiment)
 table(nci.mae$cancer)
-nci.mae <- nci.mae[,
-                   nci.mae$cancer %in% c("LE", "ME"),
-                   c("agilent", "hgu95")]
+nci.mae <- nci.mae[
+    ,
+    nci.mae$cancer %in% c("LE", "ME"),
+    c("agilent", "hgu95")
+]
 ```
 
 We can now e.g. perform clustering on each data set independently:
@@ -769,9 +802,11 @@ feat.df <- sacurine[["variableMetadata"]] # data frame: features x feature metad
 
 # Creating the SummarizedExperiment (package SummarizedExperiment)
 library(SummarizedExperiment)
-sac.se <- SummarizedExperiment(assays = list(sacurine = t(data.mn)),
-                               colData = samp.df,
-                               rowData = feat.df)
+sac.se <- SummarizedExperiment(
+    assays = list(sacurine = t(data.mn)),
+    colData = samp.df,
+    rowData = feat.df
+)
 # note that colData and rowData main format is DataFrame, but data frames are accepted when building the object
 stopifnot(validObject(sac.se))
 
@@ -825,36 +860,50 @@ library(MultiAssayExperiment)
 experiment.ls <- list()
 sampleMap.ls <- list()
 for (set.c in names(NCI60_4arrays)) {
-  # Getting the data and metadata
-  assay.mn <- as.matrix(NCI60_4arrays[[set.c]])
-  coldata.df <- data.frame(row.names = colnames(assay.mn),
-                           .id = colnames(assay.mn),
-                           stringsAsFactors = FALSE) # the 'cancer' information will be stored in the main colData of the mae, not the individual SummarizedExperiments
-  rowdata.df <- data.frame(row.names = rownames(assay.mn),
-                           name = rownames(assay.mn),
-                           stringsAsFactors = FALSE)
-  # Building the SummarizedExperiment
-  assay.ls <- list(se = assay.mn)
-  names(assay.ls) <- set.c
-  se <- SummarizedExperiment(assays = assay.ls,
-                             colData = coldata.df,
-                             rowData = rowdata.df)
-  experiment.ls[[set.c]] <- se
-  sampleMap.ls[[set.c]] <- data.frame(primary = colnames(se),
-                                      colname = colnames(se)) # both datasets use identical sample names
+    # Getting the data and metadata
+    assay.mn <- as.matrix(NCI60_4arrays[[set.c]])
+    coldata.df <- data.frame(
+        row.names = colnames(assay.mn),
+        .id = colnames(assay.mn),
+        stringsAsFactors = FALSE
+    ) # the 'cancer' information will be stored in the main colData of the mae, not the individual SummarizedExperiments
+    rowdata.df <- data.frame(
+        row.names = rownames(assay.mn),
+        name = rownames(assay.mn),
+        stringsAsFactors = FALSE
+    )
+    # Building the SummarizedExperiment
+    assay.ls <- list(se = assay.mn)
+    names(assay.ls) <- set.c
+    se <- SummarizedExperiment(
+        assays = assay.ls,
+        colData = coldata.df,
+        rowData = rowdata.df
+    )
+    experiment.ls[[set.c]] <- se
+    sampleMap.ls[[set.c]] <- data.frame(
+        primary = colnames(se),
+        colname = colnames(se)
+    ) # both datasets use identical sample names
 }
 sampleMap <- listToMap(sampleMap.ls)
 
 # The sample metadata are stored in the colData data frame (both datasets have the same samples)
-stopifnot(identical(colnames(NCI60_4arrays[[1]]),
-                    colnames(NCI60_4arrays[[2]])))
+stopifnot(identical(
+    colnames(NCI60_4arrays[[1]]),
+    colnames(NCI60_4arrays[[2]])
+))
 sample_names.vc <- colnames(NCI60_4arrays[[1]])
-colData.df <- data.frame(row.names = sample_names.vc,
-                         cancer = substr(sample_names.vc, 1, 2))
+colData.df <- data.frame(
+    row.names = sample_names.vc,
+    cancer = substr(sample_names.vc, 1, 2)
+)
 
-nci.mae <- MultiAssayExperiment(experiments = experiment.ls,
-                                colData = colData.df,
-                                sampleMap = sampleMap)
+nci.mae <- MultiAssayExperiment(
+    experiments = experiment.ls,
+    colData = colData.df,
+    sampleMap = sampleMap
+)
 
 stopifnot(validObject(nci.mae))
 ```
@@ -953,25 +1002,36 @@ library(MultiDataSet)
 nci.mds <- MultiDataSet::createMultiDataSet()
 # Adding the two datasets as ExpressionSet instances
 for (set.c in names(NCI60_4arrays)) {
-  # Getting the data
-  expr.mn <- as.matrix(NCI60_4arrays[[set.c]])
-  pdata.df <- data.frame(row.names = colnames(expr.mn),
-                        cancer = substr(colnames(expr.mn), 1, 2),
-                        stringsAsFactors = FALSE)
-  fdata.df <- data.frame(row.names = rownames(expr.mn),
-                        name = rownames(expr.mn),
-                        stringsAsFactors = FALSE)
-  # Building the ExpressionSet
-  eset <- Biobase::ExpressionSet(assayData = expr.mn,
-                                 phenoData = new("AnnotatedDataFrame",
-                                                 data = pdata.df),
-                                 featureData = new("AnnotatedDataFrame",
-                                                   data = fdata.df),
-                                 experimentData = new("MIAME",
-                                                      title = set.c))
-  # Adding to the MultiDataSet
-  nci.mds <- MultiDataSet::add_eset(nci.mds, eset, dataset.type = set.c,
-                                     GRanges = NA, warnings = FALSE)
+    # Getting the data
+    expr.mn <- as.matrix(NCI60_4arrays[[set.c]])
+    pdata.df <- data.frame(
+        row.names = colnames(expr.mn),
+        cancer = substr(colnames(expr.mn), 1, 2),
+        stringsAsFactors = FALSE
+    )
+    fdata.df <- data.frame(
+        row.names = rownames(expr.mn),
+        name = rownames(expr.mn),
+        stringsAsFactors = FALSE
+    )
+    # Building the ExpressionSet
+    eset <- Biobase::ExpressionSet(
+        assayData = expr.mn,
+        phenoData = new("AnnotatedDataFrame",
+            data = pdata.df
+        ),
+        featureData = new("AnnotatedDataFrame",
+            data = fdata.df
+        ),
+        experimentData = new("MIAME",
+            title = set.c
+        )
+    )
+    # Adding to the MultiDataSet
+    nci.mds <- MultiDataSet::add_eset(nci.mds, eset,
+        dataset.type = set.c,
+        GRanges = NA, warnings = FALSE
+    )
 }
 stopifnot(validObject(nci.mds))
 ```
@@ -994,6 +1054,26 @@ stopifnot(validObject(nci.mds))
 | **`commonSamples`**            | Select samples that are present in all datasets  | `MultiDataSet`               |
 | [**Conversion**]{.smallcaps}   |                                                  |                              |
 | **`mds2mae`**                  | Convert a MultiDataSet to a MultiAssayExperiment | `MultiAssayExperiment`       |
+
+## Restoring the `annotating` method in the phenomis package
+
+1) Clone the phenomis repository from Bioconductor with 'git clone https://git.bioconductor.org/packages/phenomis'
+
+2) Retrieve the R/annotating.R file from the commit named 'RELEASE 3_22 branch' and include it in your current package sources
+
+3) Do the following modifications in your current package sources:
+phenomis\DESCRIPTION (insert the names of the 'biodb' and 'biodbChebi' packages on separate lines)
+	Line 54:     biodb,
+	Line 55:     biodbChebi,
+phenomis\R\allGenerics.R (uncomment the "annotating" section: Lines 1-79)
+phenomis\R\phenomis-package.R (insert the names of the "biodb" and "biodbChebi" packages)
+	Line 19: #' @import Biobase biodb biodbChebi ggplot2 limma MultiAssayExperiment SummarizedExperiment
+
+4) Run the following command to rebuild the annotating.Rd file and update the import of biodb and biodbChebi in the NAMESPACE file
+devtools::document()
+
+5) Rebuild the package
+devtools::build()
 
 # Session info
 

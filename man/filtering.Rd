@@ -105,31 +105,33 @@ filtering(sacurine.se, class.c = "sampleType")
 
 # MultiAssayExperiment
 
-prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 filtering(prometis.mae)
 for (set.c in names(prometis.mae)) {
-set.se <- prometis.mae[[set.c]]
-assay.mn <- assay(set.se)
-assay.mn[assay.mn < quantile(c(assay.mn), 0.2)] <- NA
-assay(set.se) <- assay.mn
-prometis.mae[[set.c]] <- set.se
+       set.se <- prometis.mae[[set.c]]
+       assay.mn <- assay(set.se)
+       assay.mn[assay.mn < quantile(c(assay.mn), 0.2)] <- NA
+       assay(set.se) <- assay.mn
+       prometis.mae[[set.c]] <- set.se
 }
 filtering(prometis.mae)
 
 # MultiDataSet
 
-prometis.mset <- reading(system.file("extdata/prometis", package="phenomis"),
-                         output.c = "set")
+prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
+       output.c = "set"
+)
 filtering(prometis.mset)
 for (set.c in names(prometis.mset)) {
-eset <- prometis.mset[[set.c]]
-exprs.mn <- Biobase::exprs(eset)
-exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-Biobase::exprs(eset) <- exprs.mn
-prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
-                                        dataset.type = set.c,
-                                        GRanges = NA, overwrite = TRUE,
-                                        warnings = FALSE)
+       eset <- prometis.mset[[set.c]]
+       exprs.mn <- Biobase::exprs(eset)
+       exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
+       Biobase::exprs(eset) <- exprs.mn
+       prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
+              dataset.type = set.c,
+              GRanges = NA, overwrite = TRUE,
+              warnings = FALSE
+       )
 }
 filtering(prometis.mset)
 }

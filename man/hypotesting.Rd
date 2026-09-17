@@ -150,7 +150,7 @@ pearson or the spearman correlation).
 }
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-sacurine.se <- correcting(sacurine.se, figure.c = 'none')
+sacurine.se <- correcting(sacurine.se, figure.c = "none")
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
 sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
@@ -160,24 +160,28 @@ sacurine.se <- hypotesting(sacurine.se, "ttest", "gender")
 sacurine.se <- hypotesting(sacurine.se, "pearson", "age")
 # ANOVA
 colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-                                                 function(x) {
-                                                   if (x < 35) {
-                                                     return("thirty")
-                                                   } else if (x < 50) {
-                                                     return("fourty")
-                                                   } else {
-                                                     return("fifty")}},
-                                                 FUN.VALUE = character(1))
+       function(x) {
+              if (x < 35) {
+                     return("thirty")
+              } else if (x < 50) {
+                     return("fourty")
+              } else {
+                     return("fifty")
+              }
+       },
+       FUN.VALUE = character(1)
+)
 sacurine.se <- hypotesting(sacurine.se, "anova", "ageGroup")
 
 # MultiAssayExperiment
 
-prometis.mae <- reading(system.file("extdata/prometis", package="phenomis"))
+prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 prometis.mae <- hypotesting(prometis.mae, "limma", "gene")
 
 # MultiDataSet
 
-prometis.mset <- reading(system.file("extdata/prometis", package="phenomis"),
-                         output.c = "set")
+prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
+       output.c = "set"
+)
 prometis.mset <- hypotesting(prometis.mset, "limma", "gene")
 }

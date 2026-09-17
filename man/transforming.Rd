@@ -67,7 +67,8 @@ sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
 # MultiAssayExperiment
 prometis.mae <- reading(system.file("extdata/prometis",
-                                    package = "phenomis"))
+       package = "phenomis"
+))
 prometis.mae <- transforming(prometis.mae, method.vc = c("log2", "none"))
 # Note: in the 'prometis' example data set from the package, the data are
 # already log2 transformed
