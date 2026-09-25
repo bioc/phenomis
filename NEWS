@@ -1,7 +1,14 @@
+CHANGES IN VERSION 1.15.4
+------------------------------
+
+  o hypotesting: computation of 'fold change' now adapted to the transformation of the data (as a result, a previous call to 'transforming' is now required)
+  o plot_hypotesting: new external method to plot volcano and boxplots/dotplots resulting from a statistical test
+  o methods for ExpressionSet and MultiDataSet objects now deprecated
+
 CHANGES IN VERSION 1.15.2
 ------------------------------
 
-  o annotating method removed
+  o annotating method deprecated (call to ChEBI API not always responding)
 
 CHANGES IN VERSION 1.7.8
 ------------------------------

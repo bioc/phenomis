@@ -4,8 +4,6 @@
 \alias{hypotesting}
 \alias{hypotesting,MultiAssayExperiment-method}
 \alias{hypotesting,SummarizedExperiment-method}
-\alias{hypotesting,MultiDataSet-method}
-\alias{hypotesting,ExpressionSet-method}
 \title{Univariate hypothesis testing}
 \usage{
 hypotesting(
@@ -20,6 +18,7 @@ hypotesting(
   title.c = NA,
   display_signif.l = FALSE,
   prefix.c = "",
+  set.c = NA_character_,
   figure.c = c("none", "interactive", "interactive_plotly", "myfile.pdf")[2],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
@@ -52,38 +51,7 @@ hypotesting(
   title.c = NA,
   display_signif.l = FALSE,
   prefix.c = "",
-  figure.c = c("none", "interactive", "interactive_plotly", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{hypotesting}{MultiDataSet}(
-  x,
-  test.c = c("ttest", "limma", "wilcoxon", "anova", "kruskal", "pearson", "spearman",
-    "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
-  factor_names.vc,
-  factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
-  adjust_thresh.n = 0.05,
-  signif_maxprint.i = NA,
-  title.c = NA,
-  display_signif.l = FALSE,
-  prefix.c = "",
-  figure.c = c("none", "interactive", "interactive_plotly", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{hypotesting}{ExpressionSet}(
-  x,
-  test.c = c("ttest", "limma", "wilcoxon", "anova", "kruskal", "pearson", "spearman",
-    "limma2ways", "limma2waysInter", "anova2ways", "anova2waysInter")[2],
-  factor_names.vc,
-  factor_levels.ls = list(factor1.vc = "default", factor2.vc = "default"),
-  adjust.c = c("holm", "hochberg", "hommel", "bonferroni", "BH", "BY", "fdr", "none")[5],
-  adjust_thresh.n = 0.05,
-  signif_maxprint.i = NA,
-  title.c = NA,
-  display_signif.l = FALSE,
-  prefix.c = "",
+  set.c = NA_character_,
   figure.c = c("none", "interactive", "interactive_plotly", "myfile.pdf")[2],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
@@ -123,6 +91,8 @@ significant features be shown?}
 \item{prefix.c}{character(1): prefix to be added to the supplementary columns
 from the variableMetadata to prevent overwriting of pre-existing columns with
 identical names [default: ""]}
+
+\item{set.c}{character(1): name of the SummarizedExperiment to be used for plotting in case of MultiAssayExperiments}
 
 \item{figure.c}{character(1): File name with '.pdf' extension for the figure
 (for venn diagrams, e.g. in the 'anova2ways' test, the extension will be

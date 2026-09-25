@@ -371,6 +371,7 @@ setGeneric(
 #' @param prefix.c character(1): prefix to be added to the supplementary columns
 #' from the variableMetadata to prevent overwriting of pre-existing columns with
 #' identical names [default: ""]
+#' @param set.c character(1): name of the SummarizedExperiment to be used for plotting in case of MultiAssayExperiments
 #' @param figure.c character(1): File name with '.pdf' extension for the figure
 #' (for venn diagrams, e.g. in the 'anova2ways' test, the extension will be
 #' internally changed to '.tiff' for compatibility with the
@@ -445,6 +446,7 @@ setGeneric(
                 title.c = NA,
                 display_signif.l = FALSE,
                 prefix.c = "",
+                set.c = NA_character_,
                 figure.c = c(
                        "none",
                        "interactive",
@@ -456,6 +458,95 @@ setGeneric(
        }
 )
 
+
+#### plot_hypotesting ####
+
+#' Displays the volcano plot and the individual box plots (respectively, dot plots) after a two group statistical test (respectively, a correlation test) has been performed on a \code{SummarizedExperiment} object.
+#'
+#' @param x An S4 object of class \code{SummarizedExperiment}
+#' @param test.c Character: type of test that was used: either 'ttest', 'limma', or 'wilcoxon'
+#' @param factor.c Character: factor name
+#' @param adjust.c Character: method for multiple testing correction used in the test
+#' @param adjust_thresh.n Numeric: significance threshold used
+#' @param title.c Character: plot title
+#' @param class_color.vc Character vector: colors of the two compared class labels
+#' @param display_signif.l Logical: should the individual boxplots of the statistically significant variables be plotted in addition to the main volcano plot? (default: TRUE)
+#' @param theme.c character(1): name of the ggplot theme
+#' @param size.ls List of sizes for classes (default: 5), xy labels
+#' (default: 16), points (default: 3), ticks (default: 14) and title
+#' (default: 20)
+#' @param figure.c Character: either 'interactive' (respectively,
+#' 'interactive_plotly') for interactive display with ggplot2 (respectively,
+#' with plotly::ggplotly [default]), or 'my_plot.pdf' (respectively
+#' 'my_plot.html') for figure saving (only the extension matters) with
+#' ggplot2 (respectively, with plotly::ggplotly)
+#' @return invisible ggplot2 object
+#' @export
+#' @examples
+#' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
+#' sacurine.se <- correcting(sacurine.se, figure.c = "none")
+#' sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
+#' sacurine.se <- transforming(sacurine.se)
+#' sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
+#' sacurine.se <- hypotesting(sacurine.se,
+#'        test.c = "ttest",
+#'        factor_names.vc = "gender",
+#'        figure.c = "none",
+#'        report.c = "none"
+#' )
+#' plot_hypotesting(sacurine.se,
+#'        test.c = "ttest",
+#'        factor.c = "gender",
+#'        adjust.c = "BH",
+#'        adjust_thresh.n = 0.05
+#' )
+setGeneric(
+       "plot_hypotesting",
+       function(x,
+                test.c = c(
+                       "ttest", "limma", "wilcoxon", "pearson", "spearman"
+                )[1],
+                factor.c,
+                adjust.c = c(
+                       "holm",
+                       "hochberg",
+                       "hommel",
+                       "bonferroni",
+                       "BH",
+                       "BY",
+                       "fdr",
+                       "none"
+                )[5],
+                adjust_thresh.n = 0.05,
+                title.c = NA,
+                class_color.vc = "",
+                display_signif.l = TRUE,
+                theme.c = c(
+                       "default",
+                       "bw",
+                       "classic",
+                       "dark",
+                       "gray",
+                       "linedraw",
+                       "light",
+                       "minimal",
+                       "void"
+                )[2],
+                size.ls = list(
+                       class.i = 5,
+                       lab.i = 16,
+                       point.i = 3,
+                       tick.i = 14,
+                       title.i = 20
+                ),
+                figure.c = c(
+                       "interactive",
+                       "interactive_plotly",
+                       "myfile.pdf"
+                )[2]) {
+              standardGeneric("plot_hypotesting")
+       }
+)
 
 #### inspecting ####
 
@@ -652,7 +743,7 @@ setGeneric(
 #' are still supported)
 #' @param method.vc character of length 1 or the total number of datasets:
 #' transformation to be used for each dataset (either 'log2',
-#' 'log10', 'sqrt', or 'none')
+#' 'log10', or 'none')
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated

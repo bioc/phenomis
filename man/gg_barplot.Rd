@@ -15,7 +15,7 @@ gg_barplot(
   col_levels.vc = NA,
   palette.vc = "Set1",
   theme.c = c("default", "bw", "classic", "dark", "gray", "linedraw", "light", "minimal",
-    "void")[3],
+    "void")[2],
   flip.l = FALSE,
   legend_position.c = c("none", "bottom", "left", "top", "right")[2],
   cex_axis.i = 18,
@@ -76,15 +76,20 @@ Barplot with ggplot2
 \examples{
 prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 dims.mn <- vapply(names(prometis.mae),
-                  function(set.c) { dim(prometis.mae[[set.c]])},
-                  FUN.VALUE = integer(2))
+  function(set.c) {
+    dim(prometis.mae[[set.c]])
+  },
+  FUN.VALUE = integer(2)
+)
 dims.mn <- t(dims.mn)
 colnames(dims.mn) <- c("features", "samples")
-gg_barplot(dims.mn, title.c = "ProMetIS data",
-           row_levels = c("proteo", "metabo"),
-           col_levels = c("samples", "features"),
-           ylim.vn = c(NA, 110),
-           bar_just = -0.25,
-           cex_bar.i = 6,
-           cex_title.i = 15)
+gg_barplot(dims.mn,
+  title.c = "ProMetIS data",
+  row_levels = c("proteo", "metabo"),
+  col_levels = c("samples", "features"),
+  ylim.vn = c(NA, 110),
+  bar_just = -0.25,
+  cex_bar.i = 6,
+  cex_title.i = 15
+)
 }

@@ -23,18 +23,18 @@ isotope	13C+37Cl	3.000404748	[M+H]+_13C_37Cl	[M-H]-_13C_37Cl
 isotope	13C+18O	3.007601218	[M+H]+_13C_18O	[M-H]-_13C_18O	
 isotope	13C+34S	2.999150738	[M+H]+_13C_34S	[M-H]-_13C_34S	
 isotope	44Ca	3.99289082	[M+H]+_44Ca	[M-H]-_44Ca	
-adduct	+(CH3OH)	32.02621475	[(M+H)+CH3OH]+		
-adduct	+(CH3CN)	41.0265491	[M+CH3CNH]+	[M+CH2CN]-	
-adduct	+(H2O)	18.01056468	[M+H3O]+	[M+OH]-	
+adduct	#NOM?	32.02621475	[(M+H)+CH3OH]+		
+adduct	#NOM?	41.0265491	[M+CH3CNH]+	[M+CH2CN]-	
+adduct	#NOM?	18.01056468	[M+H3O]+	[M+OH]-	
 adduct	+2(H2O)	36.02112937	[(M+2H20)+H]+	[(M+2H20)-H]-	
-adduct	+(NaCl)	57.95862196	?	[(M-H+Na)+Cl]-	
-adduct	+(HCOOH)	46.0054793	?	[M+HCOO]-	
-adduct	+(HCOOH)+(HCOOK)	129.9668403			
-adduct	+(HCOOH)+(HCOONa)	113.9929029			
+adduct	#NOM?	57.95862196	?	[(M-H+Na)+Cl]-	
+adduct	#NOM?	46.0054793	?	[M+HCOO]-	
+adduct	#NOM?	129.9668403			
+adduct	#NOM?	113.9929029			
 adduct	+(HCOOH)+2(HCOONa)	181.9803264			
-adduct	+(HCOOK)	83.96136095	[(M+HCO2)+K]+		
-adduct	+(HCOOK)+(HCOONa)	151.9487845			
-adduct	+(HCOONa)	67.98742355	[(M+HCO2)+Na]+		
+adduct	#NOM?	83.96136095	[(M+HCO2)+K]+		
+adduct	#NOM?	151.9487845			
+adduct	#NOM?	67.98742355	[(M+HCO2)+Na]+		
 adduct	+2(HCOOH)	92.01095861		[M+2HCO2+H]-	
 adduct	+2(HCOOH)+(HCOOK)	175.9723196			
 adduct	+2(HCOOH)+(HCOONa)	159.9983822			
@@ -84,59 +84,59 @@ fragment	-(C6H10O5)-(H2O)	-180.0633881	[(M+H)-C6H10O5-H2O]+	[(M-H)-C6H10O5-H2O]-
 fragment	-(C6H10O5)	-162.0528234	[(M+H)-C6H10O5]+	[(M-H)-C6H10O5]-	
 fragment	-(C6H10O7)	-194.0426527	[(M+H)-C6H10O7]+	[(M-H)-C6H10O7]-	
 fragment	-(C6H8O6)	-176.032088	[(M+H)-C6H8O6]+	[(M-H)-C6H8O6]-	
-fragment	-(CH2O)	-30.01056468	[(M+H)-CH2O]+	[(M-H)-CH2O]-	
-fragment	-(CH2S)-(HCOOH)	-91.99320037	[(M+H)-(CH2S)-(HCOOH)]+	[(M-H)-(CH2S)-(HCOOH)]-	
-fragment	-(CH2S)-(NH3)	-63.01427016	[(M+H)-(CH2S)-(NH3)]+	[(M-H)-(CH2S)-(NH3)]-	
-fragment	-(CH2S)	-45.98772106	[(M+H)-CH2S]+	[(M-H)-CH2S]-	
-fragment	-(CH3.)	-15.0229265			
-fragment	-(CH3COO.)	-59.01275574			
-fragment	-(CH3COOH)	-60.02112937	[(M+H)-CH3COOH]+	[(M-H)-CH3COOH]-	doublon
-fragment	-(CH3N)	-29.0265491	[(M+H)-CH3N]+	[(M-H)-CH3N]-	
-fragment	-(CH3O.)	-31.01784112			
-fragment	-(CH3OH)	-32.02621475	[(M+H)-CH3OH]+	[(M-H)-CH3OH]-	
-fragment	-(CH4)	-16.03130013	[(M+H)-CH4]+	[(M-H)-CH4]-	
-fragment	-(CH4N.)	-30.03382553			
-fragment	-(CH4S)-(HCOOH)	-94.00885043	[(M+H)-(CH4S)-(HCOOH)]+	[(M-H)-(CH4S)-(HCOOH)]-	
-fragment	-(CH4S)-(NH3)	-65.02992022	[(M+H)-(CH4S)-(NH3)]+	[(M-H)-(CH4S)-(NH3)]-	
-fragment	-(CH4S)	-48.00337113	[(M+H)-CH4S]+	[(M-H)-CH4S]-	
-fragment	-(CH5N)	-31.04219916	[(M+H)-CH5N]+	[(M-H)-CH5N]-	
-fragment	-(Cl.)	-34.96830408			
-fragment	-(CO)	-27.99491462	[(M+H)-CO]+	[(M-H)-CO]-	
-fragment	-(CO2)-(CO)	-71.98474386	[(M+H)-(CO2)-(CO)]+	[(M-H)-(CO2)-(CO)]-	
-fragment	-(CO2)	-43.98982924	[(M+H)-CO2]+	[(M-H)-CO2]-	
-fragment	-(H2)-(NH3)	-19.04219916	[(M+H)-(H2)-(NH3)]+	[(M-H)-(H2)-(NH3)]-	
-fragment	-(H2)	-2.015650064	[(M+H)-H2]+	[(M-H)-H2]-	
-fragment	-(H2O)-(CO2)	-62.00039392	[(M+H)-(H2O)-(CO2)]+	[(M-H)-(H2O)-(CO2)]-	
+fragment	#NOM?	-30.01056468	[(M+H)-CH2O]+	[(M-H)-CH2O]-	
+fragment	#NOM?	-91.99320037	[(M+H)-(CH2S)-(HCOOH)]+	[(M-H)-(CH2S)-(HCOOH)]-	
+fragment	#NOM?	-63.01427016	[(M+H)-(CH2S)-(NH3)]+	[(M-H)-(CH2S)-(NH3)]-	
+fragment	#NOM?	-45.98772106	[(M+H)-CH2S]+	[(M-H)-CH2S]-	
+fragment	#NOM?	-15.0229265			
+fragment	#NOM?	-59.01275574			
+fragment	#NOM?	-60.02112937	[(M+H)-CH3COOH]+	[(M-H)-CH3COOH]-	doublon
+fragment	#NOM?	-29.0265491	[(M+H)-CH3N]+	[(M-H)-CH3N]-	
+fragment	#NOM?	-31.01784112			
+fragment	#NOM?	-32.02621475	[(M+H)-CH3OH]+	[(M-H)-CH3OH]-	
+fragment	0	-16.03130013	[(M+H)-CH4]+	[(M-H)-CH4]-	
+fragment	#NOM?	-30.03382553			
+fragment	#NOM?	-94.00885043	[(M+H)-(CH4S)-(HCOOH)]+	[(M-H)-(CH4S)-(HCOOH)]-	
+fragment	#NOM?	-65.02992022	[(M+H)-(CH4S)-(NH3)]+	[(M-H)-(CH4S)-(NH3)]-	
+fragment	#NOM?	-48.00337113	[(M+H)-CH4S]+	[(M-H)-CH4S]-	
+fragment	#NOM?	-31.04219916	[(M+H)-CH5N]+	[(M-H)-CH5N]-	
+fragment	#NOM?	-34.96830408			
+fragment	#NOM?	-27.99491462	[(M+H)-CO]+	[(M-H)-CO]-	
+fragment	#NOM?	-71.98474386	[(M+H)-(CO2)-(CO)]+	[(M-H)-(CO2)-(CO)]-	
+fragment	0	-43.98982924	[(M+H)-CO2]+	[(M-H)-CO2]-	
+fragment	0	-19.04219916	[(M+H)-(H2)-(NH3)]+	[(M-H)-(H2)-(NH3)]-	
+fragment	0	-2.015650064	[(M+H)-H2]+	[(M-H)-H2]-	
+fragment	#NOM?	-62.00039392	[(M+H)-(H2O)-(CO2)]+	[(M-H)-(H2O)-(CO2)]-	
 fragment	 -(H2O)-(HCOOH)	-64.01604399	[(M+H)-(HCOOH)]+	[(M-H)-(H2O)-(HCOOH)]-	
-fragment	-(H2O)-(NH3)	-35.03711378	[(M+H)-(H2O)-(NH3)]+	[(M-H)-(H2O)-(NH3)]-	
-fragment	-(H2O)	-18.01056468	[(M+H)-(H2O)]+	[(M-H)-(H2O)]-	
+fragment	#NOM?	-35.03711378	[(M+H)-(H2O)-(NH3)]+	[(M-H)-(H2O)-(NH3)]-	
+fragment	#NOM?	-18.01056468	[(M+H)-(H2O)]+	[(M-H)-(H2O)]-	
 fragment	-(H2O)-2(CO2)	-105.9902232	[(M+H)-(H2O)-2(C2O)]+	[(M-H)-(H2O)-2(C2O)]-	
-fragment	-(H2S)-(H2O)	-51.99828575	[(M+H)-(H2S)-(H2O)]+	[(M-H)-(H2S)-(H2O)]-	
-fragment	-(H2S)	-33.98772106	[(M+H)-H2S]+	[(M-H)-H2S]-	
-fragment	-(H2SO4)	-97.96737954	[(M+H)-H2SO4]+	[(M-H)-H2SO4]-	selon Publi -79,9568 en NEG (-SO3)
-fragment	-(H3PO4)	-97.97689521	[(M+H)-H3PO4]+	[(M-H)-H3PO4]-	Dephosphorylation selon publi -78,9585 en neg (PO3) et selon tableau PPT -79,9663 en neg (HPO3)
-fragment	-(HCl)	-35.97667771	[(M+H)-HCl]+	[(M-H)-HCl]-	
-fragment	-(HCN)	-27.01089903	[(M+H)-HCN]+	[(M-H)-HCN]-	
-fragment	-(HCOOH)-(HCN)	-73.01637834	[(M+H)-(HCOOH)-(HCN)]+	[(M-H)-(HCOOH)-(HCN)]-	
-fragment	-(HCOOH)	-46.0054793	[(M+H)-HCOOH]+	[(M-H)-HCOOH]-	
-fragment	-(HS.)	-32.97934743			
-fragment	-(NC3H9)-(CH3COOH)	-119.0946287	[(M+H)-(NC3H9)-(CH3COOH)]+	[(M-H)-(NC3H9)-(CH3COOH)]-	
-fragment	-(NC3H9)-(H2O)	-77.08406397	[(M+H)-(NC3H9)-(H2O)]+	[(M-H)-(NC3H9)-(H2O)]-	
-fragment	-(NC3H9)-(HCOOH)	-105.0789786	[(M+H)-(NC3H9)-(HCOOH)]+	[(M-H)-(NC3H9)-(HCOOH)]-	
-fragment	-(NC3H9)	-59.07349929	[(M+H)-N(CH3)3]+	[(M-H)-N(CH3)3]-	
-fragment	-(NaCl)	-57.95862196	[(M+H-NaCl]+	[(M-H-NaCl]-	adduct et fragment ?
-fragment	-(NH2CO.)	-44.01309008			
-fragment	-(NH3)-(CO2)-(H2O)	-79.02694302	[(M+H)-(NH3)-(CO2)-(H2O)]+	[(M-H)-(NH3)-(CO2)-(H2O)]-	
-fragment	-(NH3)-(CO2)	-61.01637834	[(M+H)-NH3-CO2]+	[(M-H)-NH3-CO2]-	
-fragment	-(NH3)-(CONH)	-60.03236275	[(M+H)-NH3-CONH]+	[(M-H)-NH3-CONH]-	
-fragment	-(NH3)-(HCOOH)	-63.0320284	[(M+H)-(NH3)-(HCOOH)]+	[(M-H)-(NH3)-(HCOOH)]-	
-fragment	-(NH3)	-17.0265491	[(M+H)-NH3]+	[(M-H)-NH3]-   ?	
-fragment	-(NH3CO)	-45.02146372	[(M+H)-NH3CO]+	[(M-H)-NH3CO]-	
-fragment	-(NHCO)	-43.00581365	[(M+H)-NHCO]+	[(M-H)-NHCO]-	
-fragment	-(OH.)	-17.00219105			
-fragment	-(PO3)	-78.95850549		[(M-H)-PO3]-	Dephosphorylation selon publi -97,09769 en pos(H3PO4)
-fragment	-(SO2)	-63.96190024	[(M+H)-SO2]+	[(M-H)-SO2]-	
-fragment	-(SO3)	-79.95681486	[(M+H)-SO3]+	[(M-H)-SO3]-	Selon Publi -97,9674 en POS (-H2SO4)
+fragment	#NOM?	-51.99828575	[(M+H)-(H2S)-(H2O)]+	[(M-H)-(H2S)-(H2O)]-	
+fragment	#NOM?	-33.98772106	[(M+H)-H2S]+	[(M-H)-H2S]-	
+fragment	#NOM?	-97.96737954	[(M+H)-H2SO4]+	[(M-H)-H2SO4]-	selon Publi -79,9568 en NEG (-SO3)
+fragment	#NOM?	-97.97689521	[(M+H)-H3PO4]+	[(M-H)-H3PO4]-	Dephosphorylation selon publi -78,9585 en neg (PO3) et selon tableau PPT -79,9663 en neg (HPO3)
+fragment	#NOM?	-35.97667771	[(M+H)-HCl]+	[(M-H)-HCl]-	
+fragment	#NOM?	-27.01089903	[(M+H)-HCN]+	[(M-H)-HCN]-	
+fragment	#NOM?	-73.01637834	[(M+H)-(HCOOH)-(HCN)]+	[(M-H)-(HCOOH)-(HCN)]-	
+fragment	#NOM?	-46.0054793	[(M+H)-HCOOH]+	[(M-H)-HCOOH]-	
+fragment	#NOM?	-32.97934743			
+fragment	#NOM?	-119.0946287	[(M+H)-(NC3H9)-(CH3COOH)]+	[(M-H)-(NC3H9)-(CH3COOH)]-	
+fragment	#NOM?	-77.08406397	[(M+H)-(NC3H9)-(H2O)]+	[(M-H)-(NC3H9)-(H2O)]-	
+fragment	#NOM?	-105.0789786	[(M+H)-(NC3H9)-(HCOOH)]+	[(M-H)-(NC3H9)-(HCOOH)]-	
+fragment	#NOM?	-59.07349929	[(M+H)-N(CH3)3]+	[(M-H)-N(CH3)3]-	
+fragment	#NOM?	-57.95862196	[(M+H-NaCl]+	[(M-H-NaCl]-	adduct et fragment ?
+fragment	#NOM?	-44.01309008			
+fragment	#NOM?	-79.02694302	[(M+H)-(NH3)-(CO2)-(H2O)]+	[(M-H)-(NH3)-(CO2)-(H2O)]-	
+fragment	0	-61.01637834	[(M+H)-NH3-CO2]+	[(M-H)-NH3-CO2]-	
+fragment	#NOM?	-60.03236275	[(M+H)-NH3-CONH]+	[(M-H)-NH3-CONH]-	
+fragment	#NOM?	-63.0320284	[(M+H)-(NH3)-(HCOOH)]+	[(M-H)-(NH3)-(HCOOH)]-	
+fragment	0	-17.0265491	[(M+H)-NH3]+	[(M-H)-NH3]-   ?	
+fragment	#NOM?	-45.02146372	[(M+H)-NH3CO]+	[(M-H)-NH3CO]-	
+fragment	#NOM?	-43.00581365	[(M+H)-NHCO]+	[(M-H)-NHCO]-	
+fragment	#NOM?	-17.00219105			
+fragment	0	-78.95850549		[(M-H)-PO3]-	Dephosphorylation selon publi -97,09769 en pos(H3PO4)
+fragment	0	-63.96190024	[(M+H)-SO2]+	[(M-H)-SO2]-	
+fragment	0	-79.95681486	[(M+H)-SO3]+	[(M-H)-SO3]-	Selon Publi -97,9674 en POS (-H2SO4)
 fragment	-2(H2O)-(CO2)	-80.01095861	[(M+H)-2(H2O)-(CO2)]+	[(M-H)-2(H2O)-(CO2)]-	
 fragment	-2(H2O)-(HCOOH)-(NH3)	-99.05315777	[(M+H)-2(H2O)-(HCOOH)-(NH3)]+	[(M-H)-2(H2O)-(HCOOH)-(NH3)]-	
 fragment	-2(H2O)-(HCOOH)	-82.02660867	[(M+H)-2(H2O)-(HCOOH)]+	[(M-H)-2(H2O)-(HCOOH)]-	
@@ -215,13 +215,13 @@ fragment	-(C9H12O6N3P)	-289.0463717	[(M+H)-C9H12O6N3P]+	[(M-H)-C9H12O6N3P]-
 fragment	-(C9H13O4N3)	-227.0906059	[(M+H)-C9H13O4N3]+	[(M-H)-C9H13O4N3]-	
 fragment	-(C9H14O7N3P)	-307.0569364	[(M+H)-C9H14O7N3P]+	[(M-H)-C9H14O7N3P]-	
 fragment	-(C9H16O8)	-252.0845175	[(M+H)-C9H16O8]+	[(M-H)-C9H16O8]-	
-fragment	-(CH2N2)	-42.02179806	[(M+H)-CH2N2]+	[(M-H)-CH2N2]-	
-fragment	-(CH2O)-(H2O)	-48.02112937	[(M+H)-(CH2O)-(H2O)]+	[(M-H)-(CH2O)-(H2O)]-	
-fragment	-(CH5NO)	-47.03711378	[(M+H)-CH5NO]+	[(M-H)-CH5NO]-	
-fragment	-(H3PO4)-(CHNO)	-140.9827089	[(M+H)-(H3PO4)-(CHNO)]+	[(M-H)-(H3PO4)-(CHNO)]-	
-fragment	-(H3PO4)-(H2O)	-115.9874599	[(M+H)-(H3PO4)-(H2O)]+	[(M-H)-(H3PO4)-(H2O)]-	
-fragment	-(H3PO4)-(NH3)	-115.0034443	[(M+H)-(H3PO4)-(NH3)]+	[(M-H)-(H3PO4)-(NH3)]-	
-fragment	-(HPO3)	-79.96633052	[(M+H)-HPO3]+	[(M-H)-HPO3]-	correspond au tableau PPT d'Anne-Laure mais pas à la Publi…
+fragment	#NOM?	-42.02179806	[(M+H)-CH2N2]+	[(M-H)-CH2N2]-	
+fragment	#NOM?	-48.02112937	[(M+H)-(CH2O)-(H2O)]+	[(M-H)-(CH2O)-(H2O)]-	
+fragment	#NOM?	-47.03711378	[(M+H)-CH5NO]+	[(M-H)-CH5NO]-	
+fragment	#NOM?	-140.9827089	[(M+H)-(H3PO4)-(CHNO)]+	[(M-H)-(H3PO4)-(CHNO)]-	
+fragment	#NOM?	-115.9874599	[(M+H)-(H3PO4)-(H2O)]+	[(M-H)-(H3PO4)-(H2O)]-	
+fragment	#NOM?	-115.0034443	[(M+H)-(H3PO4)-(NH3)]+	[(M-H)-(H3PO4)-(NH3)]-	
+fragment	0	-79.96633052	[(M+H)-HPO3]+	[(M-H)-HPO3]-	correspond au tableau PPT d'Anne-Laure mais pas à la Publi…
 adduct	Na+CH3CN	63.0085	[M+Na+CH3CN]+		
 adduct	NH3	17.0265	[M+NH4]+	?	
 adduct	Li	6.0082	[M+Li]+		

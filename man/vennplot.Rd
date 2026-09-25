@@ -48,7 +48,7 @@ Venn diagram with VennDiagram
 }
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-sacurine.se <- correcting(sacurine.se, figure.c = 'none')
+sacurine.se <- correcting(sacurine.se, figure.c = "none")
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
 sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
@@ -56,8 +56,12 @@ sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
 sacurine.se <- hypotesting(sacurine.se, "ttest", "gender")
 # Wilcoxon T test
 sacurine.se <- hypotesting(sacurine.se, "wilcoxon", "gender")
-signif.ls <- list(ttest = which(rowData(sacurine.se)[, "ttest_gender_Female.Male_signif"] > 0),
-wilcoxon =  which(rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_signif"] > 0))
-vennplot(signif.ls, label_col.c = "black",
-title.c = "Signif. features\nwith Student or Wilcoxon tests")
+signif.ls <- list(
+  ttest = which(rowData(sacurine.se)[, "ttest_gender_Female.Male_signif"] > 0),
+  wilcoxon = which(rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_signif"] > 0)
+)
+vennplot(signif.ls,
+  label_col.c = "black",
+  title.c = "Signif. features\nwith Student or Wilcoxon tests"
+)
 }

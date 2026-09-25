@@ -78,10 +78,7 @@ and `MultiAssayExperiment` objects with either modified assay matrices
 `colData` with new columns (e.g. fold changes and *p*-values when using
 the `hypotesting` method).
 
-Note that the `phenomis` package also supports the `ExpressionSet`
-(respectively, `MultiDataSet`) formats, which are previous
-(respectively, alternative) formats for the management of single
-(respectively, multiple) datasets.
+Note: the phenomis methods for `ExpressionSet` and `MultiDataSet` are deprecated and have been removed from the package.
 
 ### Importing from/exporting to tabular files
 
@@ -163,7 +160,7 @@ or 2):
 
 -   Normalization by the sample osmolality
 
--   **`transforming`**: log10 transformation
+-   **`transforming`**: log2 transformation
 
 -   **`inspecting`**: Computing metrics to filter out outlier samples
     according to the Weighted Hotellings'T2 distance
@@ -350,7 +347,7 @@ to perform Probabilistic Quotient Normalization
 ### **`transforming`**: transforming the data intensities
 
 ```{r transforming}
-sacurine.se <- transforming(sacurine.se, method.vc = "log10")
+sacurine.se <- transforming(sacurine.se, method.vc = "log2")
 ```
 
 ### Sample filtering
@@ -377,12 +374,38 @@ but also the limma test), analysis of variance (for one and two factors)
 and Kruskal-Wallis rank test, and correlation tests (by using either the
 pearson or the spearman correlation).
 
-```{r hypotesting, warning=FALSE}
+Note that the `transforming` method needs to be applied before `hypotesting` as the transformation impacts the computation of the fold change which will be returned in the object and displayed as the abscissa of the Volcano Plot:
+
+- When no transformation was selected (`method.vc` argument set to 'none'), the fold change is computed as the ratio between the means (or medians for non-parametric tests) of the two groups:
+
+$$\frac{\frac{1}{n_{B}}\sum_{j\in B}y_j}{\frac{1}{n_{A}}\sum_{i\in A}y_i}$$
+
+where A and B are the levels of the factor in the alphabetical order, unless a specific order is specified with the `factor_levels.ls` argument.
+
+- When a log transformation was selected (either "log2" or "log10"), the "fold change" is in fact the difference betweens the means (or medians) of the log transformed data:
+
+$$\frac{1}{n_{B}}\sum_{j\in B}log_{a}(y_j) - \frac{1}{n_{A}}\sum_{i\in A}log_{a}(y_i)$$
+
+where $a$ is the base of the logarithm used for the transformation (i.e., either 2 or 10). Although this computation does not give the logarithm of the fold change of the means/medians, it gives the difference between the means/medians used in the test and is classically used in proteomics and RNAseq.
+
+
+```{r hypotesting}
 sacurine.se <- hypotesting(sacurine.se,
     test.c = "ttest",
     factor_names.vc = "gender",
     adjust.c = "BH",
     adjust_thresh.n = 0.05,
+    report.c = "none"
+)
+```
+
+Note that the individual boxplots of the significant variables can be visualized by using the `plot_hypotesting` method with the `display_signif.l` argument set to `TRUE` (default):
+
+```{r plot_hypotesting, eval=FALSE}
+plot_hypotesting(sacurine.se,
+    test.c = "ttest",
+    factor.c = "gender",
+    display_signif.l = TRUE,
     report.c = "none"
 )
 ```
@@ -637,7 +660,7 @@ The multi-omics dataset is saved as text files and can be loaded with
 the `reading` function as a `MultiAssayExperiment` (or as a
 `MultiDataSet` with the `output.c = "set"` argument)
 
-```{r pms_read}
+```{r prometis_read}
 prometis.mae <- reading(system.file("extdata/prometis",
     package = "phenomis"
 ))
@@ -649,16 +672,22 @@ Let us have a look at the (common) sample metadata:
 head(colData(prometis.mae))
 ```
 
-We first explore the datasets:
+We apply a log2 transformation:
 
-```{r pms_inspect}
+```{r prometis_transform}
+prometis.mae <- transforming(prometis.mae, method.vc = "log2")
+```
+
+We then explore the datasets:
+
+```{r prometis_inspect}
 prometis.mae <- inspecting(prometis.mae, report.c = "none")
 ```
 
-We then perform univariate hypothesis testing with the `limma` approach
+Next, we perform univariate hypothesis testing with the `limma` approach
 [@Ritchie_LimmaPowersDifferential_2015]:
 
-```{r pms_limma}
+```{r prometis_limma}
 prometis.mae <- hypotesting(prometis.mae, "limma", "gene",
     report.c = "none"
 )
@@ -667,74 +696,25 @@ prometis.mae <- hypotesting(prometis.mae, "limma", "gene",
 As with single omics studies, the `ropls` and `biosigner` can be
 directly applied to `MultiAssayExperiment` for multivariate analysis:
 
-```{r pms_plsda}
+```{r prometis_plsda}
 prometis.mae <- ropls::opls(prometis.mae, "gene")
 ```
 
 and feature selection:
 
-```{r pms_biosign, fig.width = 5, fig.height = 5}
+```{r prometis_biosign, fig.width = 5, fig.height = 5}
 prometis.mae <- biosigner::biosign(prometis.mae, "gene", bootI = 5)
 ```
 
 The final `MultiAssayExperiment` can be exported as text files with:
 
-```{r pms_writing, eval = FALSE}
+```{r prometis_writing, eval = FALSE}
 writing(prometis.mae, dir.c = getwd(), prefix.c = "prometis")
 ```
 
 # Appendix
 
 ## Additional examples of application to single and multiple omics data sets
-
-### CLL data set
-
-The `CLL` package contains the chronic lymphocytic leukemia (CLL) gene
-expression data from 24 samples, that were either classified as
-progressive or stable in regards to disease progression.
-
-We first load the data (which are stored as an `ExpressionSet` object),
-and restrict to the first 1,000 features (to speed up computations):
-
-```{r cll_load}
-data(sCLLex, package = "CLL")
-cll.eset <- sCLLex[seq_len(1000), ]
-```
-
-We explore the data:
-
-```{r cll_inspect, eval = FALSE}
-cll.eset <- inspecting(cll.eset, report.c = "none")
-```
-
-Investigate whether clusters can be observed (we first add the letter
-'p' or 's' in the sample names to indicate the phenotype: p =
-progressive, s = stable):
-
-```{r cll_heatmap, eval = FALSE}
-Biobase::sampleNames(cll.eset) <- paste0(
-    Biobase::sampleNames(cll.eset),
-    "_",
-    substr(Biobase::pData(cll.eset)[, "Disease"], 1, 1)
-)
-
-cll.eset <- clustering(cll.eset)
-```
-
-and perform hypothesis testing with the limma test (the dots must be
-removed from the 'progress.' phenotype):
-
-```{r cll_limma, eval = FALSE}
-Biobase::pData(cll.eset)[, "Disease"] <- gsub(".", "",
-    Biobase::pData(cll.eset)[, "Disease"],
-    fixed = TRUE
-)
-cll.eset <- hypotesting(cll.eset, "limma", "Disease")
-```
-
-All the subsequent multivariate analysis and feature selection steps
-described with the `sacurine` data set can be performed with the
-`cll.eset` accordingly.
 
 ### NCI60_4arrays data set
 
@@ -946,114 +926,6 @@ stopifnot(validObject(nci.mae))
 | **`upsetSamples`**             | Generalized Venn Diagram analog for sample membership                | `upset`                      |
 | [**Exporting**]{.smallcaps}    |                                                                      |                              |
 | **`exportClass`**              | Exporting to flat files                                              | `csv` or `tsv` files         |
-
-### `ExpressionSet`
-
-The `ExpressionSet` format (`Biobase` package) was designed by the
-Bioconductor team as the first format to handle (single) omics data. It
-has now been supplanted by the `SummarizedExperiment` format.
-
-An example of `ExpressionSet` creation and a summary of useful methods
-are provided below. Please refer to ['An introduction to Biobase and
-ExpressionSets'](https://bioconductor.org/packages/release/bioc/vignettes/Biobase/inst/doc/ExpressionSetIntroduction.pdf)
-from the documentation from the
-[`Biobase`](https://doi.org/doi:10.18129/B9.bioc.Biobase) package for a
-full description of `ExpressionSet` objects.
-
-```{r eset_build, message = FALSE, warning = FALSE}
-# Preparing the data (matrix) and sample and variable metadata (data frames):
-data(sacurine, package = "ropls")
-data.mn <- sacurine[["dataMatrix"]] # matrix: samples x variables
-samp.df <- sacurine[["sampleMetadata"]] # data frame: samples x sample metadata
-feat.df <- sacurine[["variableMetadata"]] # data frame: features x feature metadata
-# Creating the ExpressionSet (package Biobase)
-sac.set <- Biobase::ExpressionSet(assayData = t(data.mn))
-Biobase::pData(sac.set) <- samp.df
-Biobase::fData(sac.set) <- feat.df
-stopifnot(validObject(sac.set))
-# Viewing the ExpressionSet
-# ropls::view(sac.set)
-```
-
-| [Methods]{.smallcaps} | [Description]{.smallcaps}                         | [Returned class]{.smallcaps} |
-|------------------|----------------------------------|--------------------|
-| **`exprs`**           | 'variable times samples' numeric matrix           | `matrix`                     |
-| **`pData`**           | sample metadata                                   | `data.frame`                 |
-| **`fData`**           | variable metadata                                 | `data.frame`                 |
-| **`sampleNames`**     | sample names                                      | `character`                  |
-| **`featureNames`**    | variable names                                    | `character`                  |
-| **`dims`**            | 2x1 matrix of 'Features' and 'Samples' dimensions | `matrix`                     |
-| **`varLabels`**       | Column names of the sample metadata data frame    | `character`                  |
-| **`fvarLabels`**      | Column names of the variable metadata data frame  | `character`                  |
-
-### `MultiDataSet`
-
-Loading the `NCI60_4arrays` from the `omicade4` package:
-
-```{r mset_build_load}
-data("NCI60_4arrays", package = "omicade4")
-```
-
-Creating the `MultiDataSet`:
-
-```{r mset_build, message = FALSE, warning=FALSE}
-library(MultiDataSet)
-# Creating the MultiDataSet instance
-nci.mds <- MultiDataSet::createMultiDataSet()
-# Adding the two datasets as ExpressionSet instances
-for (set.c in names(NCI60_4arrays)) {
-    # Getting the data
-    expr.mn <- as.matrix(NCI60_4arrays[[set.c]])
-    pdata.df <- data.frame(
-        row.names = colnames(expr.mn),
-        cancer = substr(colnames(expr.mn), 1, 2),
-        stringsAsFactors = FALSE
-    )
-    fdata.df <- data.frame(
-        row.names = rownames(expr.mn),
-        name = rownames(expr.mn),
-        stringsAsFactors = FALSE
-    )
-    # Building the ExpressionSet
-    eset <- Biobase::ExpressionSet(
-        assayData = expr.mn,
-        phenoData = new("AnnotatedDataFrame",
-            data = pdata.df
-        ),
-        featureData = new("AnnotatedDataFrame",
-            data = fdata.df
-        ),
-        experimentData = new("MIAME",
-            title = set.c
-        )
-    )
-    # Adding to the MultiDataSet
-    nci.mds <- MultiDataSet::add_eset(nci.mds, eset,
-        dataset.type = set.c,
-        GRanges = NA, warnings = FALSE
-    )
-}
-stopifnot(validObject(nci.mds))
-```
-
-| [Methods]{.smallcaps}          | [Description]{.smallcaps}                        | [Returned class]{.smallcaps} |
-|---------------------|-------------------------------|--------------------|
-| [**Constructors**]{.smallcaps} |                                                  |                              |
-| **`createMultiDataSet`**       | Create a MultiDataSet object                     | `MultiDataSet`               |
-| **`add_eset`**                 | Create a MultiAssayExperiment object             | `MultiDataSet`               |
-| [**Subsetting**]{.smallcaps}   |                                                  |                              |
-| **`mset[i, ]`**                | i: character,logical (samples to select)         | `MultiDataSet`               |
-| **`mset[, k]`**                | k: character (names of datasets to select)       | `MultiDataSet`               |
-| **`mset[[k]]`**                | k: character (name of the datast to select)      | `ExpressionSet`              |
-| [**Accessors**]{.smallcaps}    |                                                  |                              |
-| **`as.list`**                  | Get the list of data matrices                    | `list`                       |
-| **`pData`**                    | Get the list of sample metadata                  | `list`                       |
-| **`fData`**                    | Get the list of variable metadata                | `list`                       |
-| **`sampleNames`**              | Get the list of sample names                     | `list`                       |
-| [**Management**]{.smallcaps}   |                                                  |                              |
-| **`commonSamples`**            | Select samples that are present in all datasets  | `MultiDataSet`               |
-| [**Conversion**]{.smallcaps}   |                                                  |                              |
-| **`mds2mae`**                  | Convert a MultiDataSet to a MultiAssayExperiment | `MultiAssayExperiment`       |
 
 ## Restoring the `annotating` method in the phenomis package
 

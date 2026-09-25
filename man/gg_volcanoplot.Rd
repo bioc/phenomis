@@ -17,6 +17,8 @@ gg_volcanoplot(
   signif_shape.vi = c(yes = 16, no = 1),
   class_name.vc = "",
   class_color.vc = "",
+  theme.c = c("default", "bw", "classic", "dark", "gray", "linedraw", "light", "minimal",
+    "void")[2],
   size.ls = list(class.i = 5, lab.i = 16, point.i = 3, tick.i = 14, title.i = 20),
   figure.c = c("interactive", "interactive_plotly", "my_volcanoplot.pdf",
     "my_volcanoplot.html")[2]
@@ -71,23 +73,29 @@ sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
 sacurine.se <- correcting(sacurine.se, figure.c = "none")
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
-sacurine.se <- hypotesting(sacurine.se, test.c = "wilcoxon",
-                                      factor_names.vc = "gender",
-                                      figure.c = "none", report.c = "none")
+sacurine.se <- hypotesting(sacurine.se,
+  test.c = "wilcoxon",
+  factor_names.vc = "gender",
+  figure.c = "none", report.c = "none"
+)
 fold.vn <- rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_diff"]
 fdr.vn <- rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_BH"]
 feat.vc <- rownames(sacurine.se)
 gg_volcanoplot(fold.vn,
-               fdr.vn,
-               label.vc = make.names(feat.vc),
-               adjust_method.c = "BH")
-feat_signif.vc <-  vapply(seq_along(feat.vc),
-                          function(feat.i)
-                           ifelse(fdr.vn[feat.i] <= 0.05, feat.vc[feat.i], ""),
-                           FUN.VALUE = character(1))
+  fdr.vn,
+  label.vc = make.names(feat.vc),
+  adjust_method.c = "BH"
+)
+feat_signif.vc <- vapply(seq_along(feat.vc),
+  function(feat.i) {
+    ifelse(fdr.vn[feat.i] <= 0.05, feat.vc[feat.i], "")
+  },
+  FUN.VALUE = character(1)
+)
 gg_volcanoplot(fold.vn,
-               fdr.vn,
-               label.vc = make.names(feat_signif.vc),
-               adjust_method.c = "BH",
-               figure.c = "interactive")
+  fdr.vn,
+  label.vc = make.names(feat_signif.vc),
+  adjust_method.c = "BH",
+  figure.c = "interactive"
+)
 }

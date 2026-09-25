@@ -16,25 +16,25 @@ transforming(
 
 \S4method{transforming}{MultiAssayExperiment}(
   x,
-  method.vc = c("log2", "log10", "sqrt", "none")[1],
+  method.vc = c("log2", "log10", "none")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
 \S4method{transforming}{SummarizedExperiment}(
   x,
-  method.vc = c("log2", "log10", "sqrt", "none")[1],
+  method.vc = c("log2", "log10", "none")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
 \S4method{transforming}{MultiDataSet}(
   x,
-  method.vc = c("log2", "log10", "sqrt", "none")[1],
+  method.vc = c("log2", "log10", "none")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 
 \S4method{transforming}{ExpressionSet}(
   x,
-  method.vc = c("log2", "log10", "sqrt", "none")[1],
+  method.vc = c("log2", "log10", "none")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 }
@@ -45,7 +45,7 @@ are still supported)}
 
 \item{method.vc}{character of length 1 or the total number of datasets:
 transformation to be used for each dataset (either 'log2',
-'log10', 'sqrt', or 'none')}
+'log10', or 'none')}
 
 \item{report.c}{character(1): File name with '.txt' extension for the printed
 results (call to sink()'); if 'interactive' (default), messages will be

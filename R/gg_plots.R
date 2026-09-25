@@ -31,17 +31,22 @@
 #' @examples
 #' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
 #' dims.mn <- vapply(names(prometis.mae),
-#'                   function(set.c) { dim(prometis.mae[[set.c]])},
-#'                   FUN.VALUE = integer(2))
+#'   function(set.c) {
+#'     dim(prometis.mae[[set.c]])
+#'   },
+#'   FUN.VALUE = integer(2)
+#' )
 #' dims.mn <- t(dims.mn)
 #' colnames(dims.mn) <- c("features", "samples")
-#' gg_barplot(dims.mn, title.c = "ProMetIS data",
-#'            row_levels = c("proteo", "metabo"),
-#'            col_levels = c("samples", "features"),
-#'            ylim.vn = c(NA, 110),
-#'            bar_just = -0.25,
-#'            cex_bar.i = 6,
-#'            cex_title.i = 15)
+#' gg_barplot(dims.mn,
+#'   title.c = "ProMetIS data",
+#'   row_levels = c("proteo", "metabo"),
+#'   col_levels = c("samples", "features"),
+#'   ylim.vn = c(NA, 110),
+#'   bar_just = -0.25,
+#'   cex_bar.i = 6,
+#'   cex_title.i = 15
+#' )
 gg_barplot <- function(data.mn,
                        log10.l = FALSE,
                        ylim.vn = c(NA, NA),
@@ -51,34 +56,41 @@ gg_barplot <- function(data.mn,
                        row_levels.vc = NA,
                        col_levels.vc = NA,
                        palette.vc = "Set1",
-                       theme.c = c("default",
-                                   "bw",
-                                   "classic",
-                                   "dark",
-                                   "gray",
-                                   "linedraw",
-                                   "light",
-                                   "minimal",
-                                   "void")[3],
+                       theme.c = c(
+                         "default",
+                         "bw",
+                         "classic",
+                         "dark",
+                         "gray",
+                         "linedraw",
+                         "light",
+                         "minimal",
+                         "void"
+                       )[2],
                        flip.l = FALSE,
-                       legend_position.c = c("none",
-                                             "bottom",
-                                             "left",
-                                             "top",
-                                             "right")[2],
+                       legend_position.c = c(
+                         "none",
+                         "bottom",
+                         "left",
+                         "top",
+                         "right"
+                       )[2],
                        cex_axis.i = 18,
                        cex_bar.i = 10,
                        cex_title.i = 28,
                        bar_just.n = 0.9,
-                       figure.c = c("interactive",
-                                    "my_barplot.pdf",
-                                    "none")[1]) {
-
+                       figure.c = c(
+                         "interactive",
+                         "my_barplot.pdf",
+                         "none"
+                       )[1]) {
   data.df <- as.data.frame(data.mn)
   data.df[, "rownames"] <- rownames(data.df)
 
-  longer.tib <- tidyr::pivot_longer(data.df,
-                                    colnames(data.df)[colnames(data.df) != "rownames"])
+  longer.tib <- tidyr::pivot_longer(
+    data.df,
+    colnames(data.df)[colnames(data.df) != "rownames"]
+  )
 
   if (length(row_levels.vc) > 1) {
     stopifnot(all(row_levels.vc %in% rownames(data.mn)))
@@ -91,26 +103,28 @@ gg_barplot <- function(data.mn,
   }
 
   p <- .gg_barplot(longer.tib,
-                   x.c = "rownames",
-                   y.c = "value",
-                   color.c = "name",
-                   log10.l = log10.l,
-                   ylim.vn = ylim.vn,
-                   title.c = title.c,
-                   xlab.c = xlab.c,
-                   ylab.c = ylab.c,
-                   palette.vc = palette.vc,
-                   theme.c = theme.c,
-                   flip.l = flip.l,
-                   legend_position.c = legend_position.c,
-                   geom_text.ls = list(axis.i = cex_axis.i,
-                                       bar.i = cex_bar.i,
-                                       bar_just.n = bar_just.n,
-                                       title.i = cex_title.i),
-                   figure.c = figure.c)
+    x.c = "rownames",
+    y.c = "value",
+    color.c = "name",
+    log10.l = log10.l,
+    ylim.vn = ylim.vn,
+    title.c = title.c,
+    xlab.c = xlab.c,
+    ylab.c = ylab.c,
+    palette.vc = palette.vc,
+    theme.c = theme.c,
+    flip.l = flip.l,
+    legend_position.c = legend_position.c,
+    geom_text.ls = list(
+      axis.i = cex_axis.i,
+      bar.i = cex_bar.i,
+      bar_just.n = bar_just.n,
+      title.i = cex_title.i
+    ),
+    figure.c = figure.c
+  )
 
   return(invisible(p))
-
 }
 
 
@@ -126,127 +140,162 @@ gg_barplot <- function(data.mn,
                         palette.vc = "Set1",
                         theme.c = "default",
                         flip.l = FALSE,
-                        legend_position.c = c("none",
-                                              "bottom",
-                                              "left",
-                                              "top",
-                                              "right")[2],
-                        geom_text.ls = list(axis.i = 18, bar.i = 10,
-                                            bar_just.n = 1.5, title.i = 28),
-                        figure.c = c("interactive",
-                                     "my_barplot.pdf",
-                                     "none")[1],
+                        legend_position.c = c(
+                          "none",
+                          "bottom",
+                          "left",
+                          "top",
+                          "right"
+                        )[2],
+                        geom_text.ls = list(
+                          axis.i = 18, bar.i = 10,
+                          bar_just.n = 1.5, title.i = 28
+                        ),
+                        figure.c = c(
+                          "interactive",
+                          "my_barplot.pdf",
+                          "none"
+                        )[1],
                         position_dodge.l = TRUE) {
   # http://www.sthda.com/french/wiki/ggplot2-barplots-guide-de-demarrage-rapide-logiciel-r-et-visualisation-de-donnees
 
-  if (!tibble::is_tibble(data.tb))
+  if (!tibble::is_tibble(data.tb)) {
     data.tb <- tibble::as_tibble(data.tb)
-
-  geom_text_default.vn <- c(axis.i = 18, bar.i = 10,
-                            bar_just.n = 1.5, title.i = 28)
-  for (geom_text.c in names(geom_text_default.vn)) {
-    if (!(geom_text.c %in% names(geom_text.ls)))
-      geom_text.ls[[geom_text.c]] <- geom_text_default.vn[geom_text.c]
   }
 
-  filename_ext.c <-  utils::tail(unlist(strsplit(basename(figure.c),
-                                                 ".", fixed = TRUE)), 1)
+  geom_text_default.vn <- c(
+    axis.i = 18, bar.i = 10,
+    bar_just.n = 1.5, title.i = 28
+  )
+  for (geom_text.c in names(geom_text_default.vn)) {
+    if (!(geom_text.c %in% names(geom_text.ls))) {
+      geom_text.ls[[geom_text.c]] <- geom_text_default.vn[geom_text.c]
+    }
+  }
 
-  if (!is.factor(data.tb[[x.c]]))
+  filename_ext.c <- utils::tail(unlist(strsplit(basename(figure.c),
+    ".",
+    fixed = TRUE
+  )), 1)
+
+  if (!is.factor(data.tb[[x.c]])) {
     data.tb[[x.c]] <- factor(data.tb[[x.c]], levels = unique(data.tb[[x.c]]))
+  }
 
-  if (color.c != "" && !is.factor(data.tb[[color.c]]))
+  if (color.c != "" && !is.factor(data.tb[[color.c]])) {
     data.tb[[color.c]] <- factor(data.tb[[color.c]],
-                                 levels = unique(data.tb[[color.c]]))
+      levels = unique(data.tb[[color.c]])
+    )
+  }
 
   if (flip.l) {
-
     data.tb[[x.c]] <- factor(data.tb[[x.c]],
-                             levels = rev(levels(data.tb[[x.c]])))
+      levels = rev(levels(data.tb[[x.c]]))
+    )
 
-    if (color.c != "")
+    if (color.c != "") {
       data.tb[[color.c]] <- factor(data.tb[[color.c]],
-                                   levels = rev(levels(data.tb[[color.c]])))
-
+        levels = rev(levels(data.tb[[color.c]]))
+      )
+    }
   }
 
-  aes.c <- paste0("ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
-                  x.c, ", y = ", y.c, ", fill = ", color.c, "))")
+  aes.c <- paste0(
+    "ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
+    x.c, ", y = ", y.c, ", fill = ", color.c, "))"
+  )
 
   p <- eval(parse(text = aes.c))
 
   # log10 scale
 
-  if(log10.l) {
+  if (log10.l) {
     p <- p + ggplot2::scale_y_log10(limits = ylim.vn)
   } else if (any(!is.na(ylim.vn))) {
-    p <- p + eval(parse(text = paste0("ggplot2::ylim(",
-                                      ylim.vn[1], ", ",
-                                      ylim.vn[2], ")")))
+    p <- p + eval(parse(text = paste0(
+      "ggplot2::ylim(",
+      ylim.vn[1], ", ",
+      ylim.vn[2], ")"
+    )))
   }
 
   # theme
 
-  if (theme.c != "default")
+  if (theme.c != "default") {
     p <- p + eval(parse(text = paste0("ggplot2::theme_", theme.c, "()")))
+  }
 
   # color palette
   if (length(palette.vc) == 1 &&
-      palette.vc %in% rownames(RColorBrewer::brewer.pal.info)) {
+    palette.vc %in% rownames(RColorBrewer::brewer.pal.info)) {
     p <- p + ggplot2::scale_fill_brewer(palette = palette.vc)
-  } else
+  } else {
     p <- p + ggplot2::scale_fill_manual(values = palette.vc)
+  }
 
   # parallel bars in case of paired statistics
   if (position_dodge.l) {
-    p <- p + ggplot2::geom_bar(stat = "identity",
-                               position = ggplot2::position_dodge())
-  } else
+    p <- p + ggplot2::geom_bar(
+      stat = "identity",
+      position = ggplot2::position_dodge()
+    )
+  } else {
     p <- p + ggplot2::geom_bar(stat = "identity")
+  }
 
   # numbers super-imposed on the bars
   p <- p +
-    eval(parse(text = paste0("ggplot2::geom_text(ggplot2::aes(label = ",
-                             y.c,
-                             "), ",
-                             ifelse(flip.l, "h", "v"),
-                             "just = ",
-                             geom_text.ls[['bar_just.n']], ", fontface = 'bold',
+    eval(parse(text = paste0(
+      "ggplot2::geom_text(ggplot2::aes(label = ",
+      y.c,
+      "), ",
+      ifelse(flip.l, "h", "v"),
+      "just = ",
+      geom_text.ls[["bar_just.n"]], ", fontface = 'bold',
                                position = ggplot2::position_dodge(0.9),
                                size = ",
-                             geom_text.ls[['bar.i']], ")")))
+      geom_text.ls[["bar.i"]], ")"
+    )))
 
   p <- p +
     ggplot2::labs(title = title.c, x = xlab.c, y = ylab.c) +
-    ggplot2::theme(legend.position = legend_position.c,
-                   legend.text = ggplot2::element_text(size = geom_text.ls[['axis.i']],
-                                                       face = "bold"),
-                   legend.title = ggplot2::element_blank(),
-                   axis.text = ggplot2::element_text(size = geom_text.ls[['axis.i']],
-                                                     face = "bold"),
-                   plot.title = ggplot2::element_text(size = geom_text.ls[['title.i']],
-                                                      face = "bold"))
+    ggplot2::theme(
+      legend.position = legend_position.c,
+      legend.text = ggplot2::element_text(
+        size = geom_text.ls[["axis.i"]],
+        face = "bold"
+      ),
+      legend.title = ggplot2::element_blank(),
+      axis.text = ggplot2::element_text(
+        size = geom_text.ls[["axis.i"]],
+        face = "bold"
+      ),
+      plot.title = ggplot2::element_text(
+        size = geom_text.ls[["title.i"]],
+        face = "bold"
+      )
+    )
 
   if (flip.l) {
     p <- p + ggplot2::coord_flip()
-    if (color.c != "")
+    if (color.c != "") {
       p <- p + ggplot2::guides(fill = ggplot2::guide_legend(reverse = TRUE))
+    }
   }
 
   if (filename_ext.c != "none") {
-
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::pdf(figure.c)
+    }
 
     show(p)
 
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::dev.off()
-
+    }
   }
 
   return(invisible(p))
-
 }
 
 
@@ -272,8 +321,7 @@ gg_barplot <- function(data.mn,
 #' (default is 16), ticks (14) and title (20)
 #' @param figure.c Character: either 'interactive' for interactive display or
 #' 'my_barplot.pdf' for figure saving (only the extension matters)
-#' @return character vector of outlier labels (same dimension as the number of
-#' rows from data.tb)
+#' @return gg plot
 #' @export
 #' @examples
 #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
@@ -281,8 +329,10 @@ gg_barplot <- function(data.mn,
 #' sacurine_pda.df <- sacurine_pda.df[!grepl("QC", rownames(sacurine_pda.df)), ]
 #' gg_boxplot(sacurine_pda.df, y.c = "age")
 #' gg_boxplot(sacurine_pda.df, x.c = "gender", y.c = "bmi", color.c = "gender")
-#' gg_boxplot(sacurine_pda.df, x.c = "gender", y.c = "bmi", color.c = "gender",
-#' label.vc = rownames(sacurine_pda.df))
+#' gg_boxplot(sacurine_pda.df,
+#'   x.c = "gender", y.c = "bmi", color.c = "gender",
+#'   label.vc = rownames(sacurine_pda.df)
+#' )
 gg_boxplot <- function(data.tb,
                        x.c = "",
                        y.c = "",
@@ -292,41 +342,53 @@ gg_boxplot <- function(data.tb,
                        ylab.c = "",
                        label.vc = "",
                        palette.vc = "Set1",
-                       theme.c = c("default",
-                                   "bw",
-                                   "classic",
-                                   "dark",
-                                   "gray",
-                                   "linedraw",
-                                   "light",
-                                   "minimal",
-                                   "void")[3],
-                       size.ls = list(dot.n = 0.7,
-                                      lab.i = 20,
-                                      tick.i = 20,
-                                      title.i = 20),
-                       figure.c = c("interactive",
-                                    "my_boxplot.pdf")[1]) {
+                       theme.c = c(
+                         "default",
+                         "bw",
+                         "classic",
+                         "dark",
+                         "gray",
+                         "linedraw",
+                         "light",
+                         "minimal",
+                         "void"
+                       )[2],
+                       size.ls = list(
+                         dot.n = 0.7,
+                         lab.i = 20,
+                         tick.i = 20,
+                         title.i = 20
+                       ),
+                       figure.c = c(
+                         "interactive",
+                         "my_boxplot.pdf"
+                       )[1]) {
   # http://www.sthda.com/french/wiki/ggplot2-box-plot-guide-de-demarrage-rapide-logiciel-r-et-visualisation-de-donnees
 
   stopifnot(is.numeric(data.tb[[y.c]]))
 
-  size_default.vi <- c(class.i = 5, dot.n = 0.7, lab.i = 16, point.i = 3,
-                       tick.i = 14, title.i = 20)
+  size_default.vi <- c(
+    class.i = 5, dot.n = 0.7, lab.i = 16, point.i = 3,
+    tick.i = 14, title.i = 20
+  )
 
   for (size.c in names(size_default.vi)) {
-    if (!(size.c %in% names(size.ls)))
+    if (!(size.c %in% names(size.ls))) {
       size.ls[[size.c]] <- size_default.vi[size.c]
+    }
   }
 
-  filename_ext.c <-  utils::tail(unlist(strsplit(basename(figure.c), ".",
-                                                 fixed = TRUE)), 1)
+  filename_ext.c <- utils::tail(unlist(strsplit(basename(figure.c), ".",
+    fixed = TRUE
+  )), 1)
 
-  if (is.na(xlab.c))
+  if (is.na(xlab.c)) {
     xlab.c <- ifelse(x.c == "", y.c, "")
+  }
 
-  if (is.na(title.c))
+  if (is.na(title.c)) {
     title.c <- ifelse(x.c == "", "", y.c)
+  }
 
   # labels (for outliers)
 
@@ -334,29 +396,37 @@ gg_boxplot <- function(data.tb,
     if (label.vc != "") {
       stopifnot(label.vc %in% colnames(data.tb))
       label.vc <- as.character(data.tb[[label.vc]])
-    } else
+    } else {
       label.vc <- as.character(data.tb[[y.c]])
+    }
   } else {
     stopifnot(length(label.vc) == nrow(data.tb))
   }
 
   # color palette
 
-  if (color.c != "" && !is.factor(data.tb[[color.c]]))
+  if (color.c != "" && !is.factor(data.tb[[color.c]])) {
     data.tb[[color.c]] <- factor(data.tb[[color.c]],
-                                 levels = unique(data.tb[[color.c]]))
+      levels = unique(data.tb[[color.c]])
+    )
+  }
 
   stopifnot(x.c == "" || x.c %in% colnames(data.tb))
   stopifnot(y.c %in% colnames(data.tb))
   if (color.c != "") {
     stopifnot(color.c %in% colnames(data.tb))
-    aes.c <- paste0("ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
-                    ifelse(x.c == "", "''", x.c),
-                    ", y = ", y.c,
-                    ", color = ", color.c, "))")
-  } else
-    aes.c <- paste0("ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
-                    ifelse(x.c == "", "''", x.c), ", y = ", y.c, "))")
+    aes.c <- paste0(
+      "ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
+      ifelse(x.c == "", "''", x.c),
+      ", y = ", y.c,
+      ", color = ", color.c, "))"
+    )
+  } else {
+    aes.c <- paste0(
+      "ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
+      ifelse(x.c == "", "''", x.c), ", y = ", y.c, "))"
+    )
+  }
 
   p <- eval(parse(text = aes.c))
 
@@ -365,8 +435,9 @@ gg_boxplot <- function(data.tb,
 
   # theme
 
-  if (theme.c != "default")
+  if (theme.c != "default") {
     p <- p + eval(parse(text = paste0("ggplot2::theme_", theme.c, "()")))
+  }
 
   # outlier
 
@@ -385,51 +456,253 @@ gg_boxplot <- function(data.tb,
     x.vuc <- unique(x.vc)
     for (x.uc in x.vuc) {
       index.vi <- which(x.vc == x.uc)
-      outlier.vi <- c(outlier.vi, is_outlier(data.tb[[y.c]][index.vi],
-                                             as.character(index.vi)))
+      outlier.vi <- c(outlier.vi, is_outlier(
+        data.tb[[y.c]][index.vi],
+        as.character(index.vi)
+      ))
     }
   }
 
   outlier.vc <- character(nrow(data.tb))
   outlier.vc[outlier.vi] <- label.vc[outlier.vi]
 
-  p <- p + eval(parse(text = paste0("ggrepel::geom_text_repel(ggplot2::aes(x = ",
-                                    ifelse(x.c == "", "''", x.c),
-                                    ", y = ", y.c, ", label = outlier.vc))")))
+  p <- p + eval(parse(text = paste0(
+    "ggrepel::geom_text_repel(ggplot2::aes(x = ",
+    ifelse(x.c == "", "''", x.c),
+    ", y = ", y.c, ", label = outlier.vc), max.overlaps = Inf)"
+  )))
 
   if (length(palette.vc) == 1 &&
-      palette.vc %in% rownames(RColorBrewer::brewer.pal.info))
+    palette.vc %in% rownames(RColorBrewer::brewer.pal.info)) {
     p <- p + ggplot2::scale_color_brewer(palette = palette.vc)
-  else {
+  } else {
     p <- p + ggplot2::scale_color_manual(values = palette.vc)
   }
 
   p <- p +
-    ggplot2::labs(title = title.c,
-                  x = xlab.c, y = ylab.c) +
-    ggplot2::geom_dotplot(binaxis = "y", stackdir = "center",
-                          dotsize = size.ls[["dot.n"]]) +
-    ggplot2::theme(plot.title = ggplot2::element_text(size = size.ls[["title.i"]],
-                                                      face = "bold"),
-                   axis.title.x = ggplot2::element_text(size = size.ls[["lab.i"]],
-                                                        face = "bold"),
-                   axis.title.y = ggplot2::element_text(size = size.ls[["lab.i"]],
-                                                        face = "bold"),
-                   axis.text = ggplot2::element_text(size = size.ls[["tick.i"]]),
-                   legend.title = ggplot2::element_blank(),
-                   legend.position = "none")
+    ggplot2::labs(
+      title = title.c,
+      x = xlab.c, y = ylab.c
+    ) +
+    ggplot2::geom_dotplot(
+      binaxis = "y", stackdir = "center",
+      dotsize = size.ls[["dot.n"]],
+      binwidth = diff(range(data.tb[, y.c])) / 30
+    ) +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(
+        size = size.ls[["title.i"]],
+        face = "bold"
+      ),
+      axis.title.x = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.title.y = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.text = ggplot2::element_text(size = size.ls[["tick.i"]]),
+      legend.title = ggplot2::element_blank(),
+      legend.position = "none"
+    )
 
-  if (filename_ext.c == "pdf")
+  if (filename_ext.c == "pdf") {
     grDevices::pdf(figure.c)
+  }
 
   show(p)
 
-  if (filename_ext.c == "pdf")
+  if (filename_ext.c == "pdf") {
     grDevices::dev.off()
+  }
 
   # return(invisible(outlier.vc))
   return(invisible(p))
+}
 
+#' Regression plot with ggplot2
+#'
+#' Regression plot with ggplot2
+#'
+#' @param data.tb Data frame (or tibble) containing the information
+#' @param x.c Character: name of the column from the indepedent variable
+#' @param y.c Character: name of the column from the dependent variable
+#' @param color.c Character: optional name of the column for color information
+#' @param title.c Character: plot title
+#' @param xlab.c Character: x label
+#' @param ylab.c Character: y label
+#' @param label.vc Character (vector): either the name of a character column
+#' from the data or a character vector of the same length as the rown number of
+#' the data, containing the feature labeling for outlier display
+#' @param palette.vc Character: either the name of an RColorBrewer palette
+#' (default: 'Set1'; 'Paired' can be useful for parallel plotting) or a vector
+#' manually defining the colors
+#' @param theme.c character(1): name of the ggplot theme
+#' @param size.ls List of sizes for dots (default is 0.7), labels
+#' (default is 16), ticks (14) and title (20)
+#' @param figure.c Character: either 'interactive' for interactive display or
+#' 'my_corplot.pdf' for figure saving (only the extension matters)
+#' @return gg plot
+#' @export
+#' @examples
+#' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
+#' age.vn <- colData(sacurine.se)[, "age"]
+#' tryptophan.vn <- assay(sacurine.se)["Tryptophan", ]
+#' gg_corplot(data.frame(independent = age.vn, dependent = tryptophan.vn),
+#'   x.c = "independent",
+#'   y.c = "dependent",
+#'   xlab.c = "age",
+#'   ylab.c = "intensity",
+#'   title.c = "Tryptophan"
+#' )
+gg_corplot <- function(data.tb,
+                       x.c = "",
+                       y.c = "",
+                       color.c = "",
+                       title.c = NA_character_,
+                       xlab.c = NA_character_,
+                       ylab.c = NA_character_,
+                       label.vc = "",
+                       theme.c = c(
+                         "default",
+                         "bw",
+                         "classic",
+                         "dark",
+                         "gray",
+                         "linedraw",
+                         "light",
+                         "minimal",
+                         "void"
+                       )[2],
+                       size.ls = list(
+                         dot.n = 0.7,
+                         lab.i = 20,
+                         tick.i = 20,
+                         title.i = 20
+                       ),
+                       figure.c = c(
+                         "interactive",
+                         "my_corplot.pdf"
+                       )[1]) {
+  stopifnot(is.numeric(data.tb[[x.c]]))
+  stopifnot(is.numeric(data.tb[[y.c]]))
+
+  # computing the linear regression
+  mod <- stats::lm(data.tb[[y.c]] ~ data.tb[[x.c]])
+
+  size_default.vi <- c(
+    class.i = 5, dot.n = 0.7, lab.i = 16, point.i = 3,
+    tick.i = 14, title.i = 20
+  )
+
+  for (size.c in names(size_default.vi)) {
+    if (!(size.c %in% names(size.ls))) {
+      size.ls[[size.c]] <- size_default.vi[size.c]
+    }
+  }
+
+  filename_ext.c <- utils::tail(unlist(strsplit(basename(figure.c), ".",
+    fixed = TRUE
+  )), 1)
+
+  if (is.na(xlab.c)) {
+    xlab.c <- x.c
+  }
+
+  if (is.na(ylab.c)) {
+    ylab.c <- y.c
+  }
+
+  if (is.na(title.c)) {
+    title.c <- "Linear regression"
+  }
+  title.c <- paste0(
+    title.c, ", R2 = ", signif(summary(mod)$r.squared, 2)
+  )
+
+  # labels
+
+  if (length(label.vc) == 1) {
+    if (label.vc != "") {
+      stopifnot(label.vc %in% colnames(data.tb))
+      label.vc <- as.character(data.tb[[label.vc]])
+    } else {
+      label.vc <- as.character(data.tb[[y.c]])
+    }
+  } else {
+    stopifnot(length(label.vc) == nrow(data.tb))
+  }
+
+  # color palette
+
+  stopifnot(x.c %in% colnames(data.tb))
+  stopifnot(y.c %in% colnames(data.tb))
+  if (color.c != "") {
+    stopifnot(color.c %in% colnames(data.tb))
+    if (!is.factor(data.tb[[color.c]])) {
+      data.tb[[color.c]] <- factor(data.tb[[color.c]],
+        levels = unique(data.tb[[color.c]])
+      )
+    }
+    aes.c <- paste0(
+      "ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
+      ifelse(x.c == "", "''", x.c),
+      ", y = ", y.c,
+      ", color = ", color.c, "))"
+    )
+  } else {
+    aes.c <- paste0(
+      "ggplot2::ggplot(data.tb, ggplot2::aes(x = ",
+      ifelse(x.c == "", "''", x.c), ", y = ", y.c, "))"
+    )
+  }
+
+  p <- eval(parse(text = aes.c))
+
+  p <- p + ggplot2::geom_point() +
+    ggplot2::geom_smooth(method = "lm", se = FALSE, color = "blue", formula = y ~ x)
+
+  # theme
+
+  if (theme.c != "default") {
+    p <- p + eval(parse(text = paste0("ggplot2::theme_", theme.c, "()")))
+  }
+
+  p <- p +
+    ggplot2::labs(
+      title = title.c,
+      x = xlab.c, y = ylab.c
+    ) +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(
+        size = size.ls[["title.i"]],
+        face = "bold"
+      ),
+      axis.title.x = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.title.y = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.text = ggplot2::element_text(size = size.ls[["tick.i"]]),
+      legend.title = ggplot2::element_blank(),
+      legend.position = "none"
+    )
+
+  if (filename_ext.c == "pdf") {
+    grDevices::pdf(figure.c)
+  }
+
+  show(p)
+
+  if (filename_ext.c == "pdf") {
+    grDevices::dev.off()
+  }
+
+  return(invisible(p))
 }
 
 
@@ -468,72 +741,91 @@ gg_pie <- function(data.tb,
                    title.c = "",
                    palette.vc = "Set1",
                    label.c = c("none", "value", "percent")[1],
-                   geom_text.ls = list(lab.i = 7,
-                                       legend_title.i = 16,
-                                       legend_text.i = 14,
-                                       title.i = 16),
-                   figure.c = c("interactive",
-                                "my_pie.pdf",
-                                "none")[1]) {
-
-  if (!tibble::is_tibble(data.tb))
+                   geom_text.ls = list(
+                     lab.i = 7,
+                     legend_title.i = 16,
+                     legend_text.i = 14,
+                     title.i = 16
+                   ),
+                   figure.c = c(
+                     "interactive",
+                     "my_pie.pdf",
+                     "none"
+                   )[1]) {
+  if (!tibble::is_tibble(data.tb)) {
     data.tb <- tibble::as_tibble(data.tb)
-
-  geom_text_default.vn <- c(lab.i = 7,
-                            legend_title.i = 16,
-                            legend_text.i = 14,
-                            title.i = 16)
-  for (geom_text.c in names(geom_text_default.vn)) {
-    if (!(geom_text.c %in% names(geom_text.ls)))
-      geom_text.ls[[geom_text.c]] <- geom_text_default.vn[geom_text.c]
   }
 
-  filename_ext.c <-  utils::tail(unlist(strsplit(basename(figure.c),
-                                                 ".", fixed = TRUE)), 1)
+  geom_text_default.vn <- c(
+    lab.i = 7,
+    legend_title.i = 16,
+    legend_text.i = 14,
+    title.i = 16
+  )
+  for (geom_text.c in names(geom_text_default.vn)) {
+    if (!(geom_text.c %in% names(geom_text.ls))) {
+      geom_text.ls[[geom_text.c]] <- geom_text_default.vn[geom_text.c]
+    }
+  }
+
+  filename_ext.c <- utils::tail(unlist(strsplit(basename(figure.c),
+    ".",
+    fixed = TRUE
+  )), 1)
 
   if (color.c == "") {
-    if (y.c == "")
+    if (y.c == "") {
       stop("When color.c is '', y.c must be specified.", call. = FALSE)
+    }
     y.fc <- data.tb[[y.c]]
     if (!is.factor(y.fc)) {
       if (is.character(y.fc)) {
         y.fc <- factor(y.fc)
-      } else
+      } else {
         stop("When color.c is '', the y.c column of data.frame
              must be a factor or character vector.")
+      }
     }
-    data.tb <- eval(parse(text = paste0("dplyr::summarize(dplyr::group_by(data.tb, ",
-                                        y.c, "), n = dplyr::n())")))
+    data.tb <- eval(parse(text = paste0(
+      "dplyr::summarize(dplyr::group_by(data.tb, ",
+      y.c, "), n = dplyr::n())"
+    )))
     color.c <- y.c
     y.c <- "n"
   }
 
-  aes.c <- paste0("ggplot2::ggplot(data.tb, ggplot2::aes(x = '', y = ", y.c,
-                  ", fill = ", color.c, "))")
-  p <- eval(parse(text = aes.c)) + ggplot2::geom_bar(width = 1,
-                                                     stat = "identity")
+  aes.c <- paste0(
+    "ggplot2::ggplot(data.tb, ggplot2::aes(x = '', y = ", y.c,
+    ", fill = ", color.c, "))"
+  )
+  p <- eval(parse(text = aes.c)) + ggplot2::geom_bar(
+    width = 1,
+    stat = "identity"
+  )
 
   # color palette
   if (length(palette.vc) == 1 &&
-      palette.vc %in% rownames(RColorBrewer::brewer.pal.info)) {
-
+    palette.vc %in% rownames(RColorBrewer::brewer.pal.info)) {
     palette_col.i <- RColorBrewer::brewer.pal.info[palette.vc, "maxcolors"]
 
     if (y.c == "") {
       data_col.i <- nlevels(data.tb[[color.c]])
-    } else
+    } else {
       data_col.i <- nrow(data.tb)
+    }
 
     if (data_col.i <= palette_col.i) {
       p <- p + ggplot2::scale_fill_brewer(palette = palette.vc)
     } else {
-      fill_values.vc <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(palette_col.i,
-                                                                             palette.vc))(data_col.i)
+      fill_values.vc <- grDevices::colorRampPalette(RColorBrewer::brewer.pal(
+        palette_col.i,
+        palette.vc
+      ))(data_col.i)
       p <- p + ggplot2::scale_fill_manual(values = fill_values.vc)
     }
-
-  } else
+  } else {
     p <- p + ggplot2::scale_fill_manual(values = palette.vc)
+  }
 
   p <- p + ggplot2::coord_polar("y", start = 0, direction = -1) +
     ggplot2::theme_minimal() +
@@ -544,8 +836,10 @@ gg_pie <- function(data.tb,
       panel.grid = ggplot2::element_blank(),
       axis.ticks = ggplot2::element_blank(),
       axis.text.x = ggplot2::element_blank(),
-      plot.title = ggplot2::element_text(size = geom_text.ls[["title.i"]],
-                                         face = "bold"),
+      plot.title = ggplot2::element_text(
+        size = geom_text.ls[["title.i"]],
+        face = "bold"
+      ),
       legend.title = ggplot2::element_text(size = geom_text.ls[["legend_title.i"]]),
       legend.text = ggplot2::element_text(size = geom_text.ls[["legend_text.i"]])
     ) +
@@ -553,36 +847,40 @@ gg_pie <- function(data.tb,
 
   if (label.c != "none") {
     if (label.c == "value") {
-      p <- p + eval(parse(text = paste0("ggplot2::geom_text(ggplot2::aes(label = ",
-                                        y.c, "), position = ggplot2::position_stack(0.5), size = ",
-                                        geom_text.ls[["lab.i"]], ")")))
+      p <- p + eval(parse(text = paste0(
+        "ggplot2::geom_text(ggplot2::aes(label = ",
+        y.c, "), position = ggplot2::position_stack(0.5), size = ",
+        geom_text.ls[["lab.i"]], ")"
+      )))
       # p <- p + eval(parse(text = paste0("ggplot2::geom_text(ggplot2::aes(y = ",
       #                                   y.c, "/3 + c(0, cumsum(",
       #                                   y.c, ")[-length(", y.c, ")]), label = ",
       #                                   y.c, "), position = ggplot2::position_stack(0.5), size = ",
       #                                   geom_text.ls[["lab.i"]], ")")))
     } else if (label.c == "percent") {
-      p <- p + eval(parse(text = paste0("ggplot2::geom_text(ggplot2::aes(label = scales::percent(",
-                                        y.c, "/100)), position = ggplot2::position_stack(0.5)size = ",
-                                        geom_text.ls[["lab.i"]], ")")))
-    } else
+      p <- p + eval(parse(text = paste0(
+        "ggplot2::geom_text(ggplot2::aes(label = scales::percent(",
+        y.c, "/100)), position = ggplot2::position_stack(0.5)size = ",
+        geom_text.ls[["lab.i"]], ")"
+      )))
+    } else {
       stop("'label.c' must be either 'none', 'value', or 'percent'")
+    }
   }
 
   if (filename_ext.c != "none") {
-
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::pdf(figure.c)
+    }
 
     show(p)
 
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::dev.off()
-
+    }
   }
 
   return(invisible(p))
-
 }
 
 #' Volcano plot with ggplot2
@@ -620,25 +918,31 @@ gg_pie <- function(data.tb,
 #' sacurine.se <- correcting(sacurine.se, figure.c = "none")
 #' sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 #' sacurine.se <- transforming(sacurine.se)
-#' sacurine.se <- hypotesting(sacurine.se, test.c = "wilcoxon",
-#'                                       factor_names.vc = "gender",
-#'                                       figure.c = "none", report.c = "none")
+#' sacurine.se <- hypotesting(sacurine.se,
+#'   test.c = "wilcoxon",
+#'   factor_names.vc = "gender",
+#'   figure.c = "none", report.c = "none"
+#' )
 #' fold.vn <- rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_diff"]
 #' fdr.vn <- rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_BH"]
 #' feat.vc <- rownames(sacurine.se)
 #' gg_volcanoplot(fold.vn,
-#'                fdr.vn,
-#'                label.vc = make.names(feat.vc),
-#'                adjust_method.c = "BH")
-#' feat_signif.vc <-  vapply(seq_along(feat.vc),
-#'                           function(feat.i)
-#'                            ifelse(fdr.vn[feat.i] <= 0.05, feat.vc[feat.i], ""),
-#'                            FUN.VALUE = character(1))
+#'   fdr.vn,
+#'   label.vc = make.names(feat.vc),
+#'   adjust_method.c = "BH"
+#' )
+#' feat_signif.vc <- vapply(seq_along(feat.vc),
+#'   function(feat.i) {
+#'     ifelse(fdr.vn[feat.i] <= 0.05, feat.vc[feat.i], "")
+#'   },
+#'   FUN.VALUE = character(1)
+#' )
 #' gg_volcanoplot(fold.vn,
-#'                fdr.vn,
-#'                label.vc = make.names(feat_signif.vc),
-#'                adjust_method.c = "BH",
-#'                figure.c = "interactive")
+#'   fdr.vn,
+#'   label.vc = make.names(feat_signif.vc),
+#'   adjust_method.c = "BH",
+#'   figure.c = "interactive"
+#' )
 gg_volcanoplot <- function(fold_change.vn,
                            adjusted_pvalue.vn,
                            adjust_method.c = "",
@@ -646,44 +950,69 @@ gg_volcanoplot <- function(fold_change.vn,
                            label.vc = "",
                            title.c = "",
                            xlab.c = "Fold Change",
-                           signif_palette.vc = c(yes = RColorBrewer::brewer.pal(9, "Greens")[8],
-                                                 no = RColorBrewer::brewer.pal(9, "Greys")[7]),
-                           signif_shape.vi = c(yes = 16,
-                                               no = 1),
+                           signif_palette.vc = c(
+                             yes = RColorBrewer::brewer.pal(9, "Greens")[8],
+                             no = RColorBrewer::brewer.pal(9, "Greys")[7]
+                           ),
+                           signif_shape.vi = c(
+                             yes = 16,
+                             no = 1
+                           ),
                            class_name.vc = "",
                            class_color.vc = "",
-                           size.ls = list(class.i = 5,
-                                          lab.i = 16,
-                                          point.i = 3,
-                                          tick.i = 14,
-                                          title.i = 20),
-                           figure.c = c("interactive",
-                                        "interactive_plotly",
-                                        "my_volcanoplot.pdf",
-                                        "my_volcanoplot.html")[2]) {
-
-  size_default.vi <- c(class.i = 5, lab.i = 16, point.i = 3, tick.i = 14,
-                       title.i = 20)
+                           theme.c = c(
+                             "default",
+                             "bw",
+                             "classic",
+                             "dark",
+                             "gray",
+                             "linedraw",
+                             "light",
+                             "minimal",
+                             "void"
+                           )[2],
+                           size.ls = list(
+                             class.i = 5,
+                             lab.i = 16,
+                             point.i = 3,
+                             tick.i = 14,
+                             title.i = 20
+                           ),
+                           figure.c = c(
+                             "interactive",
+                             "interactive_plotly",
+                             "my_volcanoplot.pdf",
+                             "my_volcanoplot.html"
+                           )[2]) {
+  size_default.vi <- c(
+    class.i = 5, lab.i = 16, point.i = 3, tick.i = 14,
+    title.i = 20
+  )
 
   for (size.c in names(size_default.vi)) {
-    if (!(size.c %in% names(size.ls)))
+    if (!(size.c %in% names(size.ls))) {
       size.ls[[size.c]] <- size_default.vi[size.c]
+    }
   }
 
-  filename_ext.c <-  utils::tail(unlist(strsplit(basename(figure.c), ".",
-                                                 fixed = TRUE)), 1)
+  filename_ext.c <- utils::tail(unlist(strsplit(basename(figure.c), ".",
+    fixed = TRUE
+  )), 1)
 
   stopifnot(identical(length(fold_change.vn), length(adjusted_pvalue.vn)))
 
-  volcano.df <- data.frame(fold_change = fold_change.vn,
-                           log_pval = -log10(adjusted_pvalue.vn))
+  volcano.df <- data.frame(
+    fold_change = fold_change.vn,
+    log_pval = -log10(adjusted_pvalue.vn)
+  )
 
   if (length(label.vc) == 1) {
     if (label.vc != "") {
       stopifnot(label.vc %in% colnames(volcano.df))
       label.vc <- as.character(volcano.df[[label.vc]])
-    } else
+    } else {
       label.vc <- rep("", nrow(volcano.df))
+    }
   } else {
     stopifnot(length(label.vc) == nrow(volcano.df))
   }
@@ -692,26 +1021,22 @@ gg_volcanoplot <- function(fold_change.vn,
   stopifnot(length(signif_shape.vi) == 2)
 
   volcano.df[, "shape"] <- volcano.df[, "color"] <- ifelse(adjusted_pvalue.vn <= adjust_thresh.n,
-                                                           "yes", "no")
-
+    "yes", "no"
+  )
 
   aes.c <- "ggplot2::ggplot(volcano.df, ggplot2::aes(x = fold_change, y = log_pval, color = color, shape = shape, text = label.vc))"
 
   p <- eval(parse(text = aes.c))
 
-  # p <- ggplot2::ggplot(volcano.df,
-  #                      ggplot2::aes(x = fold_change,
-  #                                   y = log_pval,
-  #                                   color = color,
-  #                                   shape = shape,
-  #                                   text = label.vc))
+  # theme
+
+  if (theme.c != "default") {
+    p <- p + eval(parse(text = paste0("ggplot2::theme_", theme.c, "()")))
+  }
 
   if (figure.c == "interactive" || filename_ext.c == "pdf") {
-    aes_rep.c <- "ggrepel::geom_text_repel(ggplot2::aes(x = fold_change, y = log_pval, label = label.vc))"
+    aes_rep.c <- "ggrepel::geom_text_repel(ggplot2::aes(x = fold_change, y = log_pval, label = label.vc), max.overlaps = Inf)"
     p <- p + eval(parse(text = aes_rep.c))
-    # p <- p + ggrepel::geom_text_repel(ggplot2::aes(x = fold_change,
-    #                                                y = log_pval,
-    #                                                label = label.vc))
   }
 
   p <- p + ggplot2::scale_color_manual(values = signif_palette.vc)
@@ -723,78 +1048,86 @@ gg_volcanoplot <- function(fold_change.vn,
     ggplot2::geom_point(size = size.ls[["point.i"]])
 
   # title and axis labels
-  p <- p + ggplot2::labs(title = title.c,
-                         x = xlab.c,
-                         y = paste0("-log10(", ifelse(adjust_method.c != "",
-                                                      adjust_method.c, "p-value"), ")")) +
-    ggplot2::theme(plot.title = ggplot2::element_text(size = size.ls[["title.i"]],
-                                                      face = "bold"),
-                   axis.title.x = ggplot2::element_text(size = size.ls[["lab.i"]],
-                                                        face = "bold"),
-                   axis.title.y = ggplot2::element_text(size = size.ls[["lab.i"]],
-                                                        face = "bold"),
-                   axis.text = ggplot2::element_text(size = size.ls[["tick.i"]]),
-                   legend.title = ggplot2::element_blank(),
-                   legend.position = "none")
+  p <- p + ggplot2::labs(
+    title = title.c,
+    x = xlab.c,
+    y = paste0("-log10(", ifelse(adjust_method.c != "",
+      adjust_method.c, "p-value"
+    ), ")")
+  ) +
+    ggplot2::theme(
+      plot.title = ggplot2::element_text(
+        size = size.ls[["title.i"]],
+        face = "bold"
+      ),
+      axis.title.x = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.title.y = ggplot2::element_text(
+        size = size.ls[["lab.i"]],
+        face = "bold"
+      ),
+      axis.text = ggplot2::element_text(size = size.ls[["tick.i"]]),
+      legend.title = ggplot2::element_blank(),
+      legend.position = "none"
+    )
 
 
   if (length(class_name.vc) == 2) {
-
-    if (length(class_color.vc) == 1 || any(class_color.vc == ""))
+    if (length(class_color.vc) == 1 || any(class_color.vc == "")) {
       class_color.vc <- rep("black", 2)
+    }
 
-    p <- p + ggplot2::annotate(geom = "text",
-                               x = 0.95 * min(volcano.df[, "fold_change"],
-                                              na.rm = TRUE),
-                               y = 0,
-                               label = class_name.vc[1],
-                               color = class_color.vc[1],
-                               size = size.ls[["class.i"]]) +
-      ggplot2::annotate(geom = "text",
-                        x = 0.95 * max(volcano.df[, "fold_change"],
-                                       na.rm = TRUE),
-                        y = 0,
-                        label = class_name.vc[2],
-                        color = class_color.vc[2],
-                        size = size.ls[["class.i"]])
-
+    p <- p + ggplot2::annotate(
+      geom = "text",
+      x = 0.95 * min(volcano.df[, "fold_change"],
+        na.rm = TRUE
+      ),
+      y = 0,
+      label = class_name.vc[1],
+      color = class_color.vc[1],
+      size = size.ls[["class.i"]]
+    ) +
+      ggplot2::annotate(
+        geom = "text",
+        x = 0.95 * max(volcano.df[, "fold_change"],
+          na.rm = TRUE
+        ),
+        y = 0,
+        label = class_name.vc[2],
+        color = class_color.vc[2],
+        size = size.ls[["class.i"]]
+      )
   }
 
   if (figure.c == "interactive_plotly" || filename_ext.c == "html") {
-
     p <- plotly::ggplotly(p, tooltip = "text")
 
     p <- plotly::layout(p, hoverlabel = list(font = list(size = 20)))
 
     if (filename_ext.c == "html") {
-
       htmlwidgets::saveWidget(plotly::as_widget(p), figure.c)
 
       return(invisible(p))
-
-
     } else {
-
       show(p)
 
       return(invisible(p))
-
     }
-
   } else {
-
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::pdf(figure.c)
+    }
 
     show(p)
 
-    if (filename_ext.c == "pdf")
+    if (filename_ext.c == "pdf") {
       grDevices::dev.off()
+    }
 
     return(invisible(p))
-
   }
-
 }
 
 #' Venn diagram with VennDiagram
@@ -819,7 +1152,7 @@ gg_volcanoplot <- function(fold_change.vn,
 #' @export
 #' @examples
 #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-#' sacurine.se <- correcting(sacurine.se, figure.c = 'none')
+#' sacurine.se <- correcting(sacurine.se, figure.c = "none")
 #' sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 #' sacurine.se <- transforming(sacurine.se)
 #' sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
@@ -827,10 +1160,14 @@ gg_volcanoplot <- function(fold_change.vn,
 #' sacurine.se <- hypotesting(sacurine.se, "ttest", "gender")
 #' # Wilcoxon T test
 #' sacurine.se <- hypotesting(sacurine.se, "wilcoxon", "gender")
-#' signif.ls <- list(ttest = which(rowData(sacurine.se)[, "ttest_gender_Female.Male_signif"] > 0),
-#' wilcoxon =  which(rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_signif"] > 0))
-#' vennplot(signif.ls, label_col.c = "black",
-#' title.c = "Signif. features\nwith Student or Wilcoxon tests")
+#' signif.ls <- list(
+#'   ttest = which(rowData(sacurine.se)[, "ttest_gender_Female.Male_signif"] > 0),
+#'   wilcoxon = which(rowData(sacurine.se)[, "wilcoxon_gender_Female.Male_signif"] > 0)
+#' )
+#' vennplot(signif.ls,
+#'   label_col.c = "black",
+#'   title.c = "Signif. features\nwith Student or Wilcoxon tests"
+#' )
 vennplot <- function(input.ls,
                      palette.vc = RColorBrewer::brewer.pal(9, "Set1")[seq_len(5)],
                      title.c = NA,
@@ -840,36 +1177,45 @@ vennplot <- function(input.ls,
                      lwd.i = 2,
                      inverted.l = FALSE,
                      figure.c = "none") {
+  if (is.na(title.c)) {
+    title.c <- gsub(
+      "MN", "",
+      gsub(
+        "Ls", "",
+        deparse(substitute(input.ls))
+      )
+    )
+  }
 
-  if (is.na(title.c))
-    title.c <- gsub("MN", "",
-                    gsub("Ls", "",
-                         deparse(substitute(input.ls))))
-
-  if (!is.list(input.ls))
+  if (!is.list(input.ls)) {
     stop("'input.ls' must be a list for Venn plot")
+  }
 
-  if (length(input.ls) > 5)
+  if (length(input.ls) > 5) {
     stop("'input.ls' list must be of maximum length 5 for Venn plot")
+  }
 
   cat.i <- length(input.ls)
 
-  if (length(palette.vc) < cat.i)
+  if (length(palette.vc) < cat.i) {
     stop("'palette.vc' must contain at least 'length(input.ls)' colors")
+  }
 
   if (figure.c == "none") {
     filename.c <- NULL
   } else {
     filename.c <- figure.c
     ext.c <- tail(unlist(strsplit(basename(filename.c), ".", fixed = TRUE)), 1)
-    if (!(ext.c %in% c("tiff", "png", "svg")))
+    if (!(ext.c %in% c("tiff", "png", "svg"))) {
       stop("Filename extension must be either 'tiff', 'png', or 'svg'")
+    }
   }
 
   futile.logger::flog.threshold(futile.logger::ERROR,
-                                name = "VennDiagramLogger")
+    name = "VennDiagramLogger"
+  )
 
-  if (any(is.na(cat_pos.vi)))
+  if (any(is.na(cat_pos.vi))) {
     if (cat.i == 2) {
       cat_pos.vi <- c(-40, 40)
       # cat_pos.vi <- c(-50, 50)
@@ -878,91 +1224,86 @@ vennplot <- function(input.ls,
     } else if (cat.i == 4) {
       cat_pos.vi <- c(-15, 15, 0, 0)
     }
+  }
 
   if (inverted.l) {
-    if (cat.i != 2)
+    if (cat.i != 2) {
       stop("'inverted.l' option is only available for pairwise venn",
-           call. = FALSE)
+        call. = FALSE
+      )
+    }
     cat_pos.vi <- -cat_pos.vi
   }
 
   if (cat.i <= 3) {
-    ven <- VennDiagram::venn.diagram(x = input.ls,
+    ven <- VennDiagram::venn.diagram(
+      x = input.ls,
+      alpha = 0.8,
+      col = palette.vc[seq_len(cat.i)],
+      cat.cex = 1.7, ## 2.5
+      cat.col = palette.vc[seq_len(cat.i)],
 
-                                     alpha = 0.8,
+      ## additional argument for cat.i <= 3
+      cat.dist = c(
+        rep(ifelse(cat.i == 2,
+          0.03, 0.05
+        ), 2),
+        ifelse(cat.i == 3, 0.04, 0.05),
+        rep(0.04, 2)
+      )[seq_len(cat.i)],
+      cat.pos = cat_pos.vi,
+      cex = 1.7, ## 3
 
-                                     col = palette.vc[seq_len(cat.i)],
+      fill = palette.vc[seq_len(cat.i)],
+      label.col = label_col.c,
+      lwd = lwd.i, ## 4
 
-                                     cat.cex = 1.7, ## 2.5
-                                     cat.col = palette.vc[seq_len(cat.i)],
-
-                                     ## additional argument for cat.i <= 3
-                                     cat.dist = c(rep(ifelse(cat.i == 2,
-                                                             0.03, 0.05), 2),
-                                                  ifelse(cat.i == 3, 0.04, 0.05),
-                                                  rep(0.04, 2))[seq_len(cat.i)],
-
-                                     cat.pos = cat_pos.vi,
-
-                                     cex = 1.7, ## 3
-
-                                     fill = palette.vc[seq_len(cat.i)],
-
-                                     label.col = label_col.c,
-                                     lwd = lwd.i, ## 4
-
-                                     main = title.c,
-                                     main.cex = 1.7,
-                                     main.pos = c(0.5, 1.05),
-
-                                     margin = 0.01,
-
-                                     filename = filename.c,
-                                     cat.fontfamily = "sans",
-                                     cat.fontface = "bold",
-                                     fontfamily = "sans",
-                                     fontface = "bold",
-                                     main.fontfamily = "sans",
-                                     main.fontface = "bold",
-                                     sub = sub.c,
-                                     sub.cex = 1,
-                                     sub.fontfamily = "sans",
-                                     sub.pos = c(0.5, 1.0),
-                                     inverted = inverted.l)
+      main = title.c,
+      main.cex = 1.7,
+      main.pos = c(0.5, 1.05),
+      margin = 0.01,
+      filename = filename.c,
+      cat.fontfamily = "sans",
+      cat.fontface = "bold",
+      fontfamily = "sans",
+      fontface = "bold",
+      main.fontfamily = "sans",
+      main.fontface = "bold",
+      sub = sub.c,
+      sub.cex = 1,
+      sub.fontfamily = "sans",
+      sub.pos = c(0.5, 1.0),
+      inverted = inverted.l
+    )
   } else {
-    ven <- VennDiagram::venn.diagram(x = input.ls,
+    ven <- VennDiagram::venn.diagram(
+      x = input.ls,
+      alpha = 0.8,
+      col = palette.vc[seq_len(cat.i)],
+      cat.cex = 1.7, ## 2.5
+      cat.col = palette.vc[seq_len(cat.i)],
+      cex = 1.7, ## 3
 
-                                     alpha = 0.8,
+      fill = palette.vc[seq_len(cat.i)],
+      label.col = label_col.c,
+      lwd = lwd.i, ## 4
 
-                                     col = palette.vc[seq_len(cat.i)],
-
-                                     cat.cex = 1.7, ## 2.5
-                                     cat.col = palette.vc[seq_len(cat.i)],
-
-                                     cex = 1.7, ## 3
-
-                                     fill = palette.vc[seq_len(cat.i)],
-
-                                     label.col = label_col.c,
-                                     lwd = lwd.i, ## 4
-
-                                     main = title.c,
-                                     main.cex = 1.7,
-                                     main.pos = c(0.5, 1.05),
-
-                                     margin = 0.01,
-
-                                     filename = filename.c,
-                                     cat.fontfamily = "sans",
-                                     cat.fontface = "bold",
-                                     fontfamily = "sans",
-                                     fontface = "bold",
-                                     main.fontfamily = "sans",
-                                     main.fontface = "bold",
-                                     sub = sub.c,
-                                     sub.cex = 1,
-                                     sub.fontfamily = "sans",
-                                     sub.pos = c(0.5, 1.0))
+      main = title.c,
+      main.cex = 1.7,
+      main.pos = c(0.5, 1.05),
+      margin = 0.01,
+      filename = filename.c,
+      cat.fontfamily = "sans",
+      cat.fontface = "bold",
+      fontfamily = "sans",
+      fontface = "bold",
+      main.fontfamily = "sans",
+      main.fontface = "bold",
+      sub = sub.c,
+      sub.cex = 1,
+      sub.fontfamily = "sans",
+      sub.pos = c(0.5, 1.0)
+    )
   }
 
   if (is.null(filename.c)) {
@@ -971,5 +1312,4 @@ vennplot <- function(input.ls,
   }
 
   return(invisible(ven))
-
 }
