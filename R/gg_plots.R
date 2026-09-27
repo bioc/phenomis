@@ -535,9 +535,6 @@ gg_boxplot <- function(data.tb,
 #' @param label.vc Character (vector): either the name of a character column
 #' from the data or a character vector of the same length as the rown number of
 #' the data, containing the feature labeling for outlier display
-#' @param palette.vc Character: either the name of an RColorBrewer palette
-#' (default: 'Set1'; 'Paired' can be useful for parallel plotting) or a vector
-#' manually defining the colors
 #' @param theme.c character(1): name of the ggplot theme
 #' @param size.ls List of sizes for dots (default is 0.7), labels
 #' (default is 16), ticks (14) and title (20)
@@ -903,6 +900,7 @@ gg_pie <- function(data.tb,
 #' @param class_name.vc Character vector: names of the two compared class labels
 #' @param class_color.vc Character vector: colors of the two compared class
 #' labels
+#' @param theme.c character(1): name of the ggplot theme
 #' @param size.ls List of sizes for classes (default: 5), xy labels
 #' (default: 16), points (default: 3), ticks (default: 14) and title
 #' (default: 20)

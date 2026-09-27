@@ -414,14 +414,8 @@ setGeneric(
 #' # MultiAssayExperiment
 #'
 #' prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
+#' prometis.mae <- transforming(prometis.mae)
 #' prometis.mae <- hypotesting(prometis.mae, "limma", "gene")
-#'
-#' # MultiDataSet
-#'
-#' prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
-#'        output.c = "set"
-#' )
-#' prometis.mset <- hypotesting(prometis.mset, "limma", "gene")
 setGeneric(
        "hypotesting",
        function(x,

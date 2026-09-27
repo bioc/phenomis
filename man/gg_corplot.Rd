@@ -45,10 +45,6 @@ the data, containing the feature labeling for outlier display}
 
 \item{figure.c}{Character: either 'interactive' for interactive display or
 'my_corplot.pdf' for figure saving (only the extension matters)}
-
-\item{palette.vc}{Character: either the name of an RColorBrewer palette
-(default: 'Set1'; 'Paired' can be useful for parallel plotting) or a vector
-manually defining the colors}
 }
 \value{
 gg plot

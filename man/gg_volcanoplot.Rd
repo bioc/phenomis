@@ -52,6 +52,8 @@ non significant) features; default is 16 (respectively, 1)}
 \item{class_color.vc}{Character vector: colors of the two compared class
 labels}
 
+\item{theme.c}{character(1): name of the ggplot theme}
+
 \item{size.ls}{List of sizes for classes (default: 5), xy labels
 (default: 16), points (default: 3), ticks (default: 14) and title
 (default: 20)}
