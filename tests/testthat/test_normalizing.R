@@ -33,25 +33,3 @@ testthat::test_that("normalizing-mae", {
     tolerance = 1e-6
   )
 })
-
-
-# testthat::test_that("normalizing-mset", {
-#   mset <- reading(
-#     system.file("extdata/prometis",
-#       package = "phenomis"
-#     ),
-#     output.c = "set"
-#   )
-#   mae <- transforming(mae)
-
-#   norm.mset <- normalizing(mset, method.vc = "pqn")
-
-#   testthat::expect_equivalent(
-#     Biobase::exprs(norm.mset[["metabo"]])[
-#       "oxalic acid",
-#       "L819f"
-#     ],
-#     23.48427,
-#     tolerance = 1e-6
-#   )
-# })

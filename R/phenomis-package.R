@@ -7,8 +7,7 @@
 #' univariate hypothesis testing, but also clustering (as well as annotation of
 #' metabolomics data). The data are handled in the standard Bioconductor formats
 #' (i.e. SummarizedExperiment and MultiAssayExperiment for single and
-#' multi-omics datasets, respectively; the alternative ExpressionSet and
-#' MultiDataSet formats are also supported for convenience). As a result, all
+#' multi-omics datasets, respectively). As a result, all
 #' methods can be readily chained as workflows. The pipeline can be further
 #' enriched by multivariate analysis and feature selection, by using the
 #' 'ropls' and biosigner' packages, which support the same formats. Data can be

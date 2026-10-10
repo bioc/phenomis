@@ -1,5 +1,22 @@
 testthat::context("Testing 'hypotesting'")
 
+# sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
+# colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
+#   function(x) {
+#     if (is.na(x)) {
+#       return(NA_character_)
+#     } else if (x < 35) {
+#       return("less35")
+#     } else if (x < 50) {
+#       return("middle")
+#     } else {
+#       return("more50")
+#     }
+#   },
+#   FUN.VALUE = character(1)
+# )
+# writing(sacurine.se, dir.c = getwd())
+
 #### ttest ####
 
 testthat::test_that("ttest", {
@@ -192,25 +209,6 @@ testthat::test_that("ttest", {
     factor.c = "age",
     display_signif.l = FALSE
   )
-
-
-  # mset
-
-  #   prometis.mset <- reading(system.file("extdata/prometis",
-  #                                        package = "phenomis"),
-  #                            output.c = "set")
-
-  #   prometis.mset <- hypotesting(prometis.mset,
-  #                                test.c = "ttest",
-  #                                factor_names.vc = "gene",
-  #                                figure.c = "none",
-  #                                report.c = "none")
-
-  #   testthat::expect_identical(vapply(Biobase::fData(prometis.mset),
-  #                                     function(fdaDF) {
-  #                                       sum(fdaDF[, "ttest_gene_LAT.WT_signif"])
-  #                                     }, FUN.VALUE = double(1)),
-  #                              c(metabo = 33, proteo = 3))
 })
 
 #### anova ####
@@ -223,18 +221,6 @@ testthat::test_that("anova", {
   sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
   sacurine.se <- transforming(sacurine.se)
   sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
-  colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-    function(x) {
-      if (x < 35) {
-        return("thirty")
-      } else if (x < 50) {
-        return("fourty")
-      } else {
-        return("fifty")
-      }
-    },
-    FUN.VALUE = character(1)
-  )
   feat.df <- .anovas(
     data.mn = t(assay(sacurine.se)),
     samp.df = colData(sacurine.se),
@@ -254,15 +240,15 @@ testthat::test_that("anova", {
   testthat::expect_equivalent(
     feat.df[
       "1-Methylxanthine",
-      "anova_ageGroup_fourty.thirty_diff"
+      "anova_ageGroup_less35.middle_diff"
     ],
-    -0.8841594,
+    0.8841594,
     tolerance = 1e-6
   )
   testthat::expect_equivalent(
     feat.df[
       "1-Methylxanthine",
-      "anova_ageGroup_fifty.thirty_BH"
+      "anova_ageGroup_less35.more50_BH"
     ],
     0.01544621,
     tolerance = 1e-6
@@ -274,7 +260,7 @@ testthat::test_that("anova", {
     feat.df = rowData(sacurine.se),
     test.c = "anova",
     factorNameC = "ageGroup",
-    factorLevelsVc = c("thirty", "fourty", "fifty"),
+    factorLevelsVc = c("less35", "middle", "more50"),
     adjust.c = "BH",
     adjust_thresh.n = 0.05,
     prefix.c = "",
@@ -283,7 +269,7 @@ testthat::test_that("anova", {
   testthat::expect_equivalent(
     feat.df[
       "1-Methylxanthine",
-      "anova_ageGroup_thirty.fourty_diff"
+      "anova_ageGroup_less35.middle_diff"
     ],
     0.8841594,
     tolerance = 1e-6
@@ -291,7 +277,7 @@ testthat::test_that("anova", {
   testthat::expect_equivalent(
     feat.df[
       "1-Methylxanthine",
-      "anova_ageGroup_thirty.fourty_BH"
+      "anova_ageGroup_less35.middle_BH"
     ],
     0.01602643,
     tolerance = 1e-6
@@ -299,7 +285,7 @@ testthat::test_that("anova", {
   testthat::expect_equivalent(
     feat.df[
       "Testosterone glucuronide",
-      "anova_ageGroup_thirty.fifty_diff"
+      "anova_ageGroup_less35.more50_diff"
     ],
     -2.314257,
     tolerance = 1e-6
@@ -307,7 +293,7 @@ testthat::test_that("anova", {
   testthat::expect_equivalent(
     feat.df[
       "Testosterone glucuronide",
-      "anova_ageGroup_thirty.fifty_BH"
+      "anova_ageGroup_less35.more50_BH"
     ],
     9.217707e-05,
     tolerance = 1e-6
@@ -325,18 +311,6 @@ testthat::test_that("kruskal", {
   sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
   sacurine.se <- transforming(sacurine.se)
   sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
-  colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-    function(x) {
-      if (x < 35) {
-        return("thirty")
-      } else if (x < 50) {
-        return("fourty")
-      } else {
-        return("fifty")
-      }
-    },
-    FUN.VALUE = character(1)
-  )
 
   feat.df <- .anovas(
     data.mn = t(assay(sacurine.se)),
@@ -353,7 +327,7 @@ testthat::test_that("kruskal", {
   testthat::expect_equivalent(
     feat.df[
       "1-Methylxanthine",
-      "testthat_kruskal_ageGroup_fourty.thirty_BH"
+      "testthat_kruskal_ageGroup_less35.middle_BH"
     ],
     0.03497385,
     tolerance = 1e-6

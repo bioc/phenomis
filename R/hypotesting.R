@@ -218,12 +218,12 @@ setMethod(
       stop("Information about the transformation of the data is missing. Please use the 'transforming' method first.")
     }
     transformed.c <- x@metadata[["transformed"]]
-    if (transformed.c == "none" & !(test.c %in% c(
-      "ttest", "limma", "wilcoxon",
-      "pearson", "spearman"
-    ))) {
-      stop("Anovas computation of fold changes are currently valid for log transformed data only. Please apply the 'transforming' method first with the 'log2' or 'log10' parameters.")
-    }
+    # if (transformed.c == "none" & !(test.c %in% c(
+    #   "ttest", "limma", "wilcoxon",
+    #   "pearson", "spearman"
+    # ))) {
+    #   stop("Anovas computation of fold changes are currently valid for log transformed data only. Please apply the 'transforming' method first with the 'log2' or 'log10' parameters.")
+    # }
 
     # Hypothesis testing
 

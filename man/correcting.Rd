@@ -4,8 +4,6 @@
 \alias{correcting}
 \alias{correcting,MultiAssayExperiment-method}
 \alias{correcting,SummarizedExperiment-method}
-\alias{correcting,MultiDataSet-method}
-\alias{correcting,ExpressionSet-method}
 \title{correcting}
 \usage{
 correcting(
@@ -43,35 +41,10 @@ correcting(
   figure.c = c("none", "interactive", "myfile.pdf")[2],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{correcting}{MultiDataSet}(
-  x,
-  method.vc = c("loess", "serrf")[1],
-  reference.vc = c("pool", "sample")[1],
-  loess_span.vn = 1,
-  serrf_corvar.vi = 10,
-  sample_intensity.c = c("median", "mean", "sum")[2],
-  title.c = NA,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{correcting}{ExpressionSet}(
-  x,
-  method.vc = c("loess", "serrf")[1],
-  reference.vc = c("pool", "sample")[1],
-  loess_span.vn = 1,
-  serrf_corvar.vi = 10,
-  sample_intensity.c = c("median", "mean", "sum")[2],
-  title.c = NA,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment} or
-\code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+\code{MultiAssayExperiment}}
 
 \item{method.vc}{character of length 1 or the total number of datasets:
 method(s) to be used for each dataset (either 'serrf' or 'loess');
@@ -112,8 +85,7 @@ printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
 \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the corrected
-intensities in the assay matrix (matrices)
+including the corrected intensities in the assay matrix (matrices)
 }
 \description{
 Signal drift and batch effect correction. The normalization strategy relies
@@ -133,6 +105,4 @@ can be used to indicate the reference samples for the correction, 2)
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
 sacurine.se <- correcting(sacurine.se)
-
-# MultiDataSet (to be done)
 }

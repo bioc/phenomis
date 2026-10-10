@@ -86,8 +86,7 @@
 #' Hierarchical clustering of both samples and variables
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
-#' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' or \code{MultiAssayExperiment}
 #' @param dissym.c character(1): dissymilarity to be used in the hierarchical
 #' clustering (as provided by the hclust package)
 #' @param correl.c character(1): correlation coefficient (in case
@@ -108,8 +107,7 @@
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including columns
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including columns
 #' indicating the clusters in rowData and colData if clusters.vi' has been
 #' specified
 #' @rdname clustering
@@ -189,8 +187,7 @@ setGeneric(
 #' 'batch' (character): batch name(s).
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment} or
-#' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' \code{MultiAssayExperiment}
 #' @param method.vc character of length 1 or the total number of datasets:
 #' method(s) to be used for each dataset (either 'serrf' or 'loess');
 #' for the 'serrf' approach, the seed is internally set to 123 for
@@ -221,15 +218,12 @@ setGeneric(
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
 #' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including the corrected
-#' intensities in the assay matrix (matrices)
+#' including the corrected intensities in the assay matrix (matrices)
 #' @rdname correcting
 #' @export
 #' @examples
 #' sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
 #' sacurine.se <- correcting(sacurine.se)
-#'
-#' # MultiDataSet (to be done)
 setGeneric(
        "correcting",
        function(x,
@@ -254,8 +248,7 @@ setGeneric(
 #' a low variance
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment} or
-#' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' \code{MultiAssayExperiment}
 #' @param class.c character(1): name of the column of the sample metadata giving
 #' the classification groups: the filtering will be applied on each class
 #' (default: "" meaning that there are no specific classes to consider)
@@ -274,8 +267,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including the filtered
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including the filtered
 #' data and metadata
 #' @rdname filtering
 #' @export
@@ -303,25 +295,6 @@ setGeneric(
 #'        prometis.mae[[set.c]] <- set.se
 #' }
 #' filtering(prometis.mae)
-#'
-#' # MultiDataSet
-#'
-#' prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
-#'        output.c = "set"
-#' )
-#' filtering(prometis.mset)
-#' for (set.c in names(prometis.mset)) {
-#'        eset <- prometis.mset[[set.c]]
-#'        exprs.mn <- Biobase::exprs(eset)
-#'        exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-#'        Biobase::exprs(eset) <- exprs.mn
-#'        prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
-#'               dataset.type = set.c,
-#'               GRanges = NA, overwrite = TRUE,
-#'               warnings = FALSE
-#'        )
-#' }
-#' filtering(prometis.mset)
 setGeneric(
        "filtering",
        function(x,
@@ -347,8 +320,7 @@ setGeneric(
 #' pearson or the spearman correlation).
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment} or
-#' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' \code{MultiAssayExperiment}
 #' @param test.c character(1): One of the 9 available hypothesis tests can be
 #' selected (either 'ttest', 'limma', 'wilcoxon', 'anova', 'kruskal', 'pearson',
 #' 'spearman', limma2ways', 'limma2waysInter', 'anova2ways', 'anova2waysInter')
@@ -380,8 +352,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including the difference
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including the difference
 #' in means/medians or correlations and the adjusted p-values in feature
 #' metadata
 #' @rdname hypotesting
@@ -397,18 +368,6 @@ setGeneric(
 #' # Pearson correlation test
 #' sacurine.se <- hypotesting(sacurine.se, "pearson", "age")
 #' # ANOVA
-#' colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-#'        function(x) {
-#'               if (x < 35) {
-#'                      return("thirty")
-#'               } else if (x < 50) {
-#'                      return("fourty")
-#'               } else {
-#'                      return("fifty")
-#'               }
-#'        },
-#'        FUN.VALUE = character(1)
-#' )
 #' sacurine.se <- hypotesting(sacurine.se, "anova", "ageGroup")
 #'
 #' # MultiAssayExperiment
@@ -550,8 +509,7 @@ setGeneric(
 #' MultiAssayExperiment, ExpressionSet, or MultiDataSet instance
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
-#' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' or \code{MultiAssayExperiment}
 #' @param pool_as_pool1.l logical(1): should pool be included (as pool1)
 #' in the correlation with the dilution factor? [default = FALSE]
 #' @param pool_cv.n numeric(1): threshold for the coefficient of variation
@@ -572,8 +530,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including the computed
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including the computed
 #' sample and variable metrics in the rowData and colData metadata.
 #' @rdname inspecting
 #' @examples
@@ -613,8 +570,7 @@ setGeneric(
 #' Normalization to scale the spectra to the same virtual overall concentration
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
-#' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' or \code{MultiAssayExperiment}
 #' @param method.vc character of length 1 or the total number of datasets:
 #' method(s) to be used for each dataset (default is 'pqn'); in case the
 #' parameter is of length 1 and x contains multiple datasets, the same method
@@ -632,8 +588,6 @@ setGeneric(
 #' sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
 #' sacurine.se <- transforming(sacurine.se, method.vc = "log10")
 #' norm.se <- normalizing(sacurine.se, method.vc = "pqn")
-#'
-#' # MultiDataSet
 setGeneric(
        "normalizing",
        function(x,
@@ -666,8 +620,7 @@ setGeneric(
 #' file referencing the known adducts, isotopes, and fragments.
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
-#' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported): the dataset(s) must contain the dataMatrix
+#' or \code{MultiAssayExperiment}: the dataset(s) must contain the dataMatrix
 #' and the variableMetadata (with the mz' and 'rt' columns)
 #' @param cor_method.c character(1): correlation method (default: 'pearson')
 #' @param cor_threshold.n numeric(1): correlation threshold (default: 0.9)
@@ -686,8 +639,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return updated \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}): the
+#' @return updated \code{SummarizedExperiment} or \code{MultiAssayExperiment}: the
 #' SummarizedExperiment(s) (resp. ExpressionSet(s)) now include(s) 5 new columns
 #' in the rowData (resp. fData): redund_samp_mean', 'redund_is', redund_group',
 #' redund_iso_add_frag', redund_repres' and 'redund_relative' containing,
@@ -741,8 +693,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including the (list of)
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including the (list of)
 #' matrix with transformed intensities
 #' @rdname transforming
 #' @export
@@ -751,11 +702,14 @@ setGeneric(
 #' sacurine.se <- correcting(sacurine.se)
 #' sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 #' sacurine.se <- transforming(sacurine.se)
+#'
 #' # MultiAssayExperiment
+#'
 #' prometis.mae <- reading(system.file("extdata/prometis",
 #'        package = "phenomis"
 #' ))
 #' prometis.mae <- transforming(prometis.mae, method.vc = c("log2", "none"))
+#'
 #' # Note: in the 'prometis' example data set from the package, the data are
 #' # already log2 transformed
 setGeneric(
@@ -778,8 +732,7 @@ setGeneric(
 #' samples are written column wise in the 'dataMatrix.tsv' exported file).
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment} or
-#' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' \code{MultiAssayExperiment}
 #' @param dir.c character(1): directory where each dataset should be written
 #' @param prefix.c character(1): prefix to be used (followed by '_') in the
 #' 'dataMatrix.tsv', 'sampleMetadata.tsv', and 'variableMetadata.tsv' file names

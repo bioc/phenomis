@@ -1,43 +1,42 @@
 testthat::context("Testing 'filtering'")
 
 testthat::test_that("filtering-se", {
-
   sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-  
+
   assay.mn <- assay(sacurine.se)
   assay.mn[assay.mn < 1e5] <- NA
   assay(sacurine.se) <- assay.mn
 
   sacurine.se <- filtering(sacurine.se)
-  
-  expect_dims.vi <- c(85, 200)
-  
-  testthat::expect_equal(dim(sacurine.se),
-                         expect_dims.vi)
 
+  expect_dims.vi <- c(85, 200)
+
+  testthat::expect_equal(
+    dim(sacurine.se),
+    expect_dims.vi
+  )
 })
 
 testthat::test_that("filtering-se-gender", {
-  
   sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
-  
+
   assay.mn <- assay(sacurine.se)
   assay.mn[assay.mn < 1e5] <- NA
   assay(sacurine.se) <- assay.mn
-  
+
   sacurine.se <- filtering(sacurine.se, class.c = "gender")
-  
+
   expect_dims.vi <- c(90, 196)
-  
-  testthat::expect_equal(dim(sacurine.se),
-                         expect_dims.vi)
-  
+
+  testthat::expect_equal(
+    dim(sacurine.se),
+    expect_dims.vi
+  )
 })
 
 testthat::test_that("filtering-mae", {
-  
   prometis.mae <- reading(system.file("extdata/prometis", package = "phenomis"))
-  
+
   for (set.c in names(prometis.mae)) {
     set.se <- prometis.mae[[set.c]]
     set.mn <- assay(set.se)
@@ -45,71 +44,19 @@ testthat::test_that("filtering-mae", {
     assay(set.se) <- set.mn
     prometis.mae[[set.c]] <- set.se
   }
-  
+
   prometis.mae <- filtering(prometis.mae)
-  
+
   expect_dims.mn <- matrix(c(71, 28, 75, 28),
-                           nrow = 2,
-                           dimnames = list(NULL, c("metabo", "proteo")))
-  
-  testthat::expect_equal(vapply(names(prometis.mae), 
-                                function(set.c) dim(prometis.mae[[set.c]]),
-                                FUN.VALUE = integer(2)),
-                         expect_dims.mn)
-  
-})
+    nrow = 2,
+    dimnames = list(NULL, c("metabo", "proteo"))
+  )
 
-testthat::test_that("filtering-mset", {
-
-   prometis.mset <- reading(system.file("extdata/prometis", 
-                                        package = "phenomis"), 
-                            output.c = "set")
-   
-   for (set.c in names(prometis.mset)) {
-     eset <- prometis.mset[[set.c]]
-     exprs.mn <- Biobase::exprs(eset)
-     exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-     Biobase::exprs(eset) <- exprs.mn
-     prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset, 
-                                             dataset.type = set.c,
-                                             GRanges = NA, 
-                                             overwrite = TRUE, 
-                                             warnings = FALSE)
-   }
-   
-   prometis.mset <- filtering(prometis.mset)
-   
-   expect_dims.ls <- list(metabo = c(Features = 71, Samples = 28),
-                          proteo = c(Features = 75, Samples = 28))
-   
-   testthat::expect_equal(Biobase::dims(prometis.mset),
-                          expect_dims.ls)
-
-})
-
-testthat::test_that("filtering-mset-gene", {
-  
-  prometis.mset <- reading(system.file("extdata/prometis", 
-                                       package = "phenomis"), 
-                           output.c = "set")
-  
-  for (set.c in names(prometis.mset)) {
-    eset <- prometis.mset[[set.c]]
-    exprs.mn <- Biobase::exprs(eset)
-    exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-    Biobase::exprs(eset) <- exprs.mn
-    prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset, 
-                                            dataset.type = set.c,
-                                            GRanges = NA, overwrite = TRUE, 
-                                            warnings = FALSE)
-  }
-  
-  prometis.mset <- filtering(prometis.mset, class.c = "gene")
-  
-  expect_dims.ls <- list(metabo = c(Features = 79, Samples = 28),
-                         proteo = c(Features = 76, Samples = 28))
-  
-  testthat::expect_equal(Biobase::dims(prometis.mset),
-                         expect_dims.ls)
-  
+  testthat::expect_equal(
+    vapply(names(prometis.mae),
+      function(set.c) dim(prometis.mae[[set.c]]),
+      FUN.VALUE = integer(2)
+    ),
+    expect_dims.mn
+  )
 })

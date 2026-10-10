@@ -4,8 +4,6 @@
 \alias{inspecting}
 \alias{inspecting,MultiAssayExperiment-method}
 \alias{inspecting,SummarizedExperiment-method}
-\alias{inspecting,MultiDataSet-method}
-\alias{inspecting,ExpressionSet-method}
 \title{Inspecting}
 \usage{
 inspecting(
@@ -43,35 +41,10 @@ inspecting(
   figure.c = c("none", "interactive", "myfile.pdf")[2],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{inspecting}{MultiDataSet}(
-  x,
-  pool_as_pool1.l = FALSE,
-  pool_cv.n = 0.3,
-  loess_span.n = 1,
-  sample_intensity.c = c("median", "mean", "sum")[2],
-  title.c = NA,
-  plot_dims.l = TRUE,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{inspecting}{ExpressionSet}(
-  x,
-  pool_as_pool1.l = FALSE,
-  pool_cv.n = 0.3,
-  loess_span.n = 1,
-  sample_intensity.c = c("median", "mean", "sum")[2],
-  title.c = NA,
-  plot_dims.l = TRUE,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
-or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+or \code{MultiAssayExperiment}}
 
 \item{pool_as_pool1.l}{logical(1): should pool be included (as pool1)
 in the correlation with the dilution factor? [default = FALSE]}
@@ -102,8 +75,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the computed
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including the computed
 sample and variable metrics in the rowData and colData metadata.
 }
 \description{

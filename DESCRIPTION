@@ -1,8 +1,8 @@
 Package: phenomis
 Type: Package
 Title: Postprocessing and univariate analysis of omics data
-Version: 1.15.6
-Date: 2026-09-27
+Version: 1.15.8
+Date: 2026-10-09
 Authors@R: c(
 	   person(given = "Etienne A.", family = "Thevenot",
 	   email = "etienne.thevenot@cea.fr",
@@ -34,9 +34,7 @@ Description: The 'phenomis' package provides methods to perform post-processing
     transformation, univariate hypothesis testing, but also clustering 
     (as well as annotation of metabolomics data). The data are handled in the 
     standard Bioconductor formats (i.e. SummarizedExperiment and 
-    MultiAssayExperiment for single and multi-omics datasets, respectively; the 
-    alternative ExpressionSet and MultiDataSet formats are also supported for 
-    convenience). As a result, all methods can be readily chained as workflows. 
+    MultiAssayExperiment for single and multi-omics datasets, respectively). As a result, all methods can be readily chained as workflows. 
     The pipeline can be further enriched by multivariate analysis and feature 
     selection, by using the 'ropls' and 'biosigner' packages, which support
     the same formats. Data can be conveniently imported from and exported to 
@@ -63,7 +61,6 @@ Imports:
     limma,
     methods,
     MultiAssayExperiment,
-    MultiDataSet,
     PMCMRplus,
     plotly,
     ranger,

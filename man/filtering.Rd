@@ -4,8 +4,6 @@
 \alias{filtering}
 \alias{filtering,MultiAssayExperiment-method}
 \alias{filtering,SummarizedExperiment-method}
-\alias{filtering,MultiDataSet-method}
-\alias{filtering,ExpressionSet-method}
 \title{Filtering of the features (and/or samples) with a high proportion of NAs or
 a low variance}
 \usage{
@@ -35,29 +33,10 @@ filtering(
   dims.vc = c("features", "samples"),
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{filtering}{MultiDataSet}(
-  x,
-  class.c = "",
-  max_na_prop.n = 0.2,
-  min_variance.n = .Machine$double.eps,
-  dims.vc = c("features", "samples"),
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{filtering}{ExpressionSet}(
-  x,
-  class.c = "",
-  max_na_prop.n = 0.2,
-  min_variance.n = .Machine$double.eps,
-  dims.vc = c("features", "samples"),
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment} or
-\code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+\code{MultiAssayExperiment}}
 
 \item{class.c}{character(1): name of the column of the sample metadata giving
 the classification groups: the filtering will be applied on each class
@@ -83,8 +62,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the filtered
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including the filtered
 data and metadata
 }
 \description{
@@ -115,23 +93,4 @@ for (set.c in names(prometis.mae)) {
        prometis.mae[[set.c]] <- set.se
 }
 filtering(prometis.mae)
-
-# MultiDataSet
-
-prometis.mset <- reading(system.file("extdata/prometis", package = "phenomis"),
-       output.c = "set"
-)
-filtering(prometis.mset)
-for (set.c in names(prometis.mset)) {
-       eset <- prometis.mset[[set.c]]
-       exprs.mn <- Biobase::exprs(eset)
-       exprs.mn[exprs.mn < quantile(c(exprs.mn), 0.2)] <- NA
-       Biobase::exprs(eset) <- exprs.mn
-       prometis.mset <- MultiDataSet::add_eset(prometis.mset, eset,
-              dataset.type = set.c,
-              GRanges = NA, overwrite = TRUE,
-              warnings = FALSE
-       )
-}
-filtering(prometis.mset)
 }

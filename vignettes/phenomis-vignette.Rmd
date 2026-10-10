@@ -78,7 +78,7 @@ and `MultiAssayExperiment` objects with either modified assay matrices
 `colData` with new columns (e.g. fold changes and *p*-values when using
 the `hypotesting` method).
 
-Note: the phenomis methods for `ExpressionSet` and `MultiDataSet` are deprecated and have been removed from the package.
+Note: the phenomis methods for `ExpressionSet` and `MultiDataSet` are deprecated and have been removed from the package after version 1.14.0.
 
 ### Importing from/exporting to tabular files
 
@@ -200,7 +200,7 @@ online infrastructure [@guitton_create_2017].
 The **`reading`** function reads the data sets and builds the
 `SummarizedExperiment` object. Additional information on how to build
 and handle `SummarizedExperiment` objects (as well as
-`MultiAssayExperiment`, `ExpressionSet`, and `MultiDataSet`) are
+`MultiAssayExperiment`) are
 provided in the **Appendix**.
 
 ```{r reading, message = FALSE}
@@ -419,8 +419,7 @@ rest of this tutorial, we illustrate how the
 packages can be included to perform multivariate modeling
 [@thevenot_analysis_2015], feature selection [@rinaudo_biosigner_2016],
 and feature annotation [@roger2022]. All these packages support the
-`SummarizedExperiment` and `MultiAssayExperiment` (but also
-`ExpressionSet` and `MultiDataSet`), to provide interoperability.
+`SummarizedExperiment` and `MultiAssayExperiment`, to provide interoperability.
 
 ## Unsupervised analysis
 
@@ -657,8 +656,7 @@ follows:
 -   **100 features** only
 
 The multi-omics dataset is saved as text files and can be loaded with
-the `reading` function as a `MultiAssayExperiment` (or as a
-`MultiDataSet` with the `output.c = "set"` argument)
+the `reading` function as a `MultiAssayExperiment`
 
 ```{r prometis_read}
 prometis.mae <- reading(system.file("extdata/prometis",

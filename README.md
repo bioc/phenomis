@@ -31,10 +31,6 @@ their m/z (and rt) values against public or local databases
 [**phenomis vignette**](vignettes/phenomis.Rmd) for a detailed example
 of the analysis of a metabolomics dataset.
 
-*Note that the `SummarizedExperiment` and `MultiAssayExperiment` formats
-are favored over the `ExpressionSet` and `MultiDataSet` formats,
-although the latter ones are still maintained.*
-
 ## Contributors
 
 Natacha Lenuzza, Alyssa Imbert, Pierrick Roger and Etienne A. Thevenot.
@@ -130,29 +126,6 @@ The following methods are available ([Ramos et al.,
 | **`c`**                    | Concatenate an experiment                                            | `MultiAssayExperiment`   |
 | **Viewing**                |                                                                      |                          |
 | **`upsetSamples`**         | Generalized Venn Diagram analog for sample membership                | `upset`                  |
-
-### **ExpressionSet** and **MultiDataSet** classes
-
-A legacy representation of ID-based datasets, supported for convenience
-and supplanted by `SummarizedExperiment` and `MultiAssayExperiment`.
-
-| Biobase methods        | Description                                                     |
-|--------------------|----------------------------------------------------|
-| **exprs(eset)**        | 'variable times samples' numeric matrix - dataMatrix            |
-| **pData(eset)**        | sample metadata data frame - sampleMetadata                     |
-| **fData(eset)**        | variable metadata data frame - variableMetadata                 |
-| **sampleNames(eset)**  | sample names                                                    |
-| **featureNames(eset)** | variable names                                                  |
-| **dims(eset)**         | 2-element numeric vector of 'Features' and 'Samples' dimensions |
-| **varLabels(eset)**    | Column names of the sampleMetadata, pData(eset)                 |
-| **fvarLabels(eset)**   | Column names of the variableMetadata, fData(eset)               |
-
-### **MultiDataSet** class for multiple datasets
-
-| MultiDataSet methods | Description                                      | Returned class       |
-|------------------|-------------------------------------|------------------|
-| **as.list(mae)**     | Get the list of data matrices                    | List                 |
-| **mds2mae**          | Convert a MultiDataSet to a MultiAssayExperiment | MultiAssayExperiment |
 
 ## Installation
 

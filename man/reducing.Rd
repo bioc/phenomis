@@ -4,8 +4,6 @@
 \alias{reducing}
 \alias{reducing,MultiAssayExperiment-method}
 \alias{reducing,SummarizedExperiment-method}
-\alias{reducing,MultiDataSet-method}
-\alias{reducing,ExpressionSet-method}
 \title{Grouping chemically redundant MS1 features}
 \usage{
 reducing(
@@ -43,35 +41,10 @@ reducing(
   return_adjacency.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{reducing}{MultiDataSet}(
-  x,
-  cor_method.c = "pearson",
-  cor_threshold.n = 0.9,
-  rt_tol.n = 6,
-  rt_colname.c = "rt",
-  mzdiff_tol.n = 0.005,
-  mz_colname.c = "mz",
-  return_adjacency.l = FALSE,
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{reducing}{ExpressionSet}(
-  x,
-  cor_method.c = "pearson",
-  cor_threshold.n = 0.9,
-  rt_tol.n = 6,
-  rt_colname.c = "rt",
-  mzdiff_tol.n = 0.005,
-  mz_colname.c = "mz",
-  return_adjacency.l = FALSE,
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
-or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported): the dataset(s) must contain the dataMatrix
+or \code{MultiAssayExperiment}: the dataset(s) must contain the dataMatrix
 and the variableMetadata (with the mz' and 'rt' columns)}
 
 \item{cor_method.c}{character(1): correlation method (default: 'pearson')}
@@ -100,8 +73,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-updated \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}): the
+updated \code{SummarizedExperiment} or \code{MultiAssayExperiment}: the
 SummarizedExperiment(s) (resp. ExpressionSet(s)) now include(s) 5 new columns
 in the rowData (resp. fData): redund_samp_mean', 'redund_is', redund_group',
 redund_iso_add_frag', redund_repres' and 'redund_relative' containing,

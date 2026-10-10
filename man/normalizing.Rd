@@ -4,8 +4,6 @@
 \alias{normalizing}
 \alias{normalizing,MultiAssayExperiment-method}
 \alias{normalizing,SummarizedExperiment-method}
-\alias{normalizing,MultiDataSet-method}
-\alias{normalizing,ExpressionSet-method}
 \title{Normalization of the data matrix intensities}
 \usage{
 normalizing(
@@ -25,23 +23,10 @@ normalizing(
   method.vc = "pqn",
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{normalizing}{MultiDataSet}(
-  x,
-  method.vc = "pqn",
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{normalizing}{ExpressionSet}(
-  x,
-  method.vc = "pqn",
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
-or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+or \code{MultiAssayExperiment}}
 
 \item{method.vc}{character of length 1 or the total number of datasets:
 method(s) to be used for each dataset (default is 'pqn'); in case the
@@ -66,6 +51,4 @@ sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
 sacurine.se <- sacurine.se[, colnames(sacurine.se) != "HU_neg_096_b2"]
 sacurine.se <- transforming(sacurine.se, method.vc = "log10")
 norm.se <- normalizing(sacurine.se, method.vc = "pqn")
-
-# MultiDataSet
 }

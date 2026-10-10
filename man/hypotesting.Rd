@@ -58,8 +58,7 @@ hypotesting(
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment} or
-\code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+\code{MultiAssayExperiment}}
 
 \item{test.c}{character(1): One of the 9 available hypothesis tests can be
 selected (either 'ttest', 'limma', 'wilcoxon', 'anova', 'kruskal', 'pearson',
@@ -105,8 +104,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the difference
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including the difference
 in means/medians or correlations and the adjusted p-values in feature
 metadata
 }
@@ -129,18 +127,6 @@ sacurine.se <- hypotesting(sacurine.se, "ttest", "gender")
 # Pearson correlation test
 sacurine.se <- hypotesting(sacurine.se, "pearson", "age")
 # ANOVA
-colData(sacurine.se)[, "ageGroup"] <- vapply(colData(sacurine.se)[, "age"],
-       function(x) {
-              if (x < 35) {
-                     return("thirty")
-              } else if (x < 50) {
-                     return("fourty")
-              } else {
-                     return("fifty")
-              }
-       },
-       FUN.VALUE = character(1)
-)
 sacurine.se <- hypotesting(sacurine.se, "anova", "ageGroup")
 
 # MultiAssayExperiment

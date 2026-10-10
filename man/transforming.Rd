@@ -4,8 +4,6 @@
 \alias{transforming}
 \alias{transforming,MultiAssayExperiment-method}
 \alias{transforming,SummarizedExperiment-method}
-\alias{transforming,MultiDataSet-method}
-\alias{transforming,ExpressionSet-method}
 \title{Transformation of the data matrix intensities}
 \usage{
 transforming(
@@ -25,18 +23,6 @@ transforming(
   method.vc = c("log2", "log10", "none")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{transforming}{MultiDataSet}(
-  x,
-  method.vc = c("log2", "log10", "none")[1],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{transforming}{ExpressionSet}(
-  x,
-  method.vc = c("log2", "log10", "none")[1],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
@@ -52,8 +38,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including the (list of)
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including the (list of)
 matrix with transformed intensities
 }
 \description{
@@ -65,11 +50,14 @@ sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))
 sacurine.se <- correcting(sacurine.se)
 sacurine.se <- sacurine.se[, colData(sacurine.se)[, "sampleType"] != "pool"]
 sacurine.se <- transforming(sacurine.se)
+
 # MultiAssayExperiment
+
 prometis.mae <- reading(system.file("extdata/prometis",
        package = "phenomis"
 ))
 prometis.mae <- transforming(prometis.mae, method.vc = c("log2", "none"))
+
 # Note: in the 'prometis' example data set from the package, the data are
 # already log2 transformed
 }

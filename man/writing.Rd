@@ -4,8 +4,6 @@
 \alias{writing}
 \alias{writing,MultiAssayExperiment-method}
 \alias{writing,SummarizedExperiment-method}
-\alias{writing,MultiDataSet-method}
-\alias{writing,ExpressionSet-method}
 \title{Exporting a SummarizedExperiment (or MultiAssayExperiment) instance into
 (subfolders with) the 3 tabulated files 'dataMatrix.tsv',
 sampleMetadata.tsv', 'variableMetadata.tsv'}
@@ -39,31 +37,10 @@ writing(
   metadata.l = FALSE,
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{writing}{MultiDataSet}(
-  x,
-  dir.c,
-  prefix.c = "",
-  files.ls = NULL,
-  overwrite.l = FALSE,
-  metadata.l = FALSE,
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{writing}{ExpressionSet}(
-  x,
-  dir.c,
-  prefix.c = "",
-  files.ls = NULL,
-  overwrite.l = FALSE,
-  metadata.l = FALSE,
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment} or
-\code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+\code{MultiAssayExperiment}}
 
 \item{dir.c}{character(1): directory where each dataset should be written}
 

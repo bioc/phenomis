@@ -4,8 +4,6 @@
 \alias{clustering}
 \alias{clustering,MultiAssayExperiment-method}
 \alias{clustering,SummarizedExperiment-method}
-\alias{clustering,MultiDataSet-method}
-\alias{clustering,ExpressionSet-method}
 \title{clustering}
 \usage{
 clustering(
@@ -55,43 +53,10 @@ clustering(
   figure.c = c("none", "interactive", "myfile.pdf")[2],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
-
-\S4method{clustering}{MultiDataSet}(
-  x,
-  dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
-    "1-cor", "1-abs(cor)")[7],
-  correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
-    "centroid")[2],
-  clusters.vi = c(2, 2),
-  cex.vn = c(1, 1),
-  palette.c = c("blueOrangeRed", "redBlackGreen")[1],
-  scale_plot.l = TRUE,
-  title.c = NA,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
-
-\S4method{clustering}{ExpressionSet}(
-  x,
-  dissym.c = c("euclidean", "maximum", "manhattan", "canberra", "binary", "minkowski",
-    "1-cor", "1-abs(cor)")[7],
-  correl.c = c("pearson", "kendall", "spearman")[1],
-  agglo.c = c("ward.D", "ward.D2", "single", "complete", "average", "mcquitty", "median",
-    "centroid")[2],
-  clusters.vi = c(2, 2),
-  cex.vn = c(1, 1),
-  palette.c = c("blueOrangeRed", "redBlackGreen")[1],
-  scale_plot.l = TRUE,
-  title.c = NA,
-  figure.c = c("none", "interactive", "myfile.pdf")[2],
-  report.c = c("none", "interactive", "myfile.txt")[2]
-)
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
-or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+or \code{MultiAssayExperiment}}
 
 \item{dissym.c}{character(1): dissymilarity to be used in the hierarchical
 clustering (as provided by the hclust package)}
@@ -124,8 +89,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including columns
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including columns
 indicating the clusters in rowData and colData if clusters.vi' has been
 specified
 }
