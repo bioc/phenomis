@@ -7,8 +7,7 @@
 # #' ChEBI database or a local database.
 # #'
 # #' @param x An S4 object of class \code{SummarizedExperiment} or
-# #' \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-# #' are still supported)
+# #' \code{MultiAssayExperiment}
 # #' @param database.c character(1): database to be used for annotation; either
 # #' the ChEBI distant database ('chebi'), or a local database ('local.ms')
 # #' @param param.ls list: parameters for database query; the database can be
@@ -26,7 +25,6 @@
 # #' results (call to sink()'); if 'interactive' (default), messages will be
 # #' printed on the screen; if 'none', no verbose will be generated
 # #' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-# #' (or \code{ExpressionSet} and \code{MultiDataSet})
 # #' including the appended rowData data frame(s)
 # #' @rdname annotating
 # #' @export
@@ -505,8 +503,7 @@ setGeneric(
 
 #' Inspecting
 #'
-#' Provides numerical metrics and graphical overview of SummarizedExperiment,
-#' MultiAssayExperiment, ExpressionSet, or MultiDataSet instance
+#' Provides numerical metrics and graphical overview of SummarizedExperiment or MultiAssayExperiment instance
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
 #' or \code{MultiAssayExperiment}
@@ -578,8 +575,7 @@ setGeneric(
 #' @param report.c character(1): File name with '.txt' extension for the printed
 #' results (call to sink()'); if 'interactive' (default), messages will be
 #' printed on the screen; if 'none', no verbose will be generated
-#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment}
-#' (or \code{ExpressionSet} and \code{MultiDataSet}) including
+#' @return \code{SummarizedExperiment} or \code{MultiAssayExperiment} including
 #' the (list of) matrix with normalized intensities
 #' @rdname normalizing
 #' @export
@@ -685,8 +681,7 @@ setGeneric(
 #' intensities in (each of) the data set (e.g. to stabilize the variance)
 #'
 #' @param x An S4 object of class \code{SummarizedExperiment}
-#' or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-#' are still supported)
+#' or \code{MultiAssayExperiment}
 #' @param method.vc character of length 1 or the total number of datasets:
 #' transformation to be used for each dataset (either 'log2',
 #' 'log10', or 'none')

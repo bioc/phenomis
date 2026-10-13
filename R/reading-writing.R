@@ -825,7 +825,7 @@ setMethod(
 
       if (is.null(names(files.ls)) || any(is.na(names(files.ls)))) {
         stop("All names of the sublists must be provided
-                     (they should match the names of the MultiDataSet
+                     (they should match the names of the MultiAssayExperiment
                      datasets)")
       }
 

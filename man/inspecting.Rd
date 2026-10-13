@@ -79,8 +79,7 @@ printed on the screen; if 'none', no verbose will be generated}
 sample and variable metrics in the rowData and colData metadata.
 }
 \description{
-Provides numerical metrics and graphical overview of SummarizedExperiment,
-MultiAssayExperiment, ExpressionSet, or MultiDataSet instance
+Provides numerical metrics and graphical overview of SummarizedExperiment or MultiAssayExperiment instance
 }
 \examples{
 sacurine.se <- reading(system.file("extdata/sacurine", package = "phenomis"))

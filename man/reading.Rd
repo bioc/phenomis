@@ -8,7 +8,6 @@ reading(
   dir.c,
   files.ls = NULL,
   subsets.vc = NA,
-  output.c = c("exp", "set")[1],
   report.c = c("none", "interactive", "myfile.txt")[2]
 )
 }
@@ -27,10 +26,6 @@ per dataset}
 \item{subsets.vc}{character(): specifying a subset of the
 subdirectories to be included in the MultiAssayExperiment (by default, all
 subdirectories containing the 3 tables will be considered as datasets)}
-
-\item{output.c}{character(1): Either 'exp' for SummarizedExperiment
-(or MultiAssayExperiment), or 'set' for ExpressionSet (or MultiDataSet)
-output formats (the latter are supported for convenience)}
 
 \item{report.c}{character(1): File name for the printed results (call to
 'sink()'); if NA (default), messages will be printed on the screen; if NULL,
@@ -55,28 +50,56 @@ sacurine_dir.c <- file.path(data_dir.c, "sacurine")
 sacurine.se <- reading(sacurine_dir.c)
 # or
 sacurine.se <- reading(NA,
-                  files.ls = list(dataMatrix = file.path(sacurine_dir.c,
-                                  "Galaxy1_dataMatrix.tabular"),
-                                  sampleMetadata = file.path(sacurine_dir.c,
-                                  "Galaxy2_sampleMetadata.tabular"),
-                                  variableMetadata = file.path(sacurine_dir.c,
-                                  "Galaxy3_variableMetadata.tabular")))
+  files.ls = list(
+    dataMatrix = file.path(
+      sacurine_dir.c,
+      "Galaxy1_dataMatrix.tabular"
+    ),
+    sampleMetadata = file.path(
+      sacurine_dir.c,
+      "Galaxy2_sampleMetadata.tabular"
+    ),
+    variableMetadata = file.path(
+      sacurine_dir.c,
+      "Galaxy3_variableMetadata.tabular"
+    )
+  )
+)
 ## 2) Multiple sets
 prometis_dir.c <- file.path(data_dir.c, "prometis")
 prometis.mae <- reading(prometis_dir.c)
 metabo.mae <- reading(prometis_dir.c, subsets.vc = "metabo")
 # or
 prometis.mae <- reading(NA,
-                       files.ls = list(metabo = list(dataMatrix = file.path(prometis_dir.c,
-                                                           "metabo", "dataMatrix.tsv"),
-                                                     sampleMetadata = file.path(prometis_dir.c,
-                                                           "metabo", "sampleMetadata.tsv"),
-                                                     variableMetadata = file.path(prometis_dir.c,
-                                                           "metabo", "variableMetadata.tsv")),
-                                       proteo = list(dataMatrix = file.path(prometis_dir.c,
-                                                           "proteo", "dataMatrix.tsv"),
-                                                     sampleMetadata = file.path(prometis_dir.c,
-                                                           "proteo", "sampleMetadata.tsv"),
-                                                     variableMetadata = file.path(prometis_dir.c,
-                                                           "proteo", "variableMetadata.tsv"))))
+  files.ls = list(
+    metabo = list(
+      dataMatrix = file.path(
+        prometis_dir.c,
+        "metabo", "dataMatrix.tsv"
+      ),
+      sampleMetadata = file.path(
+        prometis_dir.c,
+        "metabo", "sampleMetadata.tsv"
+      ),
+      variableMetadata = file.path(
+        prometis_dir.c,
+        "metabo", "variableMetadata.tsv"
+      )
+    ),
+    proteo = list(
+      dataMatrix = file.path(
+        prometis_dir.c,
+        "proteo", "dataMatrix.tsv"
+      ),
+      sampleMetadata = file.path(
+        prometis_dir.c,
+        "proteo", "sampleMetadata.tsv"
+      ),
+      variableMetadata = file.path(
+        prometis_dir.c,
+        "proteo", "variableMetadata.tsv"
+      )
+    )
+  )
+)
 }

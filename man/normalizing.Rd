@@ -38,8 +38,7 @@ results (call to sink()'); if 'interactive' (default), messages will be
 printed on the screen; if 'none', no verbose will be generated}
 }
 \value{
-\code{SummarizedExperiment} or \code{MultiAssayExperiment}
-(or \code{ExpressionSet} and \code{MultiDataSet}) including
+\code{SummarizedExperiment} or \code{MultiAssayExperiment} including
 the (list of) matrix with normalized intensities
 }
 \description{

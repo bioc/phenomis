@@ -25,7 +25,6 @@
 #' @importFrom htmlwidgets saveWidget
 #' @importFrom igraph graph_from_adjacency_matrix components
 #' @importFrom methods as is validObject
-#' @importFrom MultiDataSet add_eset as.list createMultiDataSet
 #' @importFrom plotly ggplotly
 #' @importFrom PMCMRplus kwAllPairsNemenyiTest
 #' @importFrom ranger ranger
@@ -38,7 +37,7 @@
 #' @importFrom VennDiagram venn.diagram
 #' @name phenomis-package
 #' @aliases phenomis phenomis-package
-#' @author E. A. Thévenot (CEA)
+#' @author E. A. Thevenot (CEA)
 #'
 #' Maintainer: Etienne Thevenot <etienne.thevenot@@cea.fr>
 #' @keywords package

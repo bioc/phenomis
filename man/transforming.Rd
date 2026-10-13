@@ -26,8 +26,7 @@ transforming(
 }
 \arguments{
 \item{x}{An S4 object of class \code{SummarizedExperiment}
-or \code{MultiAssayExperiment} (\code{ExpressionSet} and \code{MultiDataSet}
-are still supported)}
+or \code{MultiAssayExperiment}}
 
 \item{method.vc}{character of length 1 or the total number of datasets:
 transformation to be used for each dataset (either 'log2',
